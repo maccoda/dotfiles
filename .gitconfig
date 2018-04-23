@@ -6,6 +6,10 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[diff]
+	tool = p4merge
+[merge]
+	tool = p4merge
 [core]
 	excludesfile = /Users/dylan.maccora/.gitignore_global
 [difftool "sourcetree"]
