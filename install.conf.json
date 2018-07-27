@@ -1,0 +1,30 @@
+[
+  {
+    "defaults": {
+      "link": {
+        "relink": true
+      }
+    }
+  },
+  {
+    "link": {
+      "~/.gitignore": ".gitignore",
+      "~/.gitconfig": ".gitconfig",
+      "~/.gitmessage": ".gitmessage",
+      "/Users/dylan.maccora/Library/Application Support/Code/User/settings.json":
+        "vscode/settings.json",
+      "/Users/dylan.maccora/Library/Application Support/Code/User/keybindings.json":
+        "vscode/keybindings.json",
+      "~/.zprofile": ".zprofile",
+      "~/.zshrc": ".zshrc",
+      "~/bin": {
+        "glob": true,
+        "path": "bin/*"
+      },
+      "~/.oh-my-zsh/custom": {
+        "glob": true,
+        "path": ".oh-my-zsh/custom/*"
+      }
+    }
+  }
+]

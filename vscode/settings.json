@@ -63,11 +63,8 @@
         "suppressResultsExplorerNotice": false,
         "suppressShowKeyBindingsNotice": true
     },
-    "vsnotes.defaultNotePath": "/Users/dylan.maccora/Notes",
+    "vsnotes.defaultNotePath": "/Users/dylan.maccora/SparkleShare/gitlab.com/vsnotes",
     "markdown.extension.orderedList.marker": "one",
-    "markdownlint.config": {
-        "MD013": true,
-    },
     "[markdown]": {
         "editor.wordWrap": "on",
         "editor.formatOnSave": false,
@@ -153,5 +150,6 @@
     },
     "materialTheme.accentPrevious": "",
     "materialTheme.accent": "Purple",
-    "materialTheme.fixIconsRunning": false
+    "materialTheme.fixIconsRunning": false,
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }

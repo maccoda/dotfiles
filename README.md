@@ -2,6 +2,8 @@
 
 Just some of my dot files...
 
+These are managed by [dotbot](https://github.com/anishathalye/dotbot)
+
 ## Other tools to install
 
 * P4Merge
