@@ -11,12 +11,11 @@
       "~/.gitignore": ".gitignore",
       "~/.gitconfig": ".gitconfig",
       "~/.gitmessage": ".gitmessage",
-      "/Users/dylan.maccora/Library/Application Support/Code/User/settings.json":
-        "vscode/settings.json",
-      "/Users/dylan.maccora/Library/Application Support/Code/User/keybindings.json":
-        "vscode/keybindings.json",
+      "~/Library/Application Support/Code/User/settings.json": "vscode/settings.json",
+      "~/Library/Application Support/Code/User/keybindings.json": "vscode/keybindings.json",
       "~/.zprofile": ".zprofile",
       "~/.zshrc": ".zshrc",
+      "~/.power9k": ".power9k",
       "~/bin": {
         "glob": true,
         "path": "bin/*"
