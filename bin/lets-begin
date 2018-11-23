@@ -1,0 +1,36 @@
+#/bin/bash
+
+echo "It is time to begin this journey, let's get our trusty friend Homebrew"
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+echo "Now to work with our friend to find some more"
+brew install awscli # AWS CLI
+brew install azure-cli # Azure CLI
+brew install fd # Rust implementation of find
+brew install gutenberg # Static site generator
+brew install nvm # Node version manager
+brew install ripgrep # Rust implementation of grep
+brew install stern # Kubernetes log aggregator
+brew install tcpflow # TCP traffic logger
+brew install telnet
+brew install terraform # Infrastructure as code
+brew install wget
+
+echo "Let's move onto the bigger ones"
+brew cask install alfred # Quick launch
+brew cask install caffeine # Keep screen on for given time
+brew cask install docker # Docker
+brew cask install firefox-developer-edition # Firefox
+brew cask install font-droidsansmono-nerd-font-mono # Font set
+brew cask install licecap # Screen capture GIF
+brew cask install numi # Improved calculator
+brew cask install p4merge # Merge tool
+brew cask install postman # HTTP requests
+brew cask install sourcetree # SCM GUI
+brew cask install sparkleshare # Notes sync
+brew cask install spectacle # Window management for Mac
+brew cask install visual-studio-code # The editor
+
+
+
+

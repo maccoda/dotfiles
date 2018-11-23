@@ -5,6 +5,7 @@ alias dc="docker-compose"
 alias notes="code $HOME/Notes"
 alias dots="code $HOME/.maccoda_dotfiles"
 alias docker-rm-latest="docker rm $(docker ps -a | sed -n 2p)"
+alias rm-orig="fd -I orig -x rm"
 
 # Base64 decode
 decode() {
@@ -13,5 +14,5 @@ decode() {
 
 # Base64 encode
 encode() {
-  echo -n $1 | openssl base64
+  echo -n $1 | openssl base64 | pbcopy
 }

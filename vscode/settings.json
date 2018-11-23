@@ -78,7 +78,7 @@
   "python.pythonPath": "python3",
   "extensions.ignoreRecommendations": false,
   "prettier.singleQuote": true,
-  "workbench.colorTheme": "Tomorrow Night Improved",
+  "workbench.colorTheme": "Monokai Pro (Filter Octagon)",
   "javascript.implicitProjectConfig.experimentalDecorators": true,
   "auto-close-tag.activationOnLanguage": [
     "xml",
@@ -134,11 +134,11 @@
   },
   "files.trimTrailingWhitespace": true,
   "workbench.colorCustomizations": {
-    "statusBar.background": "#564558",
-    "terminal.ansiGreen": "#ffa600",
-    "terminal.ansiBlue": "#ae80fe",
-    "activityBar.background": "#282A2E",
-    "sideBar.background": "#282A2E"
+    // "statusBar.background": "#564558",
+    "terminal.ansiYellow": "#ffa727",
+    "terminal.ansiBlue": "#ae80fe"
+    // "activityBar.background": "#282A2E",
+    // "sideBar.background": "#282A2E"
   },
   "materialTheme.accent": "Purple",
   "typescript.updateImportsOnFileMove.enabled": "always",
@@ -147,5 +147,7 @@
   "rust.all_features": true,
   "rust.clippy_preference": "on",
   "zenMode.centerLayout": false,
-  "javascript.updateImportsOnFileMove.enabled": "always"
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "azure.resourceFilter": [],
+  "jest.pathToJest": "npm run test --"
 }
