@@ -2,6 +2,8 @@
 
 Just some of my dot files...
 
+Best way to get started is via `bootstrap.sh`
+
 These are managed by [dotbot](https://github.com/anishathalye/dotbot)
 
 Usage:
@@ -12,16 +14,13 @@ Usage:
 * P4Merge
     * Merge/diff tool
 * Visual Studio Code
-    * `brew install cask visual-studio-code`
     * Text editor/IDE
 * SparkleShare
-    * `brew install cask sparkleshare`
     * Open source directory back up (used for notes)
 * Boostnote
-    * `brew install cask boostnote`
     * Note keeping
 * Fonts
-    * `brew cask install font-droidsansmono-nerd-font-mono`
+    * `font-droidsansmono-nerd-font-mono`
 
 
 ### ZSH Plugins

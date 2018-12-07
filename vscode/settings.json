@@ -149,5 +149,7 @@
   "zenMode.centerLayout": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "azure.resourceFilter": [],
-  "jest.pathToJest": "npm run test --"
+  "gitlens.views.fileHistory.enabled": true,
+  "gitlens.views.lineHistory.enabled": true,
+  "tslint.autoFixOnSave": true
 }
