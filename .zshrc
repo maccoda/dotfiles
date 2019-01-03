@@ -104,6 +104,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+nvm use 10
 POWERLEVEL9K_MODE='nerdfont-complete'
 source $ZSH/custom/themes/powerlevel9k/powerlevel9k.zsh-theme
 source ~/.power9k
