@@ -41,7 +41,6 @@ cask_install alfred # Quick launch
 cask_install caffeine # Keep screen on for given time
 cask_install docker # Docker
 cask_install firefox-developer-edition # Firefox
-cask_install font-droidsansmono-nerd-font-mono # Font set
 cask_install licecap # Screen capture GIF
 cask_install numi # Improved calculator
 cask_install p4merge # Merge tool
@@ -50,6 +49,11 @@ cask_install sourcetree # SCM GUI
 cask_install sparkleshare # Notes sync
 cask_install spectacle # Window management for Mac
 cask_install visual-studio-code # The editor
+
+echo "\nAdd some fonts"
+cask_install font-droidsansmono-nerd-font-mono # Font set
+brew tap caskroom/fonts
+cask_install font-fira-code
 
 echo "\nTime to get meta and install the dot file manager\n"
 check_if_binary_installed dotbot || pip install dotbot
