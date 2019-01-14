@@ -78,7 +78,7 @@
   "python.pythonPath": "python3",
   "extensions.ignoreRecommendations": false,
   "prettier.singleQuote": true,
-  "workbench.colorTheme": "Monokai Pro (Filter Octagon)",
+  "workbench.colorTheme": "Palenight Theme",
   "javascript.implicitProjectConfig.experimentalDecorators": true,
   "auto-close-tag.activationOnLanguage": [
     "xml",
@@ -148,8 +148,15 @@
   "rust.clippy_preference": "on",
   "zenMode.centerLayout": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "azure.resourceFilter": [],
+  "azure.resourceFilter": [
+    "713b4827-e931-4abf-acf5-de26dc013f5c/4ecc4eb7-047d-4b57-9feb-56732ae17183"
+  ],
   "gitlens.views.fileHistory.enabled": true,
   "gitlens.views.lineHistory.enabled": true,
-  "tslint.autoFixOnSave": true
+  "tslint.autoFixOnSave": true,
+  "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.minimap.enabled": false,
+  "workbench.sideBar.location": "left",
+  "zenMode.fullScreen": false
 }
