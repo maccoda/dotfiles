@@ -61,6 +61,12 @@ check_if_binary_installed dotbot || pip install dotbot
 echo "\nIt's about to get rusty!\n"
 check_if_binary_installed rustup || curl https://sh.rustup.rs -sSf | sh
 
+echo "\nMake that terminal pretty\n"
+check_if_binary_installed git || echo "Git not installed" && exit 1
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
 
 
 

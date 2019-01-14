@@ -157,6 +157,6 @@
   "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": true,
   "editor.minimap.enabled": false,
-  "workbench.sideBar.location": "left",
+  "workbench.sideBar.location": "right",
   "zenMode.fullScreen": false
 }
