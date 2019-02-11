@@ -5,7 +5,6 @@
   "workbench.iconTheme": "vscode-icons",
   "files.autoSave": "afterDelay",
   "window.openFoldersInNewWindow": "on",
-  "window.title": "${rootName}${separator}${activeEditorShort}",
   "cSpell.userWords": [
     "Deserialize",
     "Dropdown",
@@ -158,5 +157,11 @@
   "editor.fontLigatures": true,
   "editor.minimap.enabled": false,
   "workbench.sideBar.location": "right",
-  "zenMode.fullScreen": false
+  "zenMode.fullScreen": false,
+  "window.title": "${rootName}${separator}${activeEditorShort}",
+  "git.rebaseWhenSync": true,
+  "files.exclude": {
+    "**/.history": true
+  },
+  "editor.fontSize": 13
 }

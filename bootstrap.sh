@@ -35,6 +35,7 @@ brew_install tcpflow # TCP traffic logger
 brew_install telnet
 brew_install terraform # Infrastructure as code
 brew_install wget
+brew_install bat # cat alternative
 
 echo "\nLet's move onto the bigger ones\n"
 cask_install alfred # Quick launch
@@ -51,8 +52,8 @@ cask_install spectacle # Window management for Mac
 cask_install visual-studio-code # The editor
 
 echo "\nAdd some fonts"
-cask_install font-droidsansmono-nerd-font-mono # Font set
 brew tap caskroom/fonts
+cask_install font-droidsansmono-nerd-font-mono
 cask_install font-fira-code
 
 echo "\nTime to get meta and install the dot file manager\n"

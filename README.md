@@ -22,11 +22,11 @@ Usage:
 * Boostnote
     * Note keeping
 * Fonts
-    * `font-droidsansmono-nerd-font-mono`
+    * `font-droidsansmono-nerd-font-mono` used for the terminal
 
 
 ### ZSH Plugins
 
 * [Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions#oh-my-zsh)
 * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-* Theme: Monkokai Remastered
+* Theme: Monkokai Remastered (from https://iterm2colorschemes.com/)
