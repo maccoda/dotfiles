@@ -31,6 +31,7 @@ sudo apt-get install gnome-tweak-tool
 sudo apt-get install synapse
 sudo apt-get install docker
 sudo apt-get install docker-compose
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 echo "Here comes the terminal"
 sudo apt install zsh
