@@ -6,12 +6,13 @@ christian-kohler.path-intellisense
 dbaeumer.vscode-eslint
 donjayamanne.githistory
 eamodio.gitlens
-eamodio.gitlens
 editorconfig.editorconfig
 eg2.tslint
 equinusocio.vsc-material-theme
 esbenp.prettier-vscode
+evilz.vscode-reveal
 felipecaputo.git-project-manager
+flowtype.flow-for-vscode
 flowtype.flow-for-vscode
 formulahendry.auto-close-tag
 hoovercj.vscode-power-mode
@@ -24,9 +25,11 @@ monokai.theme-monokai-pro-vscode
 ms-azuretools.vscode-azurefunctions
 ms-azuretools.vscode-azurestorage
 ms-python.python
-ms-vscode.atom-keybindings
+ms-python.python
+ms-python.python
 ms-vscode.atom-keybindings
 ms-vscode.azure-account
+ms-vsliveshare.vsliveshare
 ms-vsliveshare.vsliveshare
 naumovs.color-highlight
 orta.vscode-jest
@@ -42,7 +45,6 @@ stkb.rewrap
 streetsidesoftware.code-spell-checker
 techer.open-in-browser
 vadimcn.vscode-lldb
-visualstudioexptteam.vscodeintellicode
 visualstudioexptteam.vscodeintellicode
 vscodevim.vim
 vscodevim.vim
