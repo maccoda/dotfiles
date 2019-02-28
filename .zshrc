@@ -114,3 +114,6 @@ source ~/.power9k
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/dylan.maccora/.sdkman"
+[[ -s "/Users/dylan.maccora/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/dylan.maccora/.sdkman/bin/sdkman-init.sh"

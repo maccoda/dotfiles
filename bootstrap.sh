@@ -36,6 +36,7 @@ brew_install telnet
 brew_install terraform # Infrastructure as code
 brew_install wget
 brew_install bat # cat alternative
+curl -s "https://get.sdkman.io" | bash # JDK SDK manager for micronaut
 
 echo "\nLet's move onto the bigger ones\n"
 cask_install alfred # Quick launch
