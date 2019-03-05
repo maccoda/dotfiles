@@ -1,0 +1,11 @@
+#!/bin/bash
+startDir=${1:-.}
+echo "Starting at $startDir"
+
+fd -HI -t d .git$ $startDir | while read repo; do
+    repoDir=$(echo $repo | sed 's/\/.git//')
+    echo "Updating repo $repoDir"
+    cd $repoDir
+    git fetch -p
+    cd - > /dev/null
+done
