@@ -13,7 +13,6 @@ esbenp.prettier-vscode
 evilz.vscode-reveal
 felipecaputo.git-project-manager
 flowtype.flow-for-vscode
-flowtype.flow-for-vscode
 formulahendry.auto-close-tag
 hoovercj.vscode-power-mode
 infeng.vscode-react-typescript
@@ -24,8 +23,6 @@ mauve.terraform
 monokai.theme-monokai-pro-vscode
 ms-azuretools.vscode-azurefunctions
 ms-azuretools.vscode-azurestorage
-ms-python.python
-ms-python.python
 ms-python.python
 ms-vscode.atom-keybindings
 ms-vscode.azure-account
@@ -46,7 +43,6 @@ streetsidesoftware.code-spell-checker
 techer.open-in-browser
 vadimcn.vscode-lldb
 visualstudioexptteam.vscodeintellicode
-vscodevim.vim
 vscodevim.vim
 wayou.vscode-todo-highlight
 whizkydee.material-palenight-theme
