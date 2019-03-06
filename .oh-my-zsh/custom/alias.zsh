@@ -7,6 +7,7 @@ alias docker-rm-latest="docker rm $(docker ps -a | sed -n 2p)"
 alias rm-orig="fd -I orig -x rm"
 alias dbot="dotbot -c $HOME/.maccoda_dotfiles/install.conf.json"
 alias grg='git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --date=short'
+alias gam='git commit -a -m'
 
 # Base64 decode
 decode() {
@@ -22,6 +23,7 @@ commit() {
   grg | rg $1
 }
 
+#Usage: squash N where N is number of commits to squash
 squash() {
   git reset --soft HEAD~${1} && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
 }
