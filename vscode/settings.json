@@ -163,5 +163,7 @@
   "files.exclude": {
     "**/.history": true
   },
-  "editor.fontSize": 13
+  "editor.fontSize": 13,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }

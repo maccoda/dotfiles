@@ -39,6 +39,7 @@ brew_install bat # cat alternative
 curl -s "https://get.sdkman.io" | bash # JDK SDK manager for micronaut
 brew_install watch
 brew_install fswatch
+brew_install mongodb/brew/mongodb-community-shell # mongo db CLI
 
 echo "\nLet's move onto the bigger ones\n"
 cask_install alfred # Quick launch
@@ -53,6 +54,8 @@ cask_install sourcetree # SCM GUI
 cask_install sparkleshare # Notes sync
 cask_install spectacle # Window management for Mac
 cask_install visual-studio-code # The editor
+cask_install typora
+cask_install boostnote
 
 echo "\nAdd some fonts"
 brew tap caskroom/fonts
