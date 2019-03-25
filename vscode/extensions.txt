@@ -1,5 +1,6 @@
 DSKWRK.vscode-generate-getter-setter
 alefragnani.project-manager
+bierner.emojisense
 bierner.markdown-mermaid
 bungcip.better-toml
 christian-kohler.path-intellisense
@@ -9,6 +10,7 @@ eamodio.gitlens
 editorconfig.editorconfig
 eg2.tslint
 equinusocio.vsc-material-theme
+equinusocio.vsc-material-theme
 esbenp.prettier-vscode
 evilz.vscode-reveal
 felipecaputo.git-project-manager
@@ -17,8 +19,10 @@ formulahendry.auto-close-tag
 hoovercj.vscode-power-mode
 infeng.vscode-react-typescript
 jebbs.plantuml
+jebbs.plantuml
 maccoda.tomorrow-theme-improved
 mathiasfrohlich.kotlin
+mauve.terraform
 mauve.terraform
 monokai.theme-monokai-pro-vscode
 ms-azuretools.vscode-azurefunctions
@@ -26,7 +30,7 @@ ms-azuretools.vscode-azurestorage
 ms-python.python
 ms-vscode.atom-keybindings
 ms-vscode.azure-account
-ms-vsliveshare.vsliveshare
+ms-vscode.vscode-typescript-tslint-plugin
 ms-vsliveshare.vsliveshare
 naumovs.color-highlight
 orta.vscode-jest
@@ -34,7 +38,6 @@ patricklee.vsnotes
 patrys.vscode-code-outline
 peterjausovec.vscode-docker
 redhat.vscode-yaml
-robertohuertasm.vscode-icons
 rust-lang.rust
 ryu1kn.partial-diff
 serayuzgur.crates
@@ -43,10 +46,13 @@ streetsidesoftware.code-spell-checker
 techer.open-in-browser
 vadimcn.vscode-lldb
 visualstudioexptteam.vscodeintellicode
+vscode-icons-team.vscode-icons
+vscode-icons-team.vscode-icons
 vscodevim.vim
 wayou.vscode-todo-highlight
 whizkydee.material-palenight-theme
 wix.vscode-import-cost
 xabikos.reactsnippets
 xyz.local-history
+yzhang.markdown-all-in-one
 yzhang.markdown-all-in-one
