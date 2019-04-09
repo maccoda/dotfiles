@@ -56,6 +56,7 @@ cask_install spectacle # Window management for Mac
 cask_install visual-studio-code # The editor
 cask_install typora
 cask_install boostnote
+cask_install karabiner-elements
 
 echo "\nAdd some fonts"
 brew tap caskroom/fonts

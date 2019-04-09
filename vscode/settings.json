@@ -4,7 +4,6 @@
   "editor.formatOnPaste": true,
   "workbench.iconTheme": "vscode-icons",
   "files.autoSave": "afterDelay",
-  "window.openFoldersInNewWindow": "on",
   "cSpell.userWords": [
     "Deserialize",
     "Dropdown",
@@ -165,5 +164,6 @@
   },
   "editor.fontSize": 13,
   "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "tslint.configFile": "tslint.json"
 }
