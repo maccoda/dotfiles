@@ -28,6 +28,10 @@ squash() {
   git reset --soft HEAD~${1} && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
 }
 
+refresh() {
+  git stash; git pull -r; git stash pop
+}
+
 # compile test commit
 ctc() {
   $1 && git commit -m '$2'
