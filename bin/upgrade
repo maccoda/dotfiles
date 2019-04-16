@@ -1,0 +1,5 @@
+#!/usr/local/bin/bash
+
+brew cask upgrade; brew upgrade; brew cleanup
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk update && sdk upgrade

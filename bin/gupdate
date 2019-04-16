@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/bash
 startDir=${1:-.}
 echo "Starting at $startDir"
 

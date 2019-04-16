@@ -40,6 +40,7 @@ curl -s "https://get.sdkman.io" | bash # JDK SDK manager for micronaut
 brew_install watch
 brew_install fswatch
 brew_install mongodb/brew/mongodb-community-shell # mongo db CLI
+brew_install bash
 
 echo "\nLet's move onto the bigger ones\n"
 cask_install alfred # Quick launch
@@ -59,7 +60,7 @@ cask_install boostnote
 cask_install karabiner-elements
 
 echo "\nAdd some fonts"
-brew tap caskroom/fonts
+# brew tap caskroom/fonts
 cask_install font-droidsansmono-nerd-font-mono
 cask_install font-fira-code
 

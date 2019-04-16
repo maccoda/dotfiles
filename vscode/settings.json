@@ -2,7 +2,6 @@
   "atomKeymap.promptV3Features": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.formatOnPaste": true,
-  "workbench.iconTheme": "vscode-icons",
   "files.autoSave": "afterDelay",
   "cSpell.userWords": [
     "Deserialize",
@@ -20,7 +19,6 @@
   "explorer.openEditors.visible": 4,
   "git.autofetch": true,
   "gitlens.keymap": "chorded",
-  "eslint.packageManager": "yarn",
   "editor.formatOnSave": true,
   "gitProjectManager.baseProjectsFolders": [
     "$HOME/myob",
@@ -165,5 +163,28 @@
   "editor.fontSize": 13,
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "tslint.configFile": "tslint.json"
+  "tslint.configFile": "tslint.json",
+  "eslint.validate": [
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ],
+  "tslint.enable": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.autoFixOnSave": true,
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "workbench.iconTheme": "vscode-icons"
 }
