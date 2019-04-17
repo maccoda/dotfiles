@@ -25,7 +25,8 @@
       "~/.oh-my-zsh/custom": {
         "glob": true,
         "path": ".oh-my-zsh/custom/*"
-      }
+      },
+      "~/.config/karabiner/karabiner.json": "karabiner/karabiner.json"
     }
   }
 ]

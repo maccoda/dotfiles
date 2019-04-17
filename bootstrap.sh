@@ -43,7 +43,7 @@ brew_install mongodb/brew/mongodb-community-shell # mongo db CLI
 brew_install bash
 
 echo "\nLet's move onto the bigger ones\n"
-cask_install alfred # Quick launch
+# cask_install alfred # Quick launch
 cask_install caffeine # Keep screen on for given time
 cask_install docker # Docker
 cask_install firefox-developer-edition # Firefox
@@ -55,9 +55,10 @@ cask_install sourcetree # SCM GUI
 cask_install sparkleshare # Notes sync
 cask_install spectacle # Window management for Mac
 cask_install visual-studio-code # The editor
-cask_install typora
-cask_install boostnote
-cask_install karabiner-elements
+cask_install typora # Note taking
+cask_install boostnote # Note taking
+cask_install karabiner-elements # Keyboard shortcuts
+cask_install quicksilver # Quick launch
 
 echo "\nAdd some fonts"
 # brew tap caskroom/fonts
