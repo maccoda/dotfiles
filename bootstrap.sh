@@ -44,7 +44,6 @@ brew_install bash
 
 echo "\nLet's move onto the bigger ones\n"
 # cask_install alfred # Quick launch
-cask_install caffeine # Keep screen on for given time
 cask_install docker # Docker
 cask_install firefox-developer-edition # Firefox
 cask_install licecap # Screen capture GIF
