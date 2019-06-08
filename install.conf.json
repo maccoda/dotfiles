@@ -22,9 +22,9 @@
         "glob": true,
         "path": "bin/*"
       },
-      "~/.oh-my-zsh/custom": {
+      "~/.config/fish/conf.d": {
         "glob": true,
-        "path": ".oh-my-zsh/custom/*"
+        "path": "fish-conf/*"
       },
       "~/.vimrc": ".vimrc"
     }
