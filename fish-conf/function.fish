@@ -4,7 +4,8 @@ end
 
 #Usage: squash N where N is number of commits to squash
 function squash
-    git reset --soft HEAD~$argv[1] && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
+    set commit_message (git log --format=%B --reverse HEAD..HEAD@{1})
+    git reset --soft HEAD~$argv[1] and git commit --edit -m"$commit_message"
 end
 
 function refresh
