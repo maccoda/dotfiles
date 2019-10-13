@@ -1,5 +1,6 @@
-#!/usr/local/bin/bash
+#!/usr/bin/bash
+set -ex
 
-brew cask upgrade; brew upgrade; brew cleanup
-source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk update && sdk upgrade
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get autoremove
