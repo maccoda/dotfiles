@@ -58,6 +58,8 @@ cask_install typora # Note taking
 cask_install boostnote # Note taking
 cask_install karabiner-elements # Keyboard shortcuts
 cask_install quicksilver # Quick launch
+cask install rambox # Messaging app
+cask install jumpcut # Clipboard manager
 
 echo "\nAdd some fonts"
 # brew tap caskroom/fonts

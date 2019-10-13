@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 DOT_FILES="$HOME/.maccoda_dotfiles"
 OUTPUT="$DOT_FILES/vscode/extensions.txt"
