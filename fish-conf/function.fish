@@ -9,5 +9,7 @@ function squash
 end
 
 function refresh
-    git stash and git pull -r and git stash pop
+    git stash && git pull -r && git stash pop
 end
+
+set PATH $HOME/bin $PATH

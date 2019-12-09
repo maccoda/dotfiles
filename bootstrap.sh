@@ -63,6 +63,7 @@ cask install jumpcut # Clipboard manager
 
 echo "\nAdd some fonts"
 # brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 cask_install font-droidsansmono-nerd-font-mono
 cask_install font-fira-code
 
@@ -77,7 +78,3 @@ check_if_binary_installed git || echo "Git not installed" && exit 1
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-
-
-

@@ -60,7 +60,6 @@
     "suppressResultsExplorerNotice": false,
     "suppressShowKeyBindingsNotice": true
   },
-  "vsnotes.defaultNotePath": "/Users/dylan.maccora/SparkleShare/gitlab.com/vsnotes",
   "markdown.extension.orderedList.marker": "one",
   "[markdown]": {
     "editor.wordWrap": "on",
@@ -113,7 +112,6 @@
     "track",
     "wbr"
   ],
-  "prettier.eslintIntegration": true,
   "window.zoomLevel": 0,
   "gitlens.historyExplorer.enabled": true,
   "editor.tokenColorCustomizations": {
@@ -186,5 +184,10 @@
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "workbench.iconTheme": "vscode-icons"
+  "vsnotes.defaultNotePath": "~/Notes",
+  "workbench.iconTheme": "vscode-icons",
+  "ruby.format": "rubocop",
+  "editor.formatOnSaveTimeout": 1500,
+  "terminal.integrated.shell.osx": "fish",
+  "plantuml.server": "https://plantuml.corp.amazon.com/"
 }
