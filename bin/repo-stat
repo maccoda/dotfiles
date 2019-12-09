@@ -1,0 +1,22 @@
+#!/bin/bash
+workspace=${1:-"$HOME/my/dev/directory"}
+for dir in $(ls -d ${workspace}/*/); do
+    cd $dir
+    git fetch -q &
+    short_name=$(basename $dir)
+    status=$(git status --porcelain)
+    if [[ ! -z "$status" ]]; then
+        echo "$short_name is dirty"
+    fi
+    commits=$(git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
+    if [[ $commits -gt "0" ]]; then
+        echo "$short_name is ahead of origin"
+    fi
+    commits_behind=$(git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
+    if [[ $commits_behind -gt "0" ]]; then
+        echo "$short_name is behind origin"
+    fi
+    cd ..
+done
+
+wait
