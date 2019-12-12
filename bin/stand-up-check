@@ -1,0 +1,12 @@
+#!/bin/bash
+
+workspace=${1:-"$HOME/workplace/PrimeMCPService"}
+for dir in $(ls -d ${workspace}/src/*/); do
+    cd $dir
+    short_name=$(basename $dir)
+    echo $short_name
+    git yesterday
+    cd ..
+done
+
+wait
