@@ -23,7 +23,7 @@
 	template = ~/.gitmessage
 [alias]
     co = checkout
-	logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
 	unstage = reset HEAD --
 	st = status
 	discard = checkout --

@@ -1,1 +1,1 @@
-set -gx PATH ~/bin $PATH
+set -gx PATH ~/bin ~/.cargo/bin $PATH
