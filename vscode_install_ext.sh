@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 function install {
     code --install-extension $1
 }

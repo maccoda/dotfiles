@@ -21,9 +21,7 @@
   "gitlens.keymap": "chorded",
   "editor.formatOnSave": true,
   "gitProjectManager.baseProjectsFolders": [
-    "$HOME/myob",
-    "$HOME/maccoda",
-    "$HOME/sandbox"
+    "$HOME/dev"
   ],
   "cSpell.enabledLanguageIds": [
     "c",
@@ -189,5 +187,8 @@
   "ruby.format": "rubocop",
   "editor.formatOnSaveTimeout": 1500,
   "terminal.integrated.shell.osx": "fish",
-  "plantuml.server": "https://plantuml.corp.amazon.com/"
+  "plantuml.server": "https://plantuml.corp.amazon.com/",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
