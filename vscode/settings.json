@@ -190,5 +190,8 @@
   "plantuml.server": "https://plantuml.corp.amazon.com/",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "rewrap.wrappingColumn": 120,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": true
 }

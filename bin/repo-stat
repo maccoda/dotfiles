@@ -15,6 +15,11 @@ for dir in $(ls -d ${workspace}/*/); do
     commits_behind=$(git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
     if [[ $commits_behind -gt "0" ]]; then
         echo "$short_name is behind origin"
+        read -p "Would you like to pull updates? (y/n) " input
+        case $input in
+            [Yy]* ) git pull;;
+            * ) echo "Leaving $short_name behind origin";;
+        esac
     fi
     cd ..
 done
