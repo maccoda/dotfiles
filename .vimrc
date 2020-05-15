@@ -1,5 +1,6 @@
 set number
 syntax on
-set tabstop =2
-set expandtab
 colo slate
+set tabstop=4
+set shiftwidth=4
+set expandtab

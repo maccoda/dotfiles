@@ -30,3 +30,8 @@ Usage:
 * [Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions#oh-my-zsh)
 * [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 * Theme: Monkokai Remastered (from https://iterm2colorschemes.com/)
+
+### Fish Shell
+
+- The theme used is Batman but there are some bugs so I have made a fork. To override the existing plugin will need to
+  change where the theme is stored at $HOME/.local/share/omf/themes

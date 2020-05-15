@@ -1,7 +1,7 @@
 #!/bin/bash
 
-DOT_FILES="$HOME/.maccoda_dotfiles"
+DOT_FILES="$HOME/.dotfiles"
 OUTPUT="$DOT_FILES/vscode/extensions.txt"
-ls ~/.vscode/extensions | sed 's/-[0-9].*$//'> $OUTPUT
+ls ~/.vscode/extensions | sed 's/-[0-9].*$//' | sort -u > $OUTPUT
 
 echo "Written extensions to $OUTPUT"

@@ -20,9 +20,7 @@
   "git.autofetch": true,
   "gitlens.keymap": "chorded",
   "editor.formatOnSave": true,
-  "gitProjectManager.baseProjectsFolders": [
-    "$HOME/dev"
-  ],
+  "gitProjectManager.baseProjectsFolders": ["$HOME/dev"],
   "cSpell.enabledLanguageIds": [
     "c",
     "cpp",
@@ -62,7 +60,8 @@
   "[markdown]": {
     "editor.wordWrap": "on",
     "editor.formatOnSave": false,
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
   "cSpell.language": "en,en-GB",
   "files.autoSaveDelay": 3000,
@@ -71,7 +70,6 @@
   "python.pythonPath": "python3",
   "extensions.ignoreRecommendations": false,
   "prettier.singleQuote": true,
-  "workbench.colorTheme": "Palenight Theme",
   "javascript.implicitProjectConfig.experimentalDecorators": true,
   "auto-close-tag.activationOnLanguage": [
     "xml",
@@ -154,7 +152,11 @@
   "window.title": "${rootName}${separator}${activeEditorShort}",
   "git.rebaseWhenSync": true,
   "files.exclude": {
-    "**/.history": true
+    "**/.history": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   },
   "editor.fontSize": 13,
   "editor.suggestSelection": "first",
@@ -182,7 +184,6 @@
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "vsnotes.defaultNotePath": "~/Notes",
   "workbench.iconTheme": "vscode-icons",
   "ruby.format": "rubocop",
   "editor.formatOnSaveTimeout": 1500,
@@ -193,5 +194,9 @@
   },
   "rewrap.wrappingColumn": 120,
   "diffEditor.ignoreTrimWhitespace": false,
-  "diffEditor.renderSideBySide": true
+  "vsnotes.defaultNotePath": "/Users/dmaccora/Notes",
+  "diffEditor.renderSideBySide": true,
+  "todo-tree.tree.showScanModeButton": false,
+  "workbench.colorTheme": "Community Material Theme Palenight",
+  "java.semanticHighlighting.enabled": true,
 }

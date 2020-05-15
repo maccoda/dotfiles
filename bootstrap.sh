@@ -41,6 +41,9 @@ brew_install watch
 brew_install fswatch
 brew_install mongodb/brew/mongodb-community-shell # mongo db CLI
 brew_install bash
+brew_install unison # Two way sync if using separate box for development
+brew_install fish # Fish shell
+brew_install starship # shell agnostic formatting
 
 echo "\nLet's move onto the bigger ones\n"
 # cask_install alfred # Quick launch
