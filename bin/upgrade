@@ -1,6 +1,14 @@
-#!/bin/bash
-set -ex
+#!/usr/local/bin/bash
+set -x
 
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get autoremove
+# sudo apt-get update
+# sudo apt-get upgrade
+# sudo apt-get autoremove
+
+brew cask upgrade; brew upgrade; brew cleanup
+fish -c "omf update"
+
+rustup update
+
+cd /Users/dmaccora/.local/share/omf/themes/batman
+git pull
