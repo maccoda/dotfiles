@@ -28,7 +28,11 @@
         "glob": true,
         "path": "fish-conf/*"
       },
-      "~/.vimrc": ".vimrc"
+      "~/.vimrc": ".vimrc",
+      "~/.config/nvim": {
+        "glob": true,
+        "path": "nvim-conf/*"
+      }
     }
   }
 ]
