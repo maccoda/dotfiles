@@ -5,12 +5,12 @@ call plug#begin("~/.vim/plugged")
     Plug 'ryanoasis/vim-devicons'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-"   Plug 'Shougo/denite.nvim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'airblade/vim-gitgutter'
     Plug 'vim-airline/vim-airline'
     Plug '907th/vim-auto-save'
     Plug 'preservim/nerdcommenter'
+    Plug 'justinmk/vim-sneak'
 call plug#end()
 
 "Config Section
@@ -31,6 +31,7 @@ set clipboard=unnamed
 let ayucolor="mirage"
 colorscheme ayu
 
+" == NERDTree ==
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
@@ -54,8 +55,11 @@ endfunction
 autocmd BufEnter * call SyncTree()
 " Automatically close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+" Open tree on start up and return to editor window
+autocmd vimenter * NERDTree
+autocmd vimenter * wincmd p
+
+" == Terminal ==
 " open new split panes to the right and below
 set splitright
 set splitbelow
@@ -70,13 +74,14 @@ function! OpenTerminal()
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
-" FZF fuzzy finder
+" == FZF fuzzy finder ==
 nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {
 	\ 'ctrl-t': 'tab split',
 	\ 'ctrl-s': 'split',
 	\ 'ctrl-v': 'vsplit'
 	\}
+" Use fd - does not include ignored by git files
 let $FZF_DEFAULT_COMMAND = 'fd --type f'
 
 " == Git gutter ==
@@ -89,5 +94,6 @@ let g:auto_save = 1
 
 " == NerdCommenter ==
 " Remap toggle command
-vnoremap <C-/> <plug>NERDCommenterToggle
-nnoremap ++ <plug>NERDCommenterToggle
+nmap <C-_> <plug>NERDCommenterToggle
+vmap <C-_> <Plug>NERDCommenterToggle<CR>gv
+filetype plugin on
