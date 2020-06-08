@@ -11,6 +11,7 @@ call plug#begin("~/.vim/plugged")
     Plug '907th/vim-auto-save'
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
+    Plug 'tpope/vim-fugitive'
 call plug#end()
 
 "Config Section
@@ -75,7 +76,7 @@ endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
 " == FZF fuzzy finder ==
-nnoremap <C-p> :FZF<CR>
+nnoremap <C-p> :Files<CR>
 let g:fzf_action = {
 	\ 'ctrl-t': 'tab split',
 	\ 'ctrl-s': 'split',
