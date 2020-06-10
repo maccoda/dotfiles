@@ -32,7 +32,8 @@
       "~/.config/nvim": {
         "glob": true,
         "path": "nvim-conf/*"
-      }
+      },
+      "~/.config/starship.toml": "starship.toml"
     }
   }
 ]

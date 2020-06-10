@@ -31,7 +31,8 @@ end
 
 # Open dots files
 function dots
-  nvim $HOME/.dotfiles
+  cd $HOME/.dotfiles
+  nvim .
 end
 
 # Remove files with `orig` in name. Usually occured during conflicts

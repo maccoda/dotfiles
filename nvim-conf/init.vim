@@ -8,6 +8,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'airblade/vim-gitgutter'
     Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     Plug '907th/vim-auto-save'
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
@@ -116,3 +117,7 @@ filetype plugin on
 " Remap command
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
+
+" == Airline == 
+" Set theme
+let g:airline_theme='simple'
