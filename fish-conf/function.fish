@@ -1,3 +1,4 @@
+# Usage: Search across commit messages for the given search term
 function commit
     grg | rg $argv[1]
 end
@@ -8,8 +9,32 @@ function squash
     git reset --soft HEAD~$argv[1] and git commit --edit -m"$commit_message"
 end
 
-function refresh
-    git stash ;and git pull -r ;and git stash pop
+# Usage: Git pull workflow
+function gp
+    git stash; and git pull; and git stash pop
 end
 
-set PATH $HOME/bin $PATH
+# Usage: Git pull with rebase workflow
+function gpr
+    git stash; and git pull -r; and git stash pop
+end
+
+# Base64 decode
+function decode
+  echo `echo $argv | base64 --decode`
+end
+
+# Base64 encode
+function encode
+  echo -n $argv[1] | openssl base64 | pbcopy
+end
+
+# Open dots files
+function dots
+  nvim $HOME/.dotfiles
+end
+
+# Remove files with `orig` in name. Usually occured during conflicts
+function rm_orig
+  fd -I orig -x rm
+end

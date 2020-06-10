@@ -12,6 +12,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
     Plug 'tpope/vim-fugitive'
+    Plug 'dag/vim-fish'
 call plug#end()
 
 "Config Section
