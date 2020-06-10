@@ -84,6 +84,18 @@ let g:fzf_action = {
 	\}
 " Use fd - does not include ignored by git files
 let $FZF_DEFAULT_COMMAND = 'fd --type f'
+" Map ctrl + f to ripgrep across project
+nnoremap <C-f> :RG<CR>
+" Below function taken from fzf.vim readme, it will invoke rg on each change
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 " == Git gutter ==
 " Enable highlights of line numbers on start up
@@ -98,3 +110,8 @@ let g:auto_save = 1
 nmap <C-_> <plug>NERDCommenterToggle
 vmap <C-_> <Plug>NERDCommenterToggle<CR>gv
 filetype plugin on
+
+"== Vim Sneak ==
+" Remap command
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
