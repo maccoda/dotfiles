@@ -1,5 +1,5 @@
 #!/bin/bash
-workspace=${1:-"$HOME/my/dev/directory"}
+workspace=${1:-"$HOME/dev"}
 for dir in $(ls -d ${workspace}/*/); do
     cd $dir
     git fetch -q &
