@@ -68,7 +68,7 @@ echo "\nAdd some fonts"
 # brew tap caskroom/fonts
 brew tap homebrew/cask-fonts
 cask_install font-droidsansmono-nerd-font-mono
-cask_install font-fira-code
+cask_install font-firacode-nerd-font
 
 echo "\nTime to get meta and install the dot file manager\n"
 check_if_binary_installed dotbot || pip install dotbot

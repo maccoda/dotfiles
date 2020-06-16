@@ -1,5 +1,6 @@
 call plug#begin("~/.vim/plugged")
     " Plugin Section
+    " ==============
     Plug 'ayu-theme/ayu-vim'
     Plug 'scrooloose/nerdtree'
     Plug 'ryanoasis/vim-devicons'
@@ -16,7 +17,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'dag/vim-fish'
 call plug#end()
 
-"Config Section
+" Config Section
+" =============
 set number
 syntax on
 set tabstop=4
@@ -29,6 +31,8 @@ set termguicolors
 set noshowcmd
 " Yank and paste with the system clipboard
 set clipboard=unnamed
+" Turn off search highlights when entering insert
+nnoremap i :noh<CR>i
 
 " Syntax theme
 let ayucolor="mirage"
@@ -86,9 +90,10 @@ let g:fzf_action = {
 	\}
 " Use fd - does not include ignored by git files
 let $FZF_DEFAULT_COMMAND = 'fd --type f'
-" Map ctrl + f to ripgrep across project
-nnoremap <C-f> :RG<CR>
+" Map ctrl + f to ripgrep across project and start with previous search
+nnoremap <C-f> :RG<CR><C-P>
 " Below function taken from fzf.vim readme, it will invoke rg on each change
+" when performing search
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
@@ -98,6 +103,15 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Open previous buffers
+nnoremap ; :Buffers;
+
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " == Git gutter ==
 " Enable highlights of line numbers on start up
@@ -121,3 +135,8 @@ map F <Plug>Sneak_S
 " == Airline == 
 " Set theme
 let g:airline_theme='simple'
+
+" == Sneak ==
+" Add label mode
+let g:sneak#label = 1
+let g:sneak#s_next = 1
