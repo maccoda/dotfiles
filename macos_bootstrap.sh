@@ -63,6 +63,7 @@ cask_install karabiner-elements # Keyboard shortcuts
 cask_install quicksilver # Quick launch
 cask install rambox # Messaging app
 cask install jumpcut # Clipboard manager
+cask_install alacritty # Terminal emulator
 
 echo "\nAdd some fonts"
 # brew tap caskroom/fonts

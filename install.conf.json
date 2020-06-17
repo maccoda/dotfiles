@@ -33,7 +33,8 @@
         "glob": true,
         "path": "nvim-conf/*"
       },
-      "~/.config/starship.toml": "starship.toml"
+      "~/.config/starship.toml": "starship.toml",
+      "~/.config/alacritty/alacritty.yml": "alacritty.yml"
     }
   }
 ]
