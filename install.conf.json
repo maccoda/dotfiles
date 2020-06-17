@@ -22,19 +22,25 @@
       "~/.power9k": ".power9k",
       "~/bin": {
         "glob": true,
-        "path": "bin/*"
+        "path": "bin/*",
+        "create": true
       },
       "~/.config/fish/conf.d": {
         "glob": true,
-        "path": "fish-conf/*"
+        "path": "fish-conf/*",
+        "create": true
       },
       "~/.vimrc": ".vimrc",
       "~/.config/nvim": {
         "glob": true,
-        "path": "nvim-conf/*"
+        "path": "nvim-conf/*",
+        "create": true
       },
       "~/.config/starship.toml": "starship.toml",
-      "~/.config/alacritty/alacritty.yml": "alacritty.yml"
+      "~/.config/alacritty/alacritty.yml": {
+          "path": "alacritty.yml",
+          "create": true
+      }
     }
   }
 ]

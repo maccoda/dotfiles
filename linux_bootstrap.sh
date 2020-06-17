@@ -4,7 +4,6 @@ source bootstrap_functions.sh
 sudo apt-get update
 
 echoo "Start the bootstrap and apply settings"
-mkdir -p ~/bin
 ./install
 
 # dotbot -c $(dirname $0)/install.conf.json
