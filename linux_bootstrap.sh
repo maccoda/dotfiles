@@ -15,9 +15,11 @@ check_if_binary_installed "brew" || /bin/bash -c "$(curl -fsSL https://raw.githu
 
 brew_install nvim
 brew_install starship
+brew_install "node@12" node
 
 echoo "Get some essentials"
 apt_install curl
+apt_install fswatch
 
 echoo "Now the text editing essentials"
 apt_install vim
@@ -26,6 +28,8 @@ apt_install vim
 brew_install fd # Rust implementation of find
 brew_install ripgrep rg # Rust implementation of grep
 brew_install bat # Rust implementation of cat
+brew_install exa # Rust implementation of exa
+brew_install dust # Rust implementation of du
 
 echoo "Add some fonts"
 FONT_DIR="~/.local/share/fonts"

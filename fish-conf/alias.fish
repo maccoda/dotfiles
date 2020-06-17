@@ -20,3 +20,9 @@ function dev
     end
 end
 
+# rust CLI remaps
+alias cat='bat'
+alias grep='rg'
+alias find='fd'
+alias ls='exa'
+alias du='dust'
