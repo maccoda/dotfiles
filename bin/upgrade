@@ -3,19 +3,24 @@ set -x
 case "$(uname -s)" in
 
    Darwin)
-     brew cask upgrade; brew upgrade; brew cleanup
+     brew cask upgrade
     ;;
 
    Linux)
-        sudo apt-get update
-        sudo apt-get upgrade -y
-        sudo apt-get autoremove -y
+        sudo apt-get update -q
+        sudo apt-get upgrade -qy
+        sudo apt-get autoremove -qy
     ;;
 
    *)
-     echo 'Other OS'
+     echo 'Unknown OS'
+     exit 1
      ;;
 esac
+
+
+brew upgrade
+brew cleanup
 
 fish -c "omf update"
 

@@ -1,15 +1,21 @@
 #/bin/bash
 
+# Echo in color (currently blue)
 function echoo {
     COLOR='\033[0;34m'
     NO_COLOR='\033[0m'
     echo -e "${COLOR}$1${NO_COLOR}"
 }
 
+# Echo in green
 function echog {
     COLOR='\033[0;32m'
     NO_COLOR='\033[0m'
     echo -e "${COLOR}$1${NO_COLOR}"
+}
+
+function check_if_installed {
+    ls $1 &>/dev/null && echog "$1 is exists"
 }
 
 function check_if_binary_installed {
