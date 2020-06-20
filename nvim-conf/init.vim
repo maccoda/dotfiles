@@ -56,7 +56,7 @@ let g:NERDTreeWinPos = "right"
 " Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 " Check if NERDTree is open or active
-function! IsNERDTreeOpen()        
+function! IsNERDTreeOpen()
   return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
 endfunction
 
@@ -118,7 +118,7 @@ endfunction
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 " Open previous buffers
-nnoremap ; :Buffers;
+nnoremap ; :Buffers<CR>
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -145,7 +145,7 @@ filetype plugin on
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
 
-" == Airline == 
+" == Airline ==
 " Set theme
 let g:airline_theme='simple'
 
@@ -173,3 +173,9 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" == Fugitive ==
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>

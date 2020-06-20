@@ -1,18 +1,35 @@
 #!/bin/bash
-workspace=${1:-"$HOME/dev"}
-for dir in $(ls -d ${workspace}/*/); do
-    cd $dir
-    git fetch -q &
+workspace=${1:-"$HOME/workplace/PrimeMCPService"}
+
+echo -n "Fetching updates for "
+dirs=$(ls -d ${workspace}/src/*/)
+for dir in $dirs; do
     short_name=$(basename $dir)
-    status=$(git status --porcelain)
+    echo -n "$short_name "
+    cd $dir
+    git fetch &
+    cd ..
+done
+
+echo
+wait
+
+for dir in $dirs; do
+    cd $dir
+    short_name=$(basename $dir)
+
+    status=$(git status --porcelain &)
+    commits=$(git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
+    commits_behind=$(git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
+
+    wait
+
     if [[ ! -z "$status" ]]; then
         echo "$short_name is dirty"
     fi
-    commits=$(git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
     if [[ $commits -gt "0" ]]; then
         echo "$short_name is ahead of origin"
     fi
-    commits_behind=$(git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
     if [[ $commits_behind -gt "0" ]]; then
         echo "$short_name is behind origin"
         read -p "Would you like to pull updates? (y/n) " input
@@ -24,4 +41,3 @@ for dir in $(ls -d ${workspace}/*/); do
     cd ..
 done
 
-wait
