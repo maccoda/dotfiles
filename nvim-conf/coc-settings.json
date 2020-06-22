@@ -4,7 +4,8 @@
         "javascript",
         "javascriptreact",
         "typescript",
-        "typescriptreact"
+        "typescriptreact",
+        "rust"
       ],
       "tsserver.formatOnType": true,
       "coc.preferences.formatOnType": true

@@ -42,6 +42,8 @@ nnoremap i :noh<CR>i
 autocmd BufWritePre * %s/\s\+$//e
 " Wrap markdown files to 80 column
 au BufRead,BufNewFile *.md setlocal textwidth=80
+" Show tabs and trailing whitespace
+set list listchars=tab:>-,trail:.,extends:>
 
 " Syntax theme
 let ayucolor="mirage"
@@ -155,11 +157,19 @@ let g:sneak#label = 1
 let g:sneak#s_next = 1
 
 " == CoC ==
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
