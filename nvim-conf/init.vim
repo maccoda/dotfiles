@@ -20,6 +20,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'pangloss/vim-javascript'
     Plug 'leafgarland/typescript-vim'
     Plug 'peitalin/vim-jsx-typescript'
+    Plug 'terryma/vim-multiple-cursors'
     Plug 'sheerun/vim-polyglot'
 call plug#end()
 

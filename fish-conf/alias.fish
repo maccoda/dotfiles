@@ -7,10 +7,6 @@ alias g='git'
 # Git log for rip-grepping
 alias grg='git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --date=short'
 alias gst='git status'
-function gd
-    set -l preview "git diff $argv --color=always -- {-1}"
-    git diff $argv --name-only | fzf -m --ansi --preview $preview
-end
 
 # directory shortcut
 function dev

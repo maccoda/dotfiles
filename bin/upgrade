@@ -27,9 +27,10 @@ fish -c "omf update"
 rustup update
 
 cd $HOME/.local/share/omf/themes/batman
-git pull
+git stash; git pull -r; git stash pop
+
 
 cd $HOME/.dotfiles
-git pull
+git stash; git pull -r; git stash pop
 
 nvim +PlugUpdate +qall

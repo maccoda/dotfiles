@@ -1,6 +1,8 @@
 [user]
 	name = Dylan Maccora
 	email = maccora17@gmail.com
+[color]
+    ui = auto
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -12,7 +14,7 @@
 	tool = p4merge
 [core]
 	excludesfile = ~/.gitignore
-	editor = vim
+	editor = nvim
 	autocrlf = input
 [difftool "sourcetree"]
 	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
@@ -24,10 +26,13 @@
 	template = ~/.gitmessage
 [alias]
     co = checkout
-	logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+	logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all -10
+	logpp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
 	unstage = reset HEAD --
 	st = status
 	discard = checkout --
 	am = commit -a -m
 	last = show --stat HEAD
 	yesterday = log --after='yesterday' --oneline --author='Dylan Maccora'
+    ap = add --patch
+    amend = commit --amend --no-edit
