@@ -35,5 +35,7 @@ apt_install docker
 #apt_install docker-compose
 #curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
+check_if_installed ~/.joplin/Joplin.AppImage || wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
+
 # Install kitty so we can have font ligatures
 #check_if_binary_installed "kitty" || curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
