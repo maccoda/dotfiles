@@ -49,5 +49,5 @@ end
 # Interactive git staging
 function gd
     set -l preview "git diff $argv --color=always -- {-1}"
-    git diff $argv --name-only | fzf -m --ansi --preview $preview --bind "enter:execute(git add {})"
+    git diff $argv --name-only | fzf -m --ansi --preview $preview --bind "enter:execute(git add {})+reload(git diff $argv --name-only)"
 end

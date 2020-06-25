@@ -3,35 +3,21 @@
 Just some of my dot files...
 
 **This is expected to be cloned into `~/.maccoda_dotfiles`**
+Firstly you will want to clone this:
+
+```shell
+> git clone https://github.com/maccoda/dotfiles.git ~/.dotfiles
+```
 
 Best way to get started is via `bootstrap.sh`
 
 These are managed by [dotbot](https://github.com/anishathalye/dotbot)
 
 Usage:
-`dotbot -c ~/.maccoda_dotfiles/install.conf.json`
 
-## Other tools to install
-
-* P4Merge
-    * Merge/diff tool
-* Visual Studio Code
-    * Text editor/IDE
-* SparkleShare
-    * Open source directory back up (used for notes)
-* Boostnote
-    * Note keeping
-* Fonts
-    * `font-droidsansmono-nerd-font-mono` used for the terminal
+```shell
+> cd ~/.dotfiles
+> ./install
+```
 
 
-### ZSH Plugins
-
-* [Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions#oh-my-zsh)
-* [Syntax Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-* Theme: Monkokai Remastered (from https://iterm2colorschemes.com/)
-
-### Fish Shell
-
-- The theme used is Batman but there are some bugs so I have made a fork. To override the existing plugin will need to
-  change where the theme is stored at $HOME/.local/share/omf/themes

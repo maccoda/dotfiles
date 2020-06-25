@@ -22,6 +22,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'peitalin/vim-jsx-typescript'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'sheerun/vim-polyglot'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 " Config Section
@@ -29,10 +30,18 @@ call plug#end()
 set number relativenumber
 syntax on
 set tabstop=4
+set softtabstop=4
+set smarttab
 " Indentation amount for < and > commands
 set shiftwidth=4
 " Insert spaces when tab is pressed
 set expandtab
+" Copy indent from current line when start new line
+set autoindent
+set smartindent
+" Highlight curosr line
+set cursorline
+
 set termguicolors
 " Do not show the last command
 set noshowcmd
@@ -46,6 +55,14 @@ autocmd BufWritePre * %s/\s\+$//e
 au BufRead,BufNewFile *.md setlocal textwidth=80
 " Show tabs and trailing whitespace
 set list listchars=tab:>-,trail:.,extends:>
+" Use hidden to keep things like undo history present when change buffer
+set hidden
+" Map the leader key
+let mapleader = ","
+" Improve search in file (similar to other editors)
+set ignorecase
+set smartcase
+
 
 " Syntax theme
 let ayucolor="mirage"
@@ -57,6 +74,11 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['^.git$']
 let g:NERDTreeStatusline = ''
 let g:NERDTreeWinPos = "right"
+" Remap open keys
+let g:NERDTreeMapOpenSplit = 's'
+let g:NERDTreeMapOpenVSplit = 'v'
+" Close tree view when open file
+let g:NERDTreeQuitOnOpen = 1
 " Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 " Check if NERDTree is open or active
@@ -188,6 +210,6 @@ endfunction
 
 " == Fugitive ==
 " Fugitive Conflict Resolution
-nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gd :Gvdiffsplit<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>

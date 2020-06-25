@@ -33,10 +33,14 @@ env:
   TERM: xterm-256color
 
 window:
-  padding:
-    x: 0
-    y: 0
+  # Values for `decorations`:
+  #     - full: Borders and title bar
+  #     - none: Neither borders nor title bar
   decorations: full
+  # Values for `startup_mode`:
+  #   - Windowed
+  #   - Maximized
+  #   - Fullscreen
   startup_mode: Windowed
 
 
@@ -54,7 +58,13 @@ font:
     family: FiraCode Nerd Font
     style: Italic
 
-  size: 12.0
+  size: 13.0
+
+  # Offset is the extra space around each character. `offset.y` can be thought of
+  # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
+  offset:
+    x: 0
+    y: 1
 
 selection:
   save_to_clipboard: false
@@ -323,7 +333,10 @@ mouse:
   #- { key: N,      mods: Command,            action: SpawnNewInstance }
   #- { key: F,      mods: Command|Control,    action: ToggleFullscreen }
 key_bindings:
-  - { key: N, mods: Control, action: SpawnNewInstance }
+  - { key: N,     mods: Control|Shift, action: SpawnNewInstance }
+  - { key: C,     mods: Control|Shift, action: Copy }
+  - { key: V,     mods: Control|Shift, action: Paste }
+    # Possible mappings for tmux
   - { key: D,     mods: Command,       chars: "\x06\x76" }
   - { key: D,     mods: Command|Shift, chars: "\x06\x73" }
   - { key: W,     mods: Command,       chars: "\x06\x78" }

@@ -40,7 +40,8 @@
       "~/.config/alacritty/alacritty.yml": {
           "path": "alacritty.yml",
           "create": true
-      }
+      },
+      "~/.config/fish/fishfile": "fishfile"
     }
   }
 ]

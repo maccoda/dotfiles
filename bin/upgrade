@@ -22,13 +22,10 @@ esac
 brew upgrade
 brew cleanup
 
-fish -c "omf update"
+fish -c "fisher"
+fish -c "fisher self-update"
 
 rustup update
-
-cd $HOME/.local/share/omf/themes/batman
-git stash; git pull -r; git stash pop
-
 
 cd $HOME/.dotfiles
 git stash; git pull -r; git stash pop
