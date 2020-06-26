@@ -42,6 +42,8 @@ set smartindent
 " Highlight curosr line
 set cursorline
 
+set nowrap
+
 set termguicolors
 " Do not show the last command
 set noshowcmd

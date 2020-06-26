@@ -12,11 +12,13 @@ case "$(uname -s)" in
    Darwin)
      echo 'Detected Mac OS'
      source "./bootstrap/macos_bootstrap.sh"
+     source "./bootstrap/brew_kegs.sh"
      ;;
 
    Linux)
      echo 'Detected Linux OS'
      source "./bootstrap/linux_bootstrap.sh"
+     source "./bootstrap/brew_kegs.sh"
      ;;
 
    *)
