@@ -60,7 +60,7 @@ set list listchars=tab:>-,trail:.,extends:>
 " Use hidden to keep things like undo history present when change buffer
 set hidden
 " Map the leader key
-let mapleader = ","
+let mapleader = " "
 " Improve search in file (similar to other editors)
 set ignorecase
 set smartcase
@@ -83,28 +83,8 @@ let g:NERDTreeMapOpenVSplit = 'v'
 let g:NERDTreeQuitOnOpen = 1
 " Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
-" Check if NERDTree is open or active
-function! IsNERDTreeOpen()
-  return exists("t:NERDTreeBufName") && (bufwinnr(t:NERDTreeBufName) != -1)
-endfunction
-
-" Call NERDTreeFind iff NERDTree is active, current window contains a modifiable
-" file, and we're not in vimdiff
-function! SyncTree()
-  if &modifiable && IsNERDTreeOpen() && strlen(expand('%')) > 0 && !&diff
-    NERDTreeRefreshRoot
-    NERDTreeFind
-    wincmd p
-  endif
-endfunction
-
-" Highlight currently open buffer in NERDTree
-autocmd BufEnter * call SyncTree()
 " Automatically close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Open tree on start up and return to editor window
-autocmd vimenter * NERDTree
-autocmd vimenter * wincmd p
 
 " == Terminal ==
 " open new split panes to the right and below
@@ -153,7 +133,9 @@ nnoremap ; :Buffers<CR>
 " - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
 "   'previous-history' instead of 'down' and 'up'.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-
+" Place the window in the centre of the screen
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
 " == Git gutter ==
 " Enable highlights of line numbers on start up
 autocmd VimEnter * :GitGutterLineNrHighlightsEnable
