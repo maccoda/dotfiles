@@ -55,6 +55,8 @@ nnoremap i :noh<CR>i
 autocmd BufWritePre * %s/\s\+$//e
 " Wrap markdown files to 80 column
 au BufRead,BufNewFile *.md setlocal textwidth=80
+" Set spell check in markdown files
+autocmd BufRead,BufNewFile *.md setlocal spell
 " Show tabs and trailing whitespace
 set list listchars=tab:>-,trail:.,extends:>
 " Use hidden to keep things like undo history present when change buffer
@@ -69,6 +71,9 @@ set smartcase
 " Syntax theme
 let ayucolor="mirage"
 colorscheme ayu
+
+" Color cursorline a little more grey than theme
+hi CursorLine cterm=NONE guibg=#2c313b guifg=NONE
 
 " == NERDTree ==
 let g:NERDTreeShowHidden = 1
