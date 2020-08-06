@@ -31,3 +31,5 @@ cd $HOME/.dotfiles
 git stash; git pull -r; git stash pop
 
 nvim +PlugUpdate +qall
+
+source work-upgrade
