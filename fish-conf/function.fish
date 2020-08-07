@@ -16,7 +16,7 @@ end
 # Usage: Git pull workflow
 function gp
     set -l repo_status (git status --porcelain)
-    if test -z $repo_status
+    if test -z "$repo_status"
         git pull
     else
         echo "Detected local changes, stashing all"
@@ -27,7 +27,7 @@ end
 # Usage: Git pull with rebase workflow
 function gpr
     set -l repo_status (git status --porcelain)
-    if test -z $repo_status
+    if test -z "$repo_status"
         git pull -r
     else
         echo "Detected local changes, stashing all"
