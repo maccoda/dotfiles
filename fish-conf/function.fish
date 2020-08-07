@@ -15,12 +15,24 @@ end
 
 # Usage: Git pull workflow
 function gp
-    git stash; and git pull; and git stash pop
+    set -l repo_status (git status --porcelain)
+    if test -z $repo_status
+        git pull
+    else
+        echo "Detected local changes, stashing all"
+        git stash --all; and git pull; and git stash pop
+    end
 end
 
 # Usage: Git pull with rebase workflow
 function gpr
-    git stash; and git pull -r; and git stash pop
+    set -l repo_status (git status --porcelain)
+    if test -z $repo_status
+        git pull -r
+    else
+        echo "Detected local changes, stashing all"
+        git stash --all; and git pull -r; and git stash pop
+    end
 end
 
 # Base64 decode
