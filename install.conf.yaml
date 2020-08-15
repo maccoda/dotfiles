@@ -1,0 +1,45 @@
+---
+- defaults:
+    link:
+      relink: true
+      create: true
+- link:
+    "~/.gitignore": ".gitignore"
+    "~/.gitconfig": ".gitconfig"
+    "~/.gitmessage": ".gitmessage"
+
+    # VSCode MacOS
+    #"~/Library/Application Support/Code/User/settings.json": vscode/settings.json
+    #"~/Library/Application Support/Code/User/keybindings.json": vscode/keybindings.json
+
+    # VSCode Linux
+    "~/.config/Code/User/settings.json": vscode/settings.json
+    "~/.config/Code/User/keybindings.json": vscode/keybindings.json
+
+    # VSCode Windows
+    #"/mnt/c/Users/dylan/AppData/Roaming/Code/User/settings.json": vscode/settings.json
+    #"/mnt/c/Users/dylan/AppData/Roaming/Code/User/keybindings.json": vscode/keybindings.json
+
+    "~/.zprofile": ".zprofile"
+    "~/.zshrc": ".zshrc"
+    "~/.power9k": ".power9k"
+
+    "~/bin":
+      glob: true
+      path: bin/*
+
+    "~/.config/fish/conf.d":
+      glob: true
+      path: fish-conf/*
+
+    "~/.vimrc": ".vimrc"
+    "~/.config/nvim":
+      glob: true
+      path: nvim-conf/*
+
+    "~/.config/starship.toml": starship.toml
+    "~/.config/fish/fishfile": fishfile
+
+    "~/.config/alacritty/alacritty.yml":
+      path: alacritty.yml
+
