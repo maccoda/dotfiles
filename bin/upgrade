@@ -28,6 +28,7 @@ fish -c "fisher self-update"
 rustup update
 
 cd $HOME/.dotfiles
+git submodule update --recursive --remote
 git stash; git pull -r; git stash pop
 
 nvim +PlugUpdate +qall
