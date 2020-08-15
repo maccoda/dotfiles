@@ -20,10 +20,6 @@
     #"/mnt/c/Users/dylan/AppData/Roaming/Code/User/settings.json": vscode/settings.json
     #"/mnt/c/Users/dylan/AppData/Roaming/Code/User/keybindings.json": vscode/keybindings.json
 
-    "~/.zprofile": ".zprofile"
-    "~/.zshrc": ".zshrc"
-    "~/.power9k": ".power9k"
-
     "~/bin":
       glob: true
       path: bin/*
