@@ -43,6 +43,9 @@ window:
   #   - Fullscreen
   startup_mode: Windowed
 
+  # Allow terminal applications to change Alacritty's window title.
+  dynamic_title: true
+
 
 # Font configuration
 font:
@@ -68,9 +71,6 @@ font:
 
 selection:
   save_to_clipboard: false
-
-# Allow terminal applications to change Alacritty's window title.
-dynamic_title: true
 
 cursor:
   style: Block
