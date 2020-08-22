@@ -70,7 +70,8 @@ font:
     y: 1
 
 selection:
-  save_to_clipboard: false
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard: true
 
 cursor:
   style: Block
