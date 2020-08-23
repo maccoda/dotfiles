@@ -1,22 +1,25 @@
 #!/bin/bash
-workspace=${1:-"$HOME/workplace/PrimeMCPService"}
+startDir=${1:-.}
+echo "Starting at $startDir"
 
 echo -n "Fetching updates for "
-dirs=$(ls -d ${workspace}/src/*/)
-for dir in $dirs; do
-    short_name=$(basename $dir)
+dirs=$(fd -HI -t d .git$ $startDir)
+ for dir in $dirs; do
+    repoDir=$(echo $dir | sed 's/\/.git//')
+    short_name=$(basename $repoDir)
     echo -n "$short_name "
-    cd $dir
+    cd $repoDir
     git fetch &
-    cd ..
+    cd - > /dev/null
 done
 
 echo
 wait
 
 for dir in $dirs; do
-    cd $dir
-    short_name=$(basename $dir)
+    repoDir=$(echo $dir | sed 's/\/.git//')
+    cd $repoDir
+    short_name=$(basename $repoDir)
 
     status=$(git status --porcelain &)
     commits=$(git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
@@ -38,6 +41,6 @@ for dir in $dirs; do
             * ) echo "Leaving $short_name behind origin";;
         esac
     fi
-    cd ..
+    cd - > /dev/null
 done
 
