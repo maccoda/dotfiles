@@ -5,7 +5,7 @@
       create: true
 
 - link:
-    "~/.gitignore": ".gitignore"
+    "~/.gitignore": ".gitignore_main"
     "~/.gitconfig": ".gitconfig"
     "~/.gitmessage": ".gitmessage"
 
