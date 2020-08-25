@@ -32,5 +32,5 @@ git submodule update --recursive --remote
 git stash; git pull -r; git stash pop
 
 nvim +PlugUpdate +qall
-
+nvim +PlugClean +qall
 source work-upgrade

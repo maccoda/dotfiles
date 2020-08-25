@@ -17,9 +17,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'dag/vim-fish'
     Plug 'tpope/vim-sensible'
     Plug 'dense-analysis/ale' " TODO: This is only useful if the linters are installed locally
-    Plug 'pangloss/vim-javascript'
-    Plug 'leafgarland/typescript-vim'
-    Plug 'peitalin/vim-jsx-typescript'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'sheerun/vim-polyglot'
     Plug 'Xuyuanp/nerdtree-git-plugin'
