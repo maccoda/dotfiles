@@ -16,8 +16,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'tpope/vim-fugitive'
     Plug 'dag/vim-fish'
     Plug 'tpope/vim-sensible'
-    Plug 'dense-analysis/ale' " TODO: This is only useful if the linters are installed locally
-    Plug 'terryma/vim-multiple-cursors'
     Plug 'sheerun/vim-polyglot'
     Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
