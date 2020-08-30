@@ -1,4 +1,0 @@
-#!/usr/bin/zsh
-file_path=$(echo $1 | sed 's/mnt\/c/c:/')
-echo $file_path
-/mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe $file_path

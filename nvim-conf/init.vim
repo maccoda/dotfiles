@@ -50,8 +50,11 @@ nnoremap i :noh<CR>i
 autocmd BufWritePre * %s/\s\+$//e
 " Wrap markdown files to 80 column
 au BufRead,BufNewFile *.md setlocal textwidth=80
-" Set spell check in markdown files
+" Wrap text files to 100 column
+au BufRead,BufNewFile *.tex setlocal textwidth=80
+" Set spell check in markdown and latex files
 autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.tex setlocal spell
 " Show tabs and trailing whitespace
 set list listchars=tab:>-,trail:.,extends:>
 " Use hidden to keep things like undo history present when change buffer
