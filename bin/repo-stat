@@ -1,46 +1,52 @@
-#!/bin/bash
-startDir=${1:-.}
+#!/usr/local/bin/fish
+set startDir $argv[1]
+test -z $startDir; and set startDir '.'
 echo "Starting at $startDir"
 
 echo -n "Fetching updates for "
-dirs=$(fd -HI -t d .git$ $startDir)
- for dir in $dirs; do
-    repoDir=$(echo $dir | sed 's/\/.git//')
-    short_name=$(basename $repoDir)
+set dirs (fd -HI -t d '.git$' $startDir)
+for dir in $dirs
+    set -l repoDir (echo $dir | sed "s/\/.git//")
+    set -l short_name (basename $repoDir)
     echo -n "$short_name "
     cd $repoDir
+    # TODO: Silence this output
     git fetch &
     cd - > /dev/null
-done
+end
 
 echo
 wait
 
-for dir in $dirs; do
-    repoDir=$(echo $dir | sed 's/\/.git//')
+for dir in $dirs
+    set -l repoDir (echo $dir | sed 's/\/.git//')
     cd $repoDir
-    short_name=$(basename $repoDir)
+    set -l short_name (basename $repoDir)
 
-    status=$(git status --porcelain &)
-    commits=$(git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
-    commits_behind=$(git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
+    set -l git_status (git status --porcelain &)
+    set -l commits (git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
+    set -l commits_behind (git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
 
     wait
 
-    if [[ ! -z "$status" ]]; then
+    if test -n "$git_status"
         echo "$short_name is dirty"
-    fi
-    if [[ $commits -gt "0" ]]; then
+    end
+
+    if test $commits -gt 0
         echo "$short_name is ahead of origin"
-    fi
-    if [[ $commits_behind -gt "0" ]]; then
+    end
+
+    if test $commits_behind -gt 0
         echo "$short_name is behind origin"
-        read -p "Would you like to pull updates? (y/n) " input
-        case $input in
-            [Yy]* ) git pull;;
-            * ) echo "Leaving $short_name behind origin";;
-        esac
-    fi
+        read -P "Would you like to pull updates? (y/n) " input
+        switch $input
+            case Y y
+                gpr
+            case '*'
+                echo "Leaving $short_name behind origin"
+        end
+    end
     cd - > /dev/null
-done
+end
 
