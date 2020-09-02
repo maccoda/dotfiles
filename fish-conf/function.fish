@@ -49,6 +49,7 @@ end
 function dots
   cd $HOME/.dotfiles
   nvim .
+  cd -
 end
 
 # Remove files with `orig` in name. Usually occured during conflicts
@@ -65,5 +66,7 @@ end
 # Interactive git staging
 function gd
     set -l preview "git diff $argv --color=always -- {-1}"
-    git diff $argv --name-only | fzf -m --ansi --preview $preview --bind "enter:execute(git add {})+reload(git diff $argv --name-only)"
+    git diff $argv --name-only | fzf -m --ansi --preview $preview \
+    --bind "s:execute-silent(git add {})+reload(git diff $argv --name-only),p:execute(git add -p {}),ctrl-r:reload(git diff $argv --name-only)" \
+    --header 'Press Ctrl+r to reload'
 end
