@@ -10,8 +10,7 @@ for dir in $dirs
     set -l short_name (basename $repoDir)
     echo -n "$short_name "
     cd $repoDir
-    # TODO: Silence this output
-    git fetch &
+    git fetch -q &
     cd - > /dev/null
 end
 

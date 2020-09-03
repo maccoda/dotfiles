@@ -1,36 +1,39 @@
-#!/bin/bash
-set -x
-case "$(uname -s)" in
+#!/usr/local/bin/fish
+echo "Pulling updates for dotfiles..."
+cd $HOME/.dotfiles
+git submodule update --recursive --remote
+gpr
 
-   Darwin)
-     brew cask upgrade
-    ;;
+switch (uname -s)
 
-   Linux)
-        sudo apt-get update -q
-        sudo apt-get upgrade -qy
-        sudo apt-get autoremove -qy
-    ;;
+   case Darwin
+      echo "Detected MacOS. Running MacOS specific managers..."
+      brew cask upgrade
 
-   *)
+   case Linux
+      echo "Detected Linux. Running Linux specific managers..."
+      sudo apt-get update -q
+      sudo apt-get upgrade -qy
+      sudo apt-get autoremove -qy
+
+   case '*'
      echo 'Unknown OS'
      exit 1
-     ;;
-esac
+end
 
-
+echo "Updating brew taps..."
 brew upgrade
 brew cleanup
 
+echo "Updating fisher packages..."
 fish -c "fisher"
 fish -c "fisher self-update"
 
+echo "Updating rust..."
 rustup update
 
-cd $HOME/.dotfiles
-git submodule update --recursive --remote
-git stash; git pull -r; git stash pop
-
+echo "Updating vim..."
 nvim +PlugUpdate +qall
 nvim +PlugClean +qall
-source work-upgrade
+
+source $HOME/bin/work-upgrade
