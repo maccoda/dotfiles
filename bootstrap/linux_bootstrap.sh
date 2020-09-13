@@ -10,6 +10,7 @@ check_if_binary_installed "brew" || /bin/bash -c "$(curl -fsSL https://raw.githu
 echoo "Get some essentials"
 apt_install curl
 apt_install fswatch
+apt_install libavcodec-extra # Video codecs
 
 #sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 #sudo apt install code
