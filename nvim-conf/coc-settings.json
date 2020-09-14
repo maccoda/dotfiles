@@ -8,5 +8,11 @@
         "rust"
       ],
       "tsserver.formatOnType": true,
-      "coc.preferences.formatOnType": true
+      "coc.preferences.formatOnType": true,
+      "languageserver": {
+          "kotlin": {
+              "command": "~/tools/kotlin-lsp/server/bin/kotlin-language-server",
+              "filetypes": ["kotlin"]
+          }
+      }
 }

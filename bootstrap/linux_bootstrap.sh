@@ -42,3 +42,15 @@ snap install slack --classic
 snap install insomnia
 
 check_if_installed ~/.joplin/Joplin.AppImage || wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
+
+
+# Install kotlin language server for vim
+mkdir -p ~/tools/kotlin-lsp
+cd ~/tools
+curl -L https://api.github.com/repos/fwcd/kotlin-language-server/releases/latest \
+    | grep 'browser_download_url' \
+    | cut -d \" -f 4 \
+    | grep 'server.zip' \
+    | xargs curl -L --output kotlin-lsp.zip
+unzip kotlin-lsp.zip -d kotlin-lsp
+rm kotlin-lsp.zip
