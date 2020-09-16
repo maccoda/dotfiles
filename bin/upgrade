@@ -8,7 +8,6 @@ switch (uname -s)
 
    case Darwin
       echo "Detected MacOS. Running MacOS specific managers..."
-      brew cask upgrade
 
    case Linux
       echo "Detected Linux. Running Linux specific managers..."
