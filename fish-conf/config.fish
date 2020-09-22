@@ -8,4 +8,7 @@ set -gx PATH /home/linuxbrew/.linuxbrew/bin $PATH
 # Remove the welcome message
 set fish_greeting
 
+# Change command color as blue is not good for ubuntu
+set fish_color_command cyan
+
 starship init fish | source
