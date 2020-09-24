@@ -70,3 +70,11 @@ function gd
     --bind "s:execute-silent(git add {})+reload(git diff $argv --name-only),p:execute(git add -p {}),ctrl-r:reload(git diff $argv --name-only)" \
     --header 'Press Ctrl+r to reload'
 end
+
+function nv
+    if test -e Session.vim
+        nvim
+    else
+        nvim .
+    end
+end

@@ -24,4 +24,3 @@ alias find='fd'
 alias ls='exa'
 alias du='dust'
 
-alias nv='nvim .'

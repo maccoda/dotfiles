@@ -18,6 +18,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'tpope/vim-sensible'
     Plug 'sheerun/vim-polyglot'
     Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'thaerkh/vim-workspace'
 call plug#end()
 
 " Config Section
@@ -155,17 +156,15 @@ filetype plugin on
 
 "== Vim Sneak ==
 " Remap command
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
+map s <Plug>Sneak_s
+map S <Plug>Sneak_S
+" Add label mode
+let g:sneak#label = 1
+let g:sneak#s_next = 1
 
 " == Airline ==
 " Set theme
 let g:airline_theme='simple'
-
-" == Sneak ==
-" Add label mode
-let g:sneak#label = 1
-let g:sneak#s_next = 1
 
 " == CoC ==
 " Use `[g` and `]g` to navigate diagnostics
