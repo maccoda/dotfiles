@@ -1,1 +1,6 @@
+# Ignore history directory VSCode
 .history/
+
+# Ignore vim session data
+Session.vim
+.undodir/
