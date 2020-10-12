@@ -130,7 +130,7 @@ endfunction
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 " Open previous buffers
-nnoremap ; :Buffers<CR>
+nnoremap <leader>; :Buffers<CR>
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -156,8 +156,8 @@ filetype plugin on
 
 "== Vim Sneak ==
 " Remap command
-map s <Plug>Sneak_s
-map S <Plug>Sneak_S
+map ]s <Plug>Sneak_s
+map ]S <Plug>Sneak_S
 " Add label mode
 let g:sneak#label = 1
 let g:sneak#s_next = 1

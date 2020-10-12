@@ -1,4 +1,6 @@
 .history/
 bin/work-upgrade
 fish-conf/work_alias.fish
+Session.vim
+.undodir/
 
