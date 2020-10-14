@@ -17,7 +17,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'dag/vim-fish'
     Plug 'tpope/vim-sensible'
     Plug 'sheerun/vim-polyglot'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'thaerkh/vim-workspace'
 call plug#end()
 
