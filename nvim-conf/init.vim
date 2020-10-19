@@ -1,3 +1,6 @@
+" Ensure ALE and CoC play nice
+let g:ale_disable_lsp = 1
+
 call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
@@ -167,6 +170,8 @@ let g:sneak#s_next = 1
 " == Airline ==
 " Set theme
 let g:airline_theme='simple'
+" Add ALE to status line
+let g:airline#extensions#ale#enabled = 1
 
 " == CoC ==
 " Use `[g` and `]g` to navigate diagnostics
@@ -237,3 +242,17 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 nnoremap <leader>gd :Gvdiffsplit!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
+
+" == ALE ==
+" Fixers
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\   'kotlin': ['ktlint']
+\}
+
+" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+" Map diagnostics
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)

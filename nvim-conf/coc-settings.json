@@ -14,5 +14,6 @@
               "command": "~/tools/kotlin-lsp/server/bin/kotlin-language-server",
               "filetypes": ["kotlin"]
           }
-      }
+      },
+      "diagnostic.displayByAle": true
 }
