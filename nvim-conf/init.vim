@@ -18,6 +18,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'tpope/vim-sensible'
     Plug 'sheerun/vim-polyglot'
     Plug 'thaerkh/vim-workspace'
+    Plug 'dense-analysis/ale'
 call plug#end()
 
 " Config Section
@@ -38,6 +39,8 @@ set smartindent
 set cursorline
 
 set nowrap
+" Auto load from file useful when formatters run
+set autoread
 
 set termguicolors
 " Do not show the last command

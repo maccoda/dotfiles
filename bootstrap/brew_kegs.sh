@@ -14,3 +14,6 @@ brew link node@12 --force # Since we don't trust bleeding edge
 brew_install zola # Static site generator
 brew_install fzf # Fuzzy finder
 brew_install fswatch # File watch
+brew_install miniserve # Simple HTTP server
+brew_install ktlint
+
