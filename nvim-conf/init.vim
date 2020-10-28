@@ -71,13 +71,35 @@ let mapleader = " "
 set ignorecase
 set smartcase
 
+" =========
+" Personal plugins
+" =========
+" Open files with current file name, useful for finding tests
+function! CurrentFileName()
+    return expand('%:t:r')
+endfunction
+
+function! TestFile()
+    call fzf#run(fzf#wrap({'options': ['--query', CurrentFileName()]}))
+endfunction
+
+command! TFiles call TestFile()
+
+nnoremap <leader>t :TFiles<CR>
+
+" =========
+
 
 " Syntax theme
 let ayucolor="mirage"
 colorscheme ayu
 
 " Color cursorline a little more grey than theme
-hi CursorLine cterm=NONE guibg=#2c313b guifg=NONE
+highlight CursorLine cterm=NONE guibg=#2c313b guifg=NONE
+" Color vertical split line same gray as above
+highlight VertSplit guibg=#2c313b guifg=#737373 ctermbg=4 ctermfg=0
+" Brighten the line number
+highlight LineNr guifg=#737373
 
 " == NERDTree ==
 let g:NERDTreeShowHidden = 1
@@ -105,18 +127,19 @@ tnoremap <Esc> <C-\><C-n>
 au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 " open terminal on ctrl+n
 function! OpenTerminal()
-	split term://fish
-	resize 10
+    split term://fish
+    resize 10
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
 " == FZF fuzzy finder ==
+nnoremap <leader><leader> :Commands<CR>
 nnoremap <C-p> :Files<CR>
 let g:fzf_action = {
-	\ 'ctrl-t': 'tab split',
-	\ 'ctrl-s': 'split',
-	\ 'ctrl-v': 'vsplit'
-	\}
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit'
+    \}
 " Use fd - does not include ignored by git files
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git'
 " Map ctrl + f to ripgrep across project and start with previous search
@@ -162,14 +185,14 @@ filetype plugin on
 "== Vim Sneak ==
 " Remap command
 map ]s <Plug>Sneak_s
-map ]S <Plug>Sneak_S
+map [s <Plug>Sneak_S
 " Add label mode
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 
 " == Airline ==
 " Set theme
-let g:airline_theme='simple'
+let g:airline_theme='bubblegum'
 " Add ALE to status line
 let g:airline#extensions#ale#enabled = 1
 
