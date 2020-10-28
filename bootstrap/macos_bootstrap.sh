@@ -31,3 +31,4 @@ echoo "Add some fonts"
 brew tap homebrew/cask-fonts
 cask_install font-droidsansmono-nerd-font-mono
 cask_install font-firacode-nerd-font
+cask_install font-inconsolata-nerd-font
