@@ -171,6 +171,7 @@ let $FZF_DEFAULT_OPTS='--reverse'
 " == Git gutter ==
 " Enable highlights of line numbers on start up
 autocmd VimEnter * :GitGutterLineNrHighlightsEnable
+nnoremap <leader>g :GitGutterPreviewHunk<CR>
 
 " == Autosave ==
 " Enable auto save
