@@ -32,7 +32,7 @@ set tabstop=4
 set softtabstop=4
 set smarttab
 " Indentation amount for < and > commands
-set shiftwidth=4
+set shiftwidth=2
 " Insert spaces when tab is pressed
 set expandtab
 " Copy indent from current line when start new line
@@ -45,7 +45,6 @@ set nowrap
 " Auto load from file useful when formatters run
 set autoread
 
-set termguicolors
 " Do not show the last command
 set noshowcmd
 " Yank and paste with the system clipboard
@@ -91,6 +90,7 @@ nnoremap <leader>t :TFiles<CR>
 
 
 " Syntax theme
+set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
 
@@ -107,6 +107,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['^.git$']
 let g:NERDTreeStatusline = ''
 let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinSize = 60
 " Remap open keys
 let g:NERDTreeMapOpenSplit = 's'
 let g:NERDTreeMapOpenVSplit = 'v'
@@ -172,6 +173,7 @@ let $FZF_DEFAULT_OPTS='--reverse'
 " Enable highlights of line numbers on start up
 autocmd VimEnter * :GitGutterLineNrHighlightsEnable
 nnoremap <leader>g :GitGutterPreviewHunk<CR>
+nnoremap <leader>uh :GitGutterUndoHunk<CR>
 
 " == Autosave ==
 " Enable auto save
@@ -180,7 +182,7 @@ let g:auto_save = 1
 " == NerdCommenter ==
 " Remap toggle command
 nmap <C-_> <plug>NERDCommenterToggle
-vmap <C-_> <Plug>NERDCommenterToggle<CR>gv
+vmap <C-_> <Plug>NERDCommenterToggle
 filetype plugin on
 
 "== Vim Sneak ==
