@@ -5,6 +5,7 @@ call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
     Plug 'ayu-theme/ayu-vim'
+    Plug 'drewtempelmeyer/palenight.vim'
     Plug 'scrooloose/nerdtree'
     Plug 'ryanoasis/vim-devicons'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -22,6 +23,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'sheerun/vim-polyglot'
     Plug 'thaerkh/vim-workspace'
     Plug 'dense-analysis/ale'
+    Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 " Config Section
@@ -93,6 +95,13 @@ nnoremap <leader>t :TFiles<CR>
 set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
+let g:airline_theme='bubblegum'
+
+" Palenight
+"set background=dark
+"colorscheme palenight
+"let g:airline_theme = "palenight"
+
 
 " Color cursorline a little more grey than theme
 highlight CursorLine cterm=NONE guibg=#2c313b guifg=NONE
@@ -114,7 +123,7 @@ let g:NERDTreeMapOpenVSplit = 'v'
 " Close tree view when open file
 let g:NERDTreeQuitOnOpen = 1
 " Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+nnoremap <silent> <C-a> :NERDTreeToggle<CR>
 " Automatically close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -194,8 +203,6 @@ let g:sneak#label = 1
 let g:sneak#s_next = 1
 
 " == Airline ==
-" Set theme
-let g:airline_theme='bubblegum'
 " Add ALE to status line
 let g:airline#extensions#ale#enabled = 1
 
