@@ -148,34 +148,64 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-# Colors (Ayu Mirage)
+# Colors (Ubuntu)
 colors:
-  # Default colors
-  primary:
-    background: '#202734'
-    foreground: '#CBCCC6'
-
-  # Normal colors
-  normal:
-    black: '#191E2A'
-    red: '#FF3333'
-    green: '#BAE67E'
-    yellow: '#FFA759'
-    blue: '#73D0FF'
-    magenta: '#FFD580'
-    cyan: '#95E6CB'
-    white: '#C7C7C7'
-
-  # Bright colors
   bright:
-    black: '#686868'
-    red: '#F27983'
-    green: '#A6CC70'
-    yellow: '#FFCC66'
-    blue: '#5CCFE6'
-    magenta: '#FFEE99'
-    cyan: '#95E6CB'
-    white: '#FFFFFF'
+    black: '#555753'
+    blue: '#729fcf'
+    cyan: '#34e2e2'
+    green: '#8ae234'
+    magenta: '#ad7fa8'
+    red: '#ef2929'
+    white: '#eeeeec'
+    yellow: '#fce94f'
+  cursor:
+    cursor: '#bbbbbb'
+    text: '#ffffff'
+  normal:
+    black: '#2e3436'
+    blue: '#3465a4'
+    cyan: '#06989a'
+    green: '#4e9a06'
+    magenta: '#75507b'
+    red: '#cc0000'
+    white: '#d3d7cf'
+    yellow: '#c4a000'
+  primary:
+    background: '#300a24'
+    foreground: '#eeeeec'
+  selection:
+    background: '#b5d5ff'
+    text: '#000000'
+
+# Colors (Ayu Mirage)
+#colors:
+  ## Default colors
+  #primary:
+    #background: '#202734'
+    #foreground: '#CBCCC6'
+
+  ## Normal colors
+  #normal:
+    #black: '#191E2A'
+    #red: '#FF3333'
+    #green: '#BAE67E'
+    #yellow: '#FFA759'
+    #blue: '#73D0FF'
+    #magenta: '#FFD580'
+    #cyan: '#95E6CB'
+    #white: '#C7C7C7'
+
+  ## Bright colors
+  #bright:
+    #black: '#686868'
+    #red: '#F27983'
+    #green: '#A6CC70'
+    #yellow: '#FFCC66'
+    #blue: '#5CCFE6'
+    #magenta: '#FFEE99'
+    #cyan: '#95E6CB'
+    #white: '#FFFFFF'
 
 # Bell
 #
@@ -632,29 +662,6 @@ key_bindings:
   - { key: N,     mods: Control|Shift, action: SpawnNewInstance }
   - { key: C,     mods: Control|Shift, action: Copy }
   - { key: V,     mods: Control|Shift, action: Paste }
-    # Possible mappings for tmux
-  - { key: D,     mods: Command,       chars: "\x06\x76" }
-  - { key: D,     mods: Command|Shift, chars: "\x06\x73" }
-  - { key: W,     mods: Command,       chars: "\x06\x78" }
-  - { key: H,     mods: Command,       chars: "\x06\x68" }
-  - { key: J,     mods: Command,       chars: "\x06\x6a" }
-  - { key: K,     mods: Command,       chars: "\x06\x6b" }
-  - { key: L,     mods: Command,       chars: "\x06\x6c" }
-  - { key: T,     mods: Command,       chars: "\x06\x63" }
-  - { key: Key1,  mods: Command,       chars: "\x06\x31" }
-  - { key: Key2,  mods: Command,       chars: "\x06\x32" }
-  - { key: Key3,  mods: Command,       chars: "\x06\x33" }
-  - { key: Key4,  mods: Command,       chars: "\x06\x34" }
-  - { key: Key5,  mods: Command,       chars: "\x06\x35" }
-  - { key: Key6,  mods: Command,       chars: "\x06\x36" }
-  - { key: Key7,  mods: Command,       chars: "\x06\x37" }
-  - { key: Key8,  mods: Command,       chars: "\x06\x38" }
-  - { key: Key9,  mods: Command,       chars: "\x06\x39" }
-  - { key: Left,  mods: Command,       chars: "\x06\x48" }
-  - { key: Down,  mods: Command,       chars: "\x06\x4a" }
-  - { key: Up,    mods: Command,       chars: "\x06\x4b" }
-  - { key: Right, mods: Command,       chars: "\x06\x4c" }
-
 #debug:
   # Display the time it takes to redraw each frame.
   #render_timer: false

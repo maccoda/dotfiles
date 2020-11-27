@@ -48,6 +48,8 @@
     "~/.config/alacritty/alacritty.yml":
       path: alacritty.yml
 
+    "~/.tmux.conf": tmux.conf
+
 - clean:
     ~/:
       force: true
@@ -56,4 +58,3 @@
     ~/.config:
       force: true
       recursive: true
-

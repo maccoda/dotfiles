@@ -48,7 +48,7 @@ end
 # Open dots files
 function dots
   cd $HOME/.dotfiles
-  nvim .
+  nv
   cd -
 end
 
