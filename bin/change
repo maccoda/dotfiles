@@ -3,7 +3,7 @@
 cmd=$1
 watchDir=${2:-src}
 $cmd
-fswatch -0 $watchDir | while read -d "" event; do
+fswatch -0 --latency 3 $watchDir | while read -d "" event; do
   echo "File Changed: $event"
   $cmd
 done
