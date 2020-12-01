@@ -299,7 +299,10 @@ live_config_reload: true
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: "/usr/local/bin/fish"
+  # macOS
+  #program: "/usr/local/bin/fish"
+  # Linux
+  program: "/usr/bin/fish"
   args:
       - -l
 #      - -c

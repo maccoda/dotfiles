@@ -14,6 +14,7 @@ switch (uname -s)
       sudo apt-get update -q
       sudo apt-get upgrade -qy
       sudo apt-get autoremove -qy
+      snap refresh
 
    case '*'
      echo 'Unknown OS'
