@@ -123,7 +123,7 @@ let g:NERDTreeMapOpenVSplit = 'v'
 " Close tree view when open file
 let g:NERDTreeQuitOnOpen = 1
 " Toggle
-nnoremap <silent> <C-a> :NERDTreeToggle<CR>
+nnoremap <silent> <C-a> :NERDTreeFind<CR>
 " Automatically close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
