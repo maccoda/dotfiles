@@ -20,7 +20,7 @@ function gp
         git pull
     else
         echo "Detected local changes, stashing all"
-        git stash --all; and git pull; and git stash pop
+        git stash --include-untracked; and git pull; and git stash pop
     end
 end
 
@@ -31,7 +31,7 @@ function gpr
         git pull -r
     else
         echo "Detected local changes, stashing all"
-        git stash --all; and git pull -r; and git stash pop
+        git stash --include-untracked; and git pull -r; and git stash pop
     end
 end
 
