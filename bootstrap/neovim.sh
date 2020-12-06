@@ -14,7 +14,7 @@ curl -l https://api.github.com/repos/fwcd/kotlin-language-server/releases/latest
     | grep 'browser_download_url' \
     | cut -d \" -f 4 \
     | grep 'server.zip' \
-    | xargs curl -l --output kotlin-lsp.zip
+    | xargs curl -lL --output kotlin-lsp.zip
 unzip kotlin-lsp.zip -d kotlin-lsp
 rm kotlin-lsp.zip
 cd -
