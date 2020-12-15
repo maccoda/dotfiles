@@ -1,5 +1,6 @@
 {
     "suggest.noselect": false,
+    /*
     "coc.preferences.formatOnSaveFiletypes": [
         "javascript",
         "javascriptreact",
@@ -8,8 +9,9 @@
         "rust",
         "markdown"
       ],
+      */
       "tsserver.formatOnType": true,
-      "coc.preferences.formatOnType": true,
+      "coc.preferences.formatOnInsertLeave": true,
       "languageserver": {
           "kotlin": {
               "command": "~/tools/kotlin-lsp/server/bin/kotlin-language-server",

@@ -1,5 +1,5 @@
 set -e fish_user_paths
-set fish_user_paths $HOME/bin $HOME/.cargo/bin /usr/local/bin $fish_user_paths
+set fish_user_paths $HOME/bin $HOME/.cargo/bin /usr/local/bin $HOME/.fzf/bin $fish_user_paths
 
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 

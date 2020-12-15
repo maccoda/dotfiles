@@ -53,6 +53,8 @@ set noshowcmd
 set clipboard=unnamed
 " Turn off search highlights when entering insert
 nnoremap i :noh<CR>i
+nnoremap o :noh<CR>o
+nnoremap O :noh<CR>O
 " Trim trailing white space on save
 autocmd BufWritePre * %s/\s\+$//e
 " Wrap markdown files to 80 column
@@ -189,9 +191,6 @@ nnoremap <leader>uh :GitGutterUndoHunk<CR>
 let g:auto_save = 1
 
 " == NerdCommenter ==
-" Remap toggle command
-nmap <C-_> <plug>NERDCommenterToggle
-vmap <C-_> <Plug>NERDCommenterToggle
 filetype plugin on
 
 "== Vim Sneak ==
