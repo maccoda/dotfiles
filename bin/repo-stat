@@ -10,7 +10,7 @@ argparse 'y' -- $argv
 set startDir $argv[1]
 test -z $startDir; and set startDir (realpath '.')
 echo "Starting at $startDir"
-if test -n flag_y
+if set -q _flag_y
     echo "Will automatically fetch and pull from origin"
 end
 
@@ -49,7 +49,7 @@ for dir in $dirs
 
     if test $commits_behind -gt 0
         echo "$short_name is behind origin"
-        if test -n flag_y
+        if set -q _flag_y
             gpr
         else
             read -P "Would you like to pull updates? (y/n) " input
