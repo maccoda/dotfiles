@@ -1,6 +1,3 @@
-[git_status]
-show_sync_count = true
-
 [username]
 # Disable as seems to take most time and do not use
 disabled = true

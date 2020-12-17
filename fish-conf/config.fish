@@ -12,4 +12,7 @@ set fish_greeting
 # Change command color as blue is not good for ubuntu
 set fish_color_command cyan
 
-starship init fish | source
+# When executing from vim remove the overhead
+if test -z "$VIM"
+  starship init fish | source
+end
