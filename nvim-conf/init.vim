@@ -74,6 +74,8 @@ let mapleader = " "
 set ignorecase
 set smartcase
 
+" Allow mouse mode because sometimes we just want to click
+set mouse=nv
 " =========
 " Personal plugins
 " =========
