@@ -1,6 +1,5 @@
 {
     "suggest.noselect": false,
-    /*
     "coc.preferences.formatOnSaveFiletypes": [
         "javascript",
         "javascriptreact",
@@ -9,7 +8,6 @@
         "rust",
         "markdown"
       ],
-      */
       "tsserver.formatOnType": true,
       "coc.preferences.formatOnInsertLeave": true,
       "languageserver": {
