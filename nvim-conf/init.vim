@@ -76,6 +76,7 @@ set smartcase
 
 " Allow mouse mode because sometimes we just want to click
 set mouse=nv
+
 " =========
 " Personal plugins
 " =========
@@ -91,6 +92,10 @@ endfunction
 command! TFiles call TestFile()
 
 nnoremap <leader>t :TFiles<CR>
+
+" Easily swap between previous and next buffer
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
 
 " =========
 
@@ -208,6 +213,23 @@ let g:sneak#s_next = 1
 let g:airline#extensions#ale#enabled = 1
 
 " == CoC ==
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -221,6 +243,9 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -287,6 +312,11 @@ let g:ale_fixers = {
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
+" Then remove all other times to perform lint (auto save means insert leave
+" and save are the same)
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
 " Map diagnostics
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
