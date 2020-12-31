@@ -323,3 +323,8 @@ let g:ale_lint_on_enter = 0
 " Map diagnostics
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
+
+" == Vim Workspace ==
+" If open a specific file do not try open a workspace
+let g:workspace_session_disable_on_args = 1
+
