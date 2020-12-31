@@ -94,8 +94,11 @@ command! TFiles call TestFile()
 nnoremap <leader>t :TFiles<CR>
 
 " Easily swap between previous and next buffer
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
+nnoremap [w :bprevious<CR>
+nnoremap ]w :bnext<CR>
+
+" Close current buffer (unload) without closing vim
+nnoremap <leader>w :bun<CR>
 
 " =========
 
