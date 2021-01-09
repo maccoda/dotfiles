@@ -23,4 +23,4 @@ alias grep='rg'
 alias find='fd'
 alias ls='exa'
 alias du='dust'
-
+alias ps='procs'

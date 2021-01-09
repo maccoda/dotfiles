@@ -36,3 +36,4 @@
 	yesterday = log --after='yesterday' --oneline --author='Dylan Maccora'
     ap = add --patch
     amend = commit --amend --no-edit
+	stash = stash --include-untracked
