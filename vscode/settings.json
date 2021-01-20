@@ -199,4 +199,6 @@
   "todo-tree.tree.showScanModeButton": false,
   "workbench.colorTheme": "Ayu Mirage",
   "java.semanticHighlighting.enabled": true,
+  "vim.smartRelativeLine": true,
+  "editor.lineNumbers": "relative",
 }

@@ -3,7 +3,10 @@
 cmd=$1
 watchDir=${2:-src}
 $cmd
+echo -e '\a'
 fswatch -0 --latency 3 $watchDir | while read -d "" event; do
   echo "File Changed: $event"
   $cmd
+  # Run bell to trigger alert in tmux
+  echo -e '\a'
 done
