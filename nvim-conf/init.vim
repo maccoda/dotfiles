@@ -30,6 +30,7 @@ call plug#end()
 " =============
 set number relativenumber
 syntax on
+filetype plugin on
 set tabstop=4
 set softtabstop=4
 set smarttab
@@ -135,7 +136,7 @@ let g:NERDTreeMapOpenVSplit = 'v'
 " Close tree view when open file
 let g:NERDTreeQuitOnOpen = 1
 " Toggle
-nnoremap <silent> <C-a> :NERDTreeFind<CR>
+nnoremap <silent> <C-b> :NERDTreeFind<CR>
 " Automatically close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -200,9 +201,6 @@ nnoremap <leader>uh :GitGutterUndoHunk<CR>
 " Enable auto save
 let g:auto_save = 1
 
-" == NerdCommenter ==
-filetype plugin on
-
 "== Vim Sneak ==
 " Remap command
 map ]s <Plug>Sneak_s
@@ -214,6 +212,7 @@ let g:sneak#s_next = 1
 " == Airline ==
 " Add ALE to status line
 let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " == CoC ==
 
@@ -327,4 +326,5 @@ nmap <silent> ]e <Plug>(ale_next_wrap)
 " == Vim Workspace ==
 " If open a specific file do not try open a workspace
 let g:workspace_session_disable_on_args = 1
+nnoremap <leader>qw :CloseHiddenBuffers<CR>
 
