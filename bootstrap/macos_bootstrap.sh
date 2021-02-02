@@ -10,7 +10,6 @@ brew_install tcpflow # TCP traffic logger
 brew_install telnet
 brew_install terraform # Infrastructure as code
 brew_install watch
-brew_install unison # Two way sync if using separate box for development
 
 echoo "Let's move onto the bigger ones"
 cask_install docker # Docker
@@ -22,7 +21,6 @@ cask_install spectacle # Window management for Mac
 cask_install visual-studio-code # The editor
 cask_install joplin # Note taking
 cask_install karabiner-elements # Keyboard shortcuts
-cask_install quicksilver # Quick launch
 cask_install rambox # Messaging app
 cask_install jumpcut # Clipboard manager
 cask_install alacritty # Terminal emulator
