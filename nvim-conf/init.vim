@@ -98,8 +98,8 @@ nnoremap <leader>t :TFiles<CR>
 nnoremap [w :bprevious<CR>
 nnoremap ]w :bnext<CR>
 
-" Close current buffer (unload) without closing vim
-nnoremap <leader>w :bun<CR>
+" Close current buffer without closing vim
+nnoremap <leader>w :bdelete<CR>
 
 " =========
 
