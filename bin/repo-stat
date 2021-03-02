@@ -29,13 +29,13 @@ echo
 wait
 
 for dir in $dirs
-    set -l repoDir (echo $dir | sed 's/\/.git//')
+    set repoDir (echo $dir | sed 's/\/.git//')
     cd $repoDir
-    set -l short_name (basename $repoDir)
+    set short_name (basename $repoDir)
 
-    set -l git_status (git status --porcelain &)
-    set -l commits (git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
-    set -l commits_behind (git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " " &)
+    set git_status (git status --porcelain)
+    set commits (git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
+    set commits_behind (git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
 
     wait
 
