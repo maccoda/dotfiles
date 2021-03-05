@@ -24,6 +24,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'thaerkh/vim-workspace'
     Plug 'dense-analysis/ale'
     Plug 'jiangmiao/auto-pairs'
+    Plug 'tpope/vim-dispatch'
 call plug#end()
 
 " Config Section
