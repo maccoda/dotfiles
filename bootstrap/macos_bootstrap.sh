@@ -24,6 +24,7 @@ cask_install karabiner-elements # Keyboard shortcuts
 cask_install rambox # Messaging app
 cask_install jumpcut # Clipboard manager
 cask_install alacritty # Terminal emulator
+cask_install signal
 
 echoo "Add some fonts"
 brew tap homebrew/cask-fonts

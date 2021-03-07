@@ -4,6 +4,9 @@ cd $HOME/.dotfiles
 git submodule update --recursive --remote
 gpr
 
+# Update any links
+./install
+
 switch (uname -s)
 
    case Darwin

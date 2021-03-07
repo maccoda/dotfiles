@@ -192,6 +192,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " Place the window in the centre of the screen
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
+" Single escape exits
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 " == Git gutter ==
 " Enable highlights of line numbers on start up
 autocmd VimEnter * :GitGutterLineNrHighlightsEnable
