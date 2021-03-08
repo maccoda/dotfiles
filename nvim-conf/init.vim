@@ -4,7 +4,7 @@ let g:ale_disable_lsp = 1
 call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
-    Plug 'ayu-theme/ayu-vim'
+    Plug 'Luxed/ayu-vim'
     Plug 'drewtempelmeyer/palenight.vim'
     Plug 'scrooloose/nerdtree'
     Plug 'ryanoasis/vim-devicons'
@@ -166,8 +166,8 @@ let g:fzf_action = {
     \}
 " Use fd - does not include ignored by git files
 let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git'
-" Map ctrl + f to ripgrep across project and start with previous search
-nnoremap <C-f> :RG<CR><C-P>
+" Map ctrl + f to ripgrep across project
+nnoremap <C-f> :RG<CR>
 " Below function taken from fzf.vim readme, it will invoke rg on each change
 " when performing search
 function! RipgrepFzf(query, fullscreen)
