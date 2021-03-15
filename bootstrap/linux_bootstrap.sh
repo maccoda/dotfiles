@@ -52,5 +52,6 @@ snap install todoist
 snap install slack --classic
 snap install insomnia
 snap install signal-desktop
+snap install stretchly
 
 check_if_installed ~/.joplin/Joplin.AppImage || wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
