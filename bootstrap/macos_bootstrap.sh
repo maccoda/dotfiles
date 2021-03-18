@@ -25,6 +25,7 @@ cask_install rambox # Messaging app
 cask_install jumpcut # Clipboard manager
 cask_install alacritty # Terminal emulator
 cask_install signal
+cask_install stretchly # Screen timer
 
 echoo "Add some fonts"
 brew tap homebrew/cask-fonts

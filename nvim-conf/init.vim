@@ -79,6 +79,9 @@ set smartcase
 " Allow mouse mode because sometimes we just want to click
 set mouse=nv
 
+" Yanking will return to where cursor was prior to initiating the yank
+vmap y y`]
+
 " =========
 " Personal plugins
 " =========
@@ -190,7 +193,7 @@ nnoremap <leader>; :Buffers<CR>
 "   'previous-history' instead of 'down' and 'up'.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 " Place the window in the centre of the screen
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 " Single escape exits
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
