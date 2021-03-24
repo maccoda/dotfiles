@@ -103,7 +103,8 @@ nnoremap [w :bprevious<CR>
 nnoremap ]w :bnext<CR>
 
 " Close current buffer without closing vim
-nnoremap <leader>w :bdelete<CR>
+nnoremap <leader>w :bunload<CR>
+nnoremap <leader>W :bdelete<CR>
 
 " =========
 
