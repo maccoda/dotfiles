@@ -149,63 +149,125 @@ font:
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Ubuntu)
+schemes:
+  ubuntu: &ubuntu
+    bright:
+      black: '#555753'
+      blue: '#729fcf'
+      cyan: '#34e2e2'
+      green: '#8ae234'
+      magenta: '#ad7fa8'
+      red: '#ef2929'
+      white: '#eeeeec'
+      yellow: '#fce94f'
+    cursor:
+      cursor: '#bbbbbb'
+      text: '#ffffff'
+    normal:
+      black: '#2e3436'
+      blue: '#3465a4'
+      cyan: '#06989a'
+      green: '#4e9a06'
+      magenta: '#75507b'
+      red: '#cc0000'
+      white: '#d3d7cf'
+      yellow: '#c4a000'
+    primary:
+      background: '#300a24'
+      foreground: '#eeeeec'
+    selection:
+      background: '#b5d5ff'
+      text: '#000000'
+  ayu-mirage: &ayu
+    # Default colors
+    primary:
+      background: '#202734'
+      foreground: '#CBCCC6'
+
+    # Normal colors
+    normal:
+      black: '#191E2A'
+      red: '#FF3333'
+      green: '#BAE67E'
+      yellow: '#FFA759'
+      blue: '#73D0FF'
+      magenta: '#FFD580'
+      cyan: '#95E6CB'
+      white: '#C7C7C7'
+
+    # Bright colors
+    bright:
+      black: '#686868'
+      red: '#F27983'
+      green: '#A6CC70'
+      yellow: '#FFCC66'
+      blue: '#5CCFE6'
+      magenta: '#FFEE99'
+      cyan: '#95E6CB'
+      white: '#FFFFFF'
+
+      # Tokyo Night theme, based on both:
+  #   https://github.com/ghifarit53/tokyonight-vim
+  #   https://github.com/enkia/tokyo-night-vscode-theme
+  tokyo-night: &tokyo-night
+    # Default colors
+    primary:
+      background: '0x1a1b26'
+      foreground: '0xa9b1d6'
+
+    # Normal colors
+    normal:
+      black:   '0x32344a'
+      red:     '0xf7768e'
+      green:   '0x9ece6a'
+      yellow:  '0xe0af68'
+      blue:    '0x7aa2f7'
+      magenta: '0xad8ee6'
+      cyan:    '0x449dab'
+      white:   '0x787c99'
+
+    # Bright colors
+    bright:
+      black:   '0x444b6a'
+      red:     '0xff7a93'
+      green:   '0xb9f27c'
+      yellow:  '0xff9e64'
+      blue:    '0x7da6ff'
+      magenta: '0xbb9af7'
+      cyan:    '0x0db9d7'
+      white:   '0xacb0d0'
+
+  tokyo-night-storm: &tokyo-night-storm
+    # Default colors
+    primary:
+      background: '0x24283b'
+      foreground: '0xa9b1d6'
+
+    # Normal colors
+    normal:
+      black:   '0x32344a'
+      red:     '0xf7768e'
+      green:   '0x9ece6a'
+      yellow:  '0xe0af68'
+      blue:    '0x7aa2f7'
+      magenta: '0xad8ee6'
+      cyan:    '0x449dab'
+      white:   '0x9699a8'
+
+    # Bright colors
+    bright:
+      black:   '0x444b6a'
+      red:     '0xff7a93'
+      green:   '0xb9f27c'
+      yellow:  '0xff9e64'
+      blue:    '0x7da6ff'
+      magenta: '0xbb9af7'
+      cyan:    '0x0db9d7'
+      white:   '0xacb0d0'
+
+
 colors:
-  bright:
-    black: '#555753'
-    blue: '#729fcf'
-    cyan: '#34e2e2'
-    green: '#8ae234'
-    magenta: '#ad7fa8'
-    red: '#ef2929'
-    white: '#eeeeec'
-    yellow: '#fce94f'
-  cursor:
-    cursor: '#bbbbbb'
-    text: '#ffffff'
-  normal:
-    black: '#2e3436'
-    blue: '#3465a4'
-    cyan: '#06989a'
-    green: '#4e9a06'
-    magenta: '#75507b'
-    red: '#cc0000'
-    white: '#d3d7cf'
-    yellow: '#c4a000'
-  primary:
-    background: '#300a24'
-    foreground: '#eeeeec'
-  selection:
-    background: '#b5d5ff'
-    text: '#000000'
-
-# Colors (Ayu Mirage)
-#colors:
-  ## Default colors
-  #primary:
-    #background: '#202734'
-    #foreground: '#CBCCC6'
-
-  ## Normal colors
-  #normal:
-    #black: '#191E2A'
-    #red: '#FF3333'
-    #green: '#BAE67E'
-    #yellow: '#FFA759'
-    #blue: '#73D0FF'
-    #magenta: '#FFD580'
-    #cyan: '#95E6CB'
-    #white: '#C7C7C7'
-
-  ## Bright colors
-  #bright:
-    #black: '#686868'
-    #red: '#F27983'
-    #green: '#A6CC70'
-    #yellow: '#FFCC66'
-    #blue: '#5CCFE6'
-    #magenta: '#FFEE99'
-    #cyan: '#95E6CB'
-    #white: '#FFFFFF'
+  *tokyo-night-storm
 
 # Bell
 #

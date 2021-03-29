@@ -5,6 +5,7 @@ call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
     Plug 'Luxed/ayu-vim'
+    Plug 'ghifarit53/tokyonight-vim'
     Plug 'drewtempelmeyer/palenight.vim'
     Plug 'scrooloose/nerdtree'
     Plug 'ryanoasis/vim-devicons'
@@ -111,22 +112,30 @@ nnoremap <leader>W :bdelete<CR>
 
 " Syntax theme
 set termguicolors
-let ayucolor="mirage"
-colorscheme ayu
-let g:airline_theme='bubblegum'
+" Ayu
+"let ayucolor="mirage"
+"colorscheme ayu
+"let g:airline_theme='bubblegum'
+" Color cursorline a little more grey than theme
+"highlight CursorLine cterm=NONE guibg=#2c313b guifg=NONE
+" Color vertical split line same gray as above
+"highlight VertSplit guibg=#2c313b guifg=#737373 ctermbg=4 ctermfg=0
+" Brighten the line number
+"highlight LineNr guifg=#737373
 
 " Palenight
 "set background=dark
 "colorscheme palenight
 "let g:airline_theme = "palenight"
 
+" Tokyo
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+let g:airline_theme = "tokyonight"
+let g:tokyonight_menu_selection_background = 'blue'
 
-" Color cursorline a little more grey than theme
-highlight CursorLine cterm=NONE guibg=#2c313b guifg=NONE
-" Color vertical split line same gray as above
-highlight VertSplit guibg=#2c313b guifg=#737373 ctermbg=4 ctermfg=0
-" Brighten the line number
-highlight LineNr guifg=#737373
+colorscheme tokyonight
+
 
 " == NERDTree ==
 let g:NERDTreeShowHidden = 1
