@@ -92,7 +92,7 @@ function! CurrentFileName()
 endfunction
 
 function! TestFile()
-    call fzf#run(fzf#wrap({'options': ['--query', CurrentFileName()]}))
+    call fzf#run(fzf#wrap({'options': ['--query', CurrentFileName() . 'T']}))
 endfunction
 
 command! TFiles call TestFile()
@@ -114,7 +114,6 @@ nnoremap <leader>W :bdelete<CR>
 set termguicolors
 " Ayu
 "let ayucolor="mirage"
-"colorscheme ayu
 "let g:airline_theme='bubblegum'
 " Color cursorline a little more grey than theme
 "highlight CursorLine cterm=NONE guibg=#2c313b guifg=NONE
@@ -125,7 +124,6 @@ set termguicolors
 
 " Palenight
 "set background=dark
-"colorscheme palenight
 "let g:airline_theme = "palenight"
 
 " Tokyo
