@@ -1,10 +1,13 @@
-set -e fish_user_paths
-set fish_user_paths $HOME/bin $HOME/.cargo/bin /usr/local/bin $HOME/.fzf/bin $fish_user_paths
+fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin $HOME/.fzf/bin
 
+# Used for fzf in vim mainly but default is to only look for files
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 
+# Set default theme for bat
+set -gx BAT_THEME "base16"
+
 # For linux /home/linuxbrew/.linuxbrew/bin
-set fish_user_paths /home/linuxbrew/.linuxbrew/bin $fish_user_paths
+fish_add_path /home/linuxbrew/.linuxbrew/bin
 
 # Remove the welcome message
 set fish_greeting
