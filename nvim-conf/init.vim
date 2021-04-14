@@ -56,8 +56,12 @@ set noshowcmd
 set clipboard=unnamed
 " Turn off search highlights when entering insert
 nnoremap i :noh<CR>i
+nnoremap I :noh<CR>I
 nnoremap o :noh<CR>o
 nnoremap O :noh<CR>O
+nnoremap a :noh<CR>a
+nnoremap A :noh<CR>A
+nnoremap s :noh<CR>s
 " Trim trailing white space on save
 autocmd BufWritePre * %s/\s\+$//e
 " Wrap markdown files to 80 column

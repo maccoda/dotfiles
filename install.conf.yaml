@@ -43,7 +43,7 @@
       path: nvim-conf/*
 
     "~/.config/starship.toml": starship.toml
-    "~/.config/fish/fishfile": fishfile
+    "~/.config/fish/fish_plugins": fish_plugins
 
     "~/.config/alacritty/alacritty.yml":
       path: alacritty.yml
