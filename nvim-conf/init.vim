@@ -27,6 +27,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'tpope/vim-projectionist'
     Plug 'justinmk/vim-dirvish'
     Plug 'kristijanhusak/vim-dirvish-git'
+    Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-unimpaired'
 call plug#end()
 
 " Config Section
