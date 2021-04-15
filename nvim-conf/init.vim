@@ -7,14 +7,12 @@ call plug#begin("~/.vim/plugged")
     Plug 'Luxed/ayu-vim'
     Plug 'ghifarit53/tokyonight-vim'
     Plug 'drewtempelmeyer/palenight.vim'
-    Plug 'scrooloose/nerdtree'
     Plug 'ryanoasis/vim-devicons'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'airblade/vim-gitgutter'
     Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
     Plug '907th/vim-auto-save'
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
@@ -26,6 +24,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'dense-analysis/ale'
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-dispatch'
+    Plug 'justinmk/vim-dirvish'
+    Plug 'kristijanhusak/vim-dirvish-git'
 call plug#end()
 
 " Config Section
@@ -137,24 +137,6 @@ let g:airline_theme = "tokyonight"
 let g:tokyonight_menu_selection_background = 'blue'
 
 colorscheme tokyonight
-
-
-" == NERDTree ==
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeIgnore = ['^.git$']
-let g:NERDTreeStatusline = ''
-let g:NERDTreeWinPos = "right"
-let g:NERDTreeWinSize = 60
-" Remap open keys
-let g:NERDTreeMapOpenSplit = 's'
-let g:NERDTreeMapOpenVSplit = 'v'
-" Close tree view when open file
-let g:NERDTreeQuitOnOpen = 1
-" Toggle
-nnoremap <silent> <C-b> :NERDTreeFind<CR>
-" Automatically close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " == Terminal ==
 " open new split panes to the right and below
