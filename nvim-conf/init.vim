@@ -24,6 +24,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'dense-analysis/ale'
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-dispatch'
+    Plug 'tpope/vim-projectionist'
     Plug 'justinmk/vim-dirvish'
     Plug 'kristijanhusak/vim-dirvish-git'
 call plug#end()
@@ -90,19 +91,6 @@ vmap y y`]
 " =========
 " Personal plugins
 " =========
-" Open files with current file name, useful for finding tests
-function! CurrentFileName()
-    return expand('%:t:r')
-endfunction
-
-function! TestFile()
-    call fzf#run(fzf#wrap({'options': ['--query', CurrentFileName() . 'T']}))
-endfunction
-
-command! TFiles call TestFile()
-
-nnoremap <leader>t :TFiles<CR>
-
 " Easily swap between previous and next buffer
 nnoremap [w :bprevious<CR>
 nnoremap ]w :bnext<CR>
