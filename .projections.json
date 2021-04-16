@@ -1,0 +1,6 @@
+{
+  "install.conf.yaml": {
+    "type": "config",
+    "dispatch": "./install"
+  }
+}

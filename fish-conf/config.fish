@@ -12,6 +12,9 @@ fish_add_path /home/linuxbrew/.linuxbrew/bin
 # Remove the welcome message
 set fish_greeting
 
+# Prefix jrnl command with space so none of the commands are kept in history
+abbr --add jrnl " jrnl"
+
 # When executing from vim remove the overhead
 if test -z "$VIM"
   starship init fish | source

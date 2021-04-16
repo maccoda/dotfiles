@@ -50,6 +50,8 @@
 
     "~/.tmux.conf": tmux.conf
 
+    "~/.config/jrnl/jrnl.yaml": jrnl.yaml
+
 - clean:
     ~/:
       force: true
