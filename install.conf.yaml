@@ -35,7 +35,11 @@
 
     "~/.config/fish/conf.d":
       glob: true
-      path: fish-conf/*
+      path: fish/fish-conf/*
+
+    "~/.config/fish/functions":
+      glob: true
+      path: fish/functions/*
 
     "~/.vimrc": ".vimrc"
     "~/.config/nvim":
