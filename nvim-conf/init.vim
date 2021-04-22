@@ -13,7 +13,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'airblade/vim-gitgutter'
     Plug 'vim-airline/vim-airline'
-    Plug '907th/vim-auto-save'
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
     Plug 'tpope/vim-fugitive'
@@ -187,10 +186,6 @@ autocmd VimEnter * :GitGutterLineNrHighlightsEnable
 nnoremap <leader>g :GitGutterPreviewHunk<CR>
 nnoremap <leader>uh :GitGutterUndoHunk<CR>
 
-" == Autosave ==
-" Enable auto save
-let g:auto_save = 1
-
 "== Vim Sneak ==
 " Remap command
 map ]s <Plug>Sneak_s
@@ -203,6 +198,26 @@ let g:sneak#s_next = 1
 " Add ALE to status line
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
+" Remove the changes number on the bottom line
+let g:airline#extensions#hunks#enabled = 0
+
+" Make it so the tabline shortens the name and only lengthens if they are the
+" same
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+" Do not show the little "buffers" symbol in the top right
+let g:airline#extensions#tabline#show_tab_type = 0
+" Show numbers next to the tabs for quick navigation
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>0 <Plug>AirlineSelectTab0
 
 " == CoC ==
 
@@ -322,4 +337,12 @@ nmap <silent> ]e <Plug>(ale_next_wrap)
 " If open a specific file do not try open a workspace
 let g:workspace_session_disable_on_args = 1
 nnoremap <leader>qw :CloseHiddenBuffers<CR>
+let g:workspace_autosave_always = 1
+
+" == Dirvish ==
+" Remove the mapping for C-p so can reuse the Files command
+augroup dirvish_config
+  autocmd!
+  autocmd FileType dirvish silent! unmap <buffer> <C-p>
+augroup END
 
