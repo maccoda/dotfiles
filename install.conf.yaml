@@ -4,30 +4,11 @@
       relink: true
       create: true
 
+# All OS
 - link:
     "~/.gitignore": ".gitignore_main"
     "~/.gitconfig": ".gitconfig"
     "~/.gitmessage": ".gitmessage"
-
-    # VSCode MacOS
-    "~/Library/Application Support/Code/User/settings.json":
-      if: 'test (uname) = Darwin'
-      path: vscode/settings.json
-    "~/Library/Application Support/Code/User/keybindings.json":
-      if: 'test (uname) = Darwin'
-      path: vscode/keybindings.json
-
-    # VSCode Linux
-    "~/.config/Code/User/settings.json":
-      if: 'test (uname) = Linux'
-      path: vscode/settings.json
-    "~/.config/Code/User/keybindings.json":
-      if: 'test (uname) = Linux'
-      path: vscode/keybindings.json
-
-    # VSCode Windows
-    #"/mnt/c/Users/dylan/AppData/Roaming/Code/User/settings.json": vscode/settings.json
-    #"/mnt/c/Users/dylan/AppData/Roaming/Code/User/keybindings.json": vscode/keybindings.json
 
     "~/bin":
       glob: true
@@ -36,6 +17,9 @@
     "~/.config/fish/conf.d":
       glob: true
       path: fish/fish-conf/*
+
+    "~/.config/fish/config.fish":
+      path: config.fish
 
     "~/.config/fish/functions":
       glob: true
@@ -49,9 +33,6 @@
     "~/.config/starship.toml": starship.toml
     "~/.config/fish/fish_plugins": fish_plugins
 
-    "~/.config/alacritty/alacritty.yml":
-      path: alacritty.yml
-
     "~/.tmux.conf": tmux.conf
 
     "~/.config/jrnl/jrnl.yaml": jrnl.yaml
@@ -64,3 +45,32 @@
     ~/.config:
       force: true
       recursive: true
+
+# MacOS
+
+- defaults:
+    link:
+      if: 'test (uname) = Darwin'
+
+- link:
+    "~/.config/alacritty/alacritty.yml":
+      path: alacritty/mac.yml
+    "~/Library/Application Support/Code/User/settings.json":
+      path: vscode/settings.json
+    "~/Library/Application Support/Code/User/keybindings.json":
+      path: vscode/keybindings.json
+
+
+# Linux
+
+- defaults:
+    link:
+      if: 'test (uname) = Linux'
+
+- link:
+    "~/.config/alacritty/alacritty.yml":
+      path: alacritty/linux.yml
+    "~/.config/Code/User/settings.json":
+      path: vscode/settings.json
+    "~/.config/Code/User/keybindings.json":
+      path: vscode/keybindings.json

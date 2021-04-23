@@ -18,4 +18,5 @@ abbr --add jrnl " jrnl"
 # When executing from vim remove the overhead
 if test -z "$VIM"
   starship init fish | source
+  fortune -s | cowsay
 end
