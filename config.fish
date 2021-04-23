@@ -4,7 +4,7 @@ fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin $HOME/.fzf/bin
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 
 # Set default theme for bat
-set -gx BAT_THEME "base16"
+set -gx BAT_THEME "1337"
 
 # For linux /home/linuxbrew/.linuxbrew/bin
 fish_add_path /home/linuxbrew/.linuxbrew/bin
@@ -15,8 +15,5 @@ set fish_greeting
 # Prefix jrnl command with space so none of the commands are kept in history
 abbr --add jrnl " jrnl"
 
-# When executing from vim remove the overhead
-if test -z "$VIM"
-  starship init fish | source
-  fortune -s | cowsay
-end
+starship init fish | source
+fortune -s | cowsay

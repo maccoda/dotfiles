@@ -16,8 +16,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
     Plug 'tpope/vim-fugitive'
-    Plug 'dag/vim-fish'
-    Plug 'tpope/vim-sensible'
     Plug 'sheerun/vim-polyglot'
     Plug 'thaerkh/vim-workspace'
     Plug 'dense-analysis/ale'
@@ -25,7 +23,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'tpope/vim-dispatch'
     Plug 'tpope/vim-projectionist'
     Plug 'justinmk/vim-dirvish'
-    Plug 'kristijanhusak/vim-dirvish-git'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-unimpaired'
 call plug#end()
@@ -89,6 +86,11 @@ set mouse=nv
 " Yanking will return to where cursor was prior to initiating the yank
 vmap y y`]
 
+" Vim likes a POSIX compatible shell
+if &shell =~# 'fish$'
+    set shell=bash
+endif
+
 " =========
 " Personal plugins
 " =========
@@ -126,21 +128,6 @@ let g:airline_theme = "tokyonight"
 let g:tokyonight_menu_selection_background = 'blue'
 
 colorscheme tokyonight
-
-" == Terminal ==
-" open new split panes to the right and below
-set splitright
-set splitbelow
-" turn terminal to normal mode with escape
-tnoremap <Esc> <C-\><C-n>
-" start terminal in insert mode
-au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-" open terminal on ctrl+n
-function! OpenTerminal()
-    split term://fish
-    resize 10
-endfunction
-nnoremap <c-n> :call OpenTerminal()<CR>
 
 " == FZF fuzzy finder ==
 nnoremap <leader><leader> :Commands<CR>
