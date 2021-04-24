@@ -19,3 +19,5 @@ brew_install ktlint
 brew_install gitui # Command line git UI tool
 brew_install tmux
 brew_install jrnl # Command line journal
+brew_install fortune # Random generated quotes for fun
+brew_install cowsay # Make a cow say something in the terminal

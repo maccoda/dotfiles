@@ -49,6 +49,10 @@ set nowrap
 " Auto load from file useful when formatters run
 set autoread
 
+" Open new split panes to the right and below
+set splitright
+set splitbelow
+
 " Do not show the last command
 set noshowcmd
 " Yank and paste with the system clipboard

@@ -15,5 +15,7 @@ set fish_greeting
 # Prefix jrnl command with space so none of the commands are kept in history
 abbr --add jrnl " jrnl"
 
-starship init fish | source
-fortune -s | cowsay
+if status --is-interactive
+  starship init fish | source
+  fortune -s | cowsay
+end
