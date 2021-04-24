@@ -7,7 +7,9 @@ set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 set -gx BAT_THEME "1337"
 
 # For linux /home/linuxbrew/.linuxbrew/bin
-fish_add_path /home/linuxbrew/.linuxbrew/bin
+if test (uname) = 'Linux'
+  fish_add_path /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/opt/node@12/bin /home/linuxbrew/.linuxbrew/opt/openjdk@11/bin
+end
 
 # Remove the welcome message
 set fish_greeting

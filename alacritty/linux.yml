@@ -101,15 +101,15 @@ window:
 # Font configuration
 font:
   normal:
-    family: Inconsolata Nerd Font Mono
+    family: Inconsolata Nerd Font
     style: Regular
 
   bold:
-    family: Inconsolata Nerd Font Mono
+    family: Inconsolata Nerd Font
     style: Bold
 
   italic:
-    family: Inconsolata Nerd Font Mono
+    family: Inconsolata Nerd Font
     style: Italic
 
   # Bold italic font face
