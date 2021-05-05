@@ -15,7 +15,8 @@ end
 set fish_greeting
 
 # Prefix jrnl command with space so none of the commands are kept in history
-abbr --add jrnl " jrnl"
+abbr --add --global jrnl " jrnl"
+abbr --add --global u " ultralist"
 
 if status --is-interactive
   starship init fish | source
