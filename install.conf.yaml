@@ -37,6 +37,8 @@
 
     "~/.config/jrnl/jrnl.yaml": jrnl.yaml
 
+    "~/.config/alacritty/common.yml": alacritty/common.yml
+
 - clean:
     ~/:
       force: true
