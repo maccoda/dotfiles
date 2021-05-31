@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo add-apt-repository ppa:mmstick76/alacritty -y
+sudo add-apt-repository ppa:linrunner/tlp -y
 sudo apt-get update -q
 
 echoo "This brew thing could be pretty useful"
@@ -13,6 +14,7 @@ apt_install curl
 apt_install fswatch
 apt_install libavcodec-extra # Video codecs
 apt_install alacritty
+apt_install tlp # Battery life optimisation
 
 
 #sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
