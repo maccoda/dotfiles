@@ -7,7 +7,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'Luxed/ayu-vim'
     Plug 'ghifarit53/tokyonight-vim'
     Plug 'drewtempelmeyer/palenight.vim'
-    Plug 'ryanoasis/vim-devicons'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -25,6 +24,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'justinmk/vim-dirvish'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-unimpaired'
+    Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " Config Section

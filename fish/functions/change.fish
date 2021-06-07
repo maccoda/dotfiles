@@ -3,7 +3,7 @@
 #
 # -b/--bell: If set will call the bell on completion of the provided command
 # -c/--clear: If set will clear the terminal before each execution of the provided command
-function change_fish
+function change
     argparse --min-args 1 'b/bell' 'c/clear' -- $argv
     set cmd $argv[1]
     set watch_dir $argv[2]
