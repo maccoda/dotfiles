@@ -1,15 +1,20 @@
 #!/bin/bash
 
-sudo add-apt-repository ppa:mmstick76/alacritty -y
-sudo add-apt-repository ppa:linrunner/tlp -y
+sudo add-apt-repository ppa:mmstick76/alacritty -y # Alacrity terminal
+sudo add-apt-repository ppa:linrunner/tlp -y # TLP laptop power saving
+sudo apt-add-repository ppa:fish-shell/release-3 -y # Fish shell
 sudo apt-get update -q
 
 echoo "This brew thing could be pretty useful"
 
 check_if_binary_installed "brew" || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
+# Add brew to the bash path to allow for rest of set up
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 
 echoo "Get some essentials"
+apt_install fish
 apt_install curl
 apt_install fswatch
 apt_install libavcodec-extra # Video codecs

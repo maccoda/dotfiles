@@ -360,12 +360,12 @@ live_config_reload: true
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-shell:
-  program: "/usr/local/bin/fish"
-  args:
-      - -l
-      - -c
-      - "tmux-start"
+#shell:
+  #program: "/usr/local/bin/fish"
+  #args:
+      #- -l
+      #- -c
+      #- "tmux-start"
 
 # Startup directory
 #

@@ -33,6 +33,11 @@ source "./bootstrap/neovim.sh"
 echoo "Here comes the terminal"
 source "./bootstrap/terminal.sh"
 
-
 echoo "It's about to get rusty!"
 check_if_binary_installed rustup || curl https://sh.rustup.rs -sSf | sh
+
+# Update the autocomplete from man pages
+fish -c "fish_update_completions"
+# The install will need to be run again because it will need to work for fish
+# to add the OS dependent links
+fish -c "~/.dotfiles/install"
