@@ -26,6 +26,10 @@ function check_cask_installed {
     ls /usr/local/Caskroom/$1 &>/dev/null && echog "$1 is already installed"
 }
 
+function check_snap_installed {
+    ls /snap/bin/$1 &>/dev/null && echog "$1 is already installed"
+}
+
 function brew_install {
     binary_name=$1
     if [[ $# -gt 1 ]]; then
@@ -47,3 +51,6 @@ function apt_install {
     check_if_binary_installed $binary_name || sudo apt install $1
 }
 
+function snap_install {
+    check_snap_installed $1 || snap install $1
+}

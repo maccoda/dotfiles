@@ -30,9 +30,6 @@ esac
 echoo "Now the text editing essentials"
 source "./bootstrap/neovim.sh"
 
-echoo "Here comes the terminal"
-source "./bootstrap/terminal.sh"
-
 echoo "It's about to get rusty!"
 check_if_binary_installed rustup || curl https://sh.rustup.rs -sSf | sh
 

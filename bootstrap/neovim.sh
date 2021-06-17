@@ -8,15 +8,19 @@ check_if_installed $PLUG_PATH  ||sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Install kotlin language server for vim
-mkdir -p ~/tools/kotlin-lsp
-cd ~/tools
-curl -l https://api.github.com/repos/fwcd/kotlin-language-server/releases/latest \
-    | grep 'browser_download_url' \
-    | cut -d \" -f 4 \
-    | grep 'server.zip' \
-    | xargs curl -lL --output kotlin-lsp.zip
-unzip kotlin-lsp.zip -d kotlin-lsp
-rm kotlin-lsp.zip
-cd -
+if [ -d ~/tools/kotlin-lsp ]; then
+    echog "Kotin LSP already installed"
+else
+    mkdir -p ~/tools/kotlin-lsp
+    cd ~/tools
+    curl -l https://api.github.com/repos/fwcd/kotlin-language-server/releases/latest \
+        | grep 'browser_download_url' \
+        | cut -d \" -f 4 \
+        | grep 'server.zip' \
+        | xargs curl -lL --output kotlin-lsp.zip
+    unzip kotlin-lsp.zip -d kotlin-lsp
+    rm kotlin-lsp.zip
+    cd -
+fi
 
 nvim +PlugUpdate +qall
