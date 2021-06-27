@@ -33,6 +33,9 @@ source "./bootstrap/neovim.sh"
 echoo "It's about to get rusty!"
 check_if_binary_installed rustup || curl https://sh.rustup.rs -sSf | sh
 
+echoo "Getting package manager for fish"
+check_if_binary_installed fisher || curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+
 # Update the autocomplete from man pages
 fish -c "fish_update_completions"
 # The install will need to be run again because it will need to work for fish

@@ -21,6 +21,14 @@ apt_install libavcodec-extra # Video codecs
 apt_install alacritty
 apt_install tlp # Battery life optimisation
 
+# SDK man for managing JVM sdks
+check_if_binary_installed sdk || curl -s "https://get.sdkman.io" | bash
+
+# TODO: Should ensure that sdk man gets onto the path first
+sdk install java
+sdk install gradle
+
+
 
 #sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 #sudo apt install code
@@ -55,10 +63,10 @@ apt_install docker-compose
 #curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 echoo "On to the snaps"
-snap install todoist
-snap install slack --classic
-snap install insomnia
-snap install signal-desktop
-snap install stretchly
+snap_install todoist
+snap_install slack --classic
+snap_install insomnia
+snap_install signal-desktop
+snap_install stretchly
 
 check_if_installed ~/.joplin/Joplin.AppImage || wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
