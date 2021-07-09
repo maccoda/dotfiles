@@ -143,6 +143,23 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+lua << EOF
+local actions = require('telescope.actions')
+
+require('telescope').setup {
+    defaults = {
+        mappings = {
+            i = {
+                -- Exit pop up in single esc press
+                ["<esc>"] = actions.close,
+                -- Open in horizontal split
+                ["<C-s>"] = actions.select_horizontal
+            }
+        }
+    },
+}
+EOF
+
 " == Git signs ==
 lua require('gitsigns').setup()
 
@@ -188,13 +205,6 @@ nnoremap gdl :diffget //3<CR>
 let g:workspace_session_disable_on_args = 1
 nnoremap <leader>qw :CloseHiddenBuffers<CR>
 let g:workspace_autosave_always = 1
-
-" == Dirvish ==
-" Remove the mapping for C-p so can reuse the Files command
-augroup dirvish_config
-  autocmd!
-  autocmd FileType dirvish silent! unmap <buffer> <C-p>
-augroup END
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -256,6 +266,7 @@ end
 
 EOF
 
+" == nvim-compe ==
 set completeopt=menuone,noselect
 
 let g:compe = {}
