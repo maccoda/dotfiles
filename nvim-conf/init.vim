@@ -6,7 +6,6 @@ call plug#begin("~/.vim/plugged")
     "Plug 'drewtempelmeyer/palenight.vim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-    Plug 'airblade/vim-gitgutter'
     Plug 'vim-airline/vim-airline'
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
@@ -25,6 +24,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'hrsh7th/nvim-compe'
     Plug 'ray-x/lsp_signature.nvim'
     "====
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'lewis6991/gitsigns.nvim'
     Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -172,11 +173,8 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 " Single escape exits
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-" == Git gutter ==
-" Enable highlights of line numbers on start up
-autocmd VimEnter * :GitGutterLineNrHighlightsEnable
-nnoremap <leader>g :GitGutterPreviewHunk<CR>
-nnoremap <leader>uh :GitGutterUndoHunk<CR>
+" == Git signs ==
+lua require('gitsigns').setup()
 
 "== Vim Sneak ==
 " Remap command
