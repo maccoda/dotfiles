@@ -19,9 +19,12 @@ call plug#begin("~/.vim/plugged")
     Plug 'justinmk/vim-dirvish'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-unimpaired'
+    " LSP plugins
     Plug 'neovim/nvim-lspconfig'
     Plug 'kabouzeid/nvim-lspinstall'
     Plug 'hrsh7th/nvim-compe'
+    Plug 'ray-x/lsp_signature.nvim'
+    "====
     Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -233,6 +236,8 @@ local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  require"lsp_signature".on_attach()
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
