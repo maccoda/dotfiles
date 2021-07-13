@@ -4,7 +4,7 @@ call plug#begin("~/.vim/plugged")
     "Plug 'Luxed/ayu-vim'
     Plug 'ghifarit53/tokyonight-vim'
     "Plug 'drewtempelmeyer/palenight.vim'
-    Plug 'vim-airline/vim-airline'
+    Plug 'hoob3rt/lualine.nvim'
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
     Plug 'tpope/vim-fugitive'
@@ -116,7 +116,6 @@ nnoremap <leader>W :bdelete<CR>
 set termguicolors
 " Ayu
 "let ayucolor="mirage"
-"let g:airline_theme='bubblegum'
 " Color cursorline a little more grey than theme
 "highlight CursorLine cterm=NONE guibg=#2c313b guifg=NONE
 " Color vertical split line same gray as above
@@ -126,12 +125,10 @@ set termguicolors
 
 " Palenight
 "set background=dark
-"let g:airline_theme = "palenight"
 
 " Tokyo
 let g:tokyonight_style = 'night' " available: night, storm
 let g:tokyonight_enable_italic = 1
-let g:airline_theme = "tokyonight"
 let g:tokyonight_menu_selection_background = 'blue'
 
 colorscheme tokyonight
@@ -171,28 +168,17 @@ map [s <Plug>Sneak_S
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 
-" == Airline ==
-let g:airline#extensions#tabline#enabled = 1
-" Remove the changes number on the bottom line
-let g:airline#extensions#hunks#enabled = 0
+lua << EOF
+require('lualine').setup{
+    options = {
+        theme = 'ayu_mirage'
+    },
+    extensions = {
+        "fugitive", "quickfix"
+    }
 
-" Make it so the tabline shortens the name and only lengthens if they are the
-" same
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-" Do not show the little "buffers" symbol in the top right
-let g:airline#extensions#tabline#show_tab_type = 0
-" Show numbers next to the tabs for quick navigation
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>0 <Plug>AirlineSelectTab0
+}
+EOF
 
 " == Fugitive ==
 " Fugitive Conflict Resolution
