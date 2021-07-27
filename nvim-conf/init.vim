@@ -5,6 +5,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'ghifarit53/tokyonight-vim'
     "Plug 'drewtempelmeyer/palenight.vim'
     Plug 'hoob3rt/lualine.nvim'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
     Plug 'preservim/nerdcommenter'
     Plug 'justinmk/vim-sneak'
     Plug 'tpope/vim-fugitive'
@@ -133,12 +135,15 @@ let g:tokyonight_menu_selection_background = 'blue'
 
 colorscheme tokyonight
 
-" == Telescope ==
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+"nnoremap ;f <cmd>Telescope find_files<cr>
+"nnoremap ;g <cmd>Telescope live_grep<cr>
+"nnoremap ;b <cmd>Telescope buffers<cr>
+" fzf set up
+nnoremap ;f :Files<cr>
+nnoremap ;g :RG<cr>
+nnoremap ;b :Buffers<cr>
+" == Telescope ==
 
 lua << EOF
 local actions = require('telescope.actions')
@@ -156,6 +161,38 @@ require('telescope').setup {
     },
 }
 EOF
+
+" == FZF fuzzy finder ==
+let g:fzf_action = {
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit'
+    \}
+" Use fd - does not include ignored by git files
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git'
+" Below function taken from fzf.vim readme, it will invoke rg on each change
+" when performing search
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s; or true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+" Place the window in the centre of the screen
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
+" Single escape exits
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+
 
 " == Git signs ==
 lua require('gitsigns').setup()
