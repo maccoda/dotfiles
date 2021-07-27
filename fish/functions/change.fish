@@ -20,8 +20,9 @@ function change
         echo -e '\a'
     end
     eval $cmd
+    echo "Waiting for update..."
     # TODO: Can make it so that the latency can be configurable if needed
-    fswatch -0 --latency 3 $watch_dir | while read -d "" event
+    fswatch $watch_dir | while read -d "" event
         echo "File Changed: $event"
         if set -q _flag_c
             clear
@@ -31,5 +32,6 @@ function change
             echo -e '\a'
         end
         eval $cmd
+        echo "Waiting for update..."
     end
 end

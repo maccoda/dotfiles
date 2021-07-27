@@ -7,7 +7,8 @@
 set startDir $argv[1]
 test -z $startDir; and set startDir (realpath '.')
 
-set dirs (fd --hidden --no-ignore --type directory '.git$' $startDir)
+echo "Checking for local changes under $startDir"
+set dirs (fd --hidden --no-ignore --type directory --max-depth 4 '.git$' $startDir)
 for dir in $dirs
     set -l repoDir (echo $dir | sed "s/\/.git//")
     set -l short_name (basename $repoDir)
