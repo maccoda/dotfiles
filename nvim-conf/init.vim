@@ -1,9 +1,8 @@
 call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
-    "Plug 'Luxed/ayu-vim'
-    Plug 'ghifarit53/tokyonight-vim'
-    "Plug 'drewtempelmeyer/palenight.vim'
+    Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+    Plug 'sainnhe/sonokai'
     Plug 'hoob3rt/lualine.nvim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
@@ -117,24 +116,14 @@ nnoremap <leader>W :bdelete<CR>
 
 " Syntax theme
 set termguicolors
-" Ayu
-"let ayucolor="mirage"
-" Color cursorline a little more grey than theme
-"highlight CursorLine cterm=NONE guibg=#2c313b guifg=NONE
-" Color vertical split line same gray as above
-"highlight VertSplit guibg=#2c313b guifg=#737373 ctermbg=4 ctermfg=0
-" Brighten the line number
-"highlight LineNr guifg=#737373
 
-" Palenight
-"set background=dark
+lua << EOF
+  vim.g.tokyonight_style = "night"
+  vim.g.tokyonight_hide_inactive_statusline = "true"
 
-" Tokyo
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 1
-let g:tokyonight_menu_selection_background = 'blue'
+  vim.cmd[[colorscheme tokyonight]]
+EOF
 
-colorscheme tokyonight
 
 " Find files using Telescope command-line sugar.
 "nnoremap ;f <cmd>Telescope find_files<cr>
@@ -209,7 +198,9 @@ let g:sneak#s_next = 1
 lua << EOF
 require('lualine').setup{
     options = {
-        theme = 'ayu_mirage'
+        theme = 'tokyonight',
+        section_separators = '',
+        component_separators = ''
     },
     extensions = {
         "fugitive", "quickfix"
