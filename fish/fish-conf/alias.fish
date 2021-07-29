@@ -17,6 +17,10 @@ function dev
     end
 end
 
+# Simple find to use at top level dev directory to check if
+# a project is checked out
+alias fd-project='fd -t d -d 3'
+
 # rust CLI remaps
 alias cat='bat'
 alias grep='rg'
