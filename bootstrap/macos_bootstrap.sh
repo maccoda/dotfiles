@@ -15,17 +15,14 @@ echoo "Let's move onto the bigger ones"
 cask_install docker # Docker
 cask_install licecap # Screen capture GIF
 cask_install numi # Improved calculator
-cask_install fork # SCM tool
 cask_install insomnia # HTTP requests
-cask_install spectacle # Window management for Mac
-cask_install visual-studio-code # The editor
 cask_install joplin # Note taking
-cask_install karabiner-elements # Keyboard shortcuts
 cask_install rambox # Messaging app
 cask_install jumpcut # Clipboard manager
 cask_install alacritty # Terminal emulator
 cask_install signal
 cask_install stretchly # Screen timer
+cask_install amethyst # Tiling window manager
 
 echoo "Add some fonts"
 brew tap homebrew/cask-fonts

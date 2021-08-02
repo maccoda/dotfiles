@@ -100,16 +100,9 @@ if &shell =~# 'fish$'
     set shell=bash
 endif
 
-" =========
-" Personal plugins
-" =========
-" Easily swap between previous and next buffer
-nnoremap [w :bprevious<CR>
-nnoremap ]w :bnext<CR>
-
 " Close current buffer without closing vim
-nnoremap <leader>w :bunload<CR>
-nnoremap <leader>W :bdelete<CR>
+nnoremap <leader>b :bunload<CR>
+nnoremap <leader>B :bdelete<CR>
 
 " =========
 

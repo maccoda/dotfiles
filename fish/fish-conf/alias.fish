@@ -27,3 +27,6 @@ alias grep='rg'
 alias find='fd'
 alias ls='exa'
 alias du='dust'
+
+# Ultralist aliases
+alias ul='ultralist l group:project'
