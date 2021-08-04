@@ -1,0 +1,35 @@
+#!/usr/local/bin/python3
+
+import sys
+
+command = sys.argv[1]
+print("Let's look what recipes we have for {}...".format(command))
+
+def print_command_options(recipies):
+    for recipe in recipies:
+        print("""{} | {}""".format(recipe["cmd"], recipe["description"]))
+
+recipes = {
+    "jrnl": [
+        { "description": "Notes taken for retro for the last two weeks", "cmd": " jrnl work @retro -from \"last week\"" },
+        { "description": "Notes taken to discuss with 1:1", "cmd": " jrnl work @manager -from \"last week\"" },
+        { "description": "Edit last taken note in work journal", "cmd": " jrnl work -n 1 --edit" }
+    ],
+    "ultralist": [
+        {"description": "List all uncompleted tasks grouped by project", "cmd": "ultralist list group:project completed:false"},
+        {"description": "Archive completed tasks", "cmd": "ultralist ar c"},
+        {"description": "Garbage collect archived tasks (frees up ids)", "cmd": "ultralist ar gc"}
+    ],
+    "nvim": [
+        {"description": "Show history of the current file", "cmd": ":0Gclog"}
+    ],
+    "git": [
+        {"description": "Show commit count by author", "cmd": "git shortlog -sn --all"},
+        {"description": "Rename branch", "cmd": "git branch -m <old> <new>"}
+    ]
+}
+
+if command in recipes:
+    print_command_options(recipes[command])
+else:
+    print("(╯°□°）╯︵ ┻━┻ Looks like we do not have any recipes for that one yet")
