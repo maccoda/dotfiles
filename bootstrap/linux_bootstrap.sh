@@ -14,6 +14,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 
 echoo "Get some essentials"
+apt_install build-essential # Core build tools and compiled (C/C++)
 apt_install fish
 apt_install curl
 apt_install fswatch
@@ -60,7 +61,6 @@ apt_install gnome-tweak-tool gnome-tweaks
 #apt_install synapse
 apt_install docker
 apt_install docker-compose
-#curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 echoo "On to the snaps"
 snap_install todoist

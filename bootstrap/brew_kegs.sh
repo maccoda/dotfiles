@@ -9,8 +9,6 @@ brew_install exa # Rust implementation of exa
 brew_install dust # Rust implementation of du
 
 
-brew_install "node@12" node
-brew link node@12 --force # Since we don't trust bleeding edge
 brew_install zola # Static site generator
 brew_install fzf # Fuzzy finder
 brew_install fswatch # File watch
@@ -22,3 +20,4 @@ brew_install jrnl # Command line journal
 brew_install fortune # Random generated quotes for fun
 brew_install cowsay # Make a cow say something in the terminal
 brew_install starship # shell agnostic formatting
+brew_install ultralist # Simple CLI for task management
