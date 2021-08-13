@@ -7,7 +7,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'preservim/nerdcommenter'
-    Plug 'justinmk/vim-sneak'
+    Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'sheerun/vim-polyglot'
     Plug 'thaerkh/vim-workspace'
@@ -180,13 +180,10 @@ autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 " == Git signs ==
 lua require('gitsigns').setup()
 
-"== Vim Sneak ==
-" Remap command
-map ]s <Plug>Sneak_s
-map [s <Plug>Sneak_S
-" Add label mode
-let g:sneak#label = 1
-let g:sneak#s_next = 1
+" == Lightspeed ==
+" Remap
+map ]s <Plug>Lightspeed_s
+map [s <Plug>Lightspeed_S
 
 lua << EOF
 require('lualine').setup{
