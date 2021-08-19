@@ -26,7 +26,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/gitsigns.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'ryanoasis/vim-devicons'
 call plug#end()
@@ -118,34 +117,11 @@ lua << EOF
 EOF
 
 
-" Find files using Telescope command-line sugar.
-"nnoremap ;f <cmd>Telescope find_files<cr>
-"nnoremap ;g <cmd>Telescope live_grep<cr>
-"nnoremap ;b <cmd>Telescope buffers<cr>
-" fzf set up
+" == FZF fuzzy finder ==
 nnoremap ;f :Files<cr>
 nnoremap ;g :RG<cr>
 nnoremap ;b :Buffers<cr>
-" == Telescope ==
 
-lua << EOF
-local actions = require('telescope.actions')
-
-require('telescope').setup {
-    defaults = {
-        mappings = {
-            i = {
-                -- Exit pop up in single esc press
-                ["<esc>"] = actions.close,
-                -- Open in horizontal split
-                ["<C-s>"] = actions.select_horizontal
-            }
-        }
-    },
-}
-EOF
-
-" == FZF fuzzy finder ==
 let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-s': 'split',
@@ -185,6 +161,7 @@ lua require('gitsigns').setup()
 map ]s <Plug>Lightspeed_s
 map [s <Plug>Lightspeed_S
 
+" == Lualine ==
 lua << EOF
 require('lualine').setup{
     options = {
