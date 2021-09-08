@@ -20,5 +20,6 @@ abbr --add --global u " ultralist"
 
 if status --is-interactive
   starship init fish | source
+  zoxide init fish | source
   fortune -s | cowsay
 end

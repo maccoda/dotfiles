@@ -21,3 +21,4 @@ brew_install fortune # Random generated quotes for fun
 brew_install cowsay # Make a cow say something in the terminal
 brew_install starship # shell agnostic formatting
 brew_install ultralist # Simple CLI for task management
+brew_install zoxide # Better directory navigation
