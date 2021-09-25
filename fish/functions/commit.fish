@@ -1,6 +1,6 @@
 # Usage: Search across commit messages for the given search term
 function commit
-    if $argv[1] == "--show"
+    if test $argv[1] = "--show"
         grg | rg $argv[2] | cut -f 1 | xargs git show
     else
         grg | rg $argv[1]

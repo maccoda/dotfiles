@@ -2,14 +2,12 @@ call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
     Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-    Plug 'sainnhe/sonokai'
     Plug 'hoob3rt/lualine.nvim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'preservim/nerdcommenter'
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
-    Plug 'sheerun/vim-polyglot'
     Plug 'thaerkh/vim-workspace'
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-dispatch'
@@ -33,34 +31,36 @@ call plug#end()
 
 " Config Section
 " =============
-set number relativenumber
-syntax on
+lua << EOF
+  vim.o.number = true
+  vim.o.relativenumber = true
+  vim.o.syntax = 'on'
+  vim.o.tabstop = 4
+  vim.o.softtabstop = 4
+  vim.o.smarttab = true
+  -- Indentation amount for < and > commands
+  vim.o.shiftwidth = 2
+  -- Insert spaces when tab is pressed
+  vim.o.expandtab = true
+  -- Copy indent from current line when start new line
+  vim.o.autoindent = true
+  vim.o.smartindent = true
+  -- Highlight cursor line
+  vim.o.cursorline = true
+  vim.o.wrap = false
+  -- Auto load from file useful when formatters run
+  vim.o.autoread = true
+  -- Open new split panes to the right and below
+  vim.o.splitright = true
+  vim.o.splitbelow = true
+  -- Do not show the last command
+  vim.o.showcmd = false
+  -- Yank and paste with the system clipboard
+  vim.o.clipboard = 'unnamed'
+EOF
+
 filetype plugin on
-set tabstop=4
-set softtabstop=4
-set smarttab
-" Indentation amount for < and > commands
-set shiftwidth=2
-" Insert spaces when tab is pressed
-set expandtab
-" Copy indent from current line when start new line
-set autoindent
-set smartindent
-" Highlight curosr line
-set cursorline
 
-set nowrap
-" Auto load from file useful when formatters run
-set autoread
-
-" Open new split panes to the right and below
-set splitright
-set splitbelow
-
-" Do not show the last command
-set noshowcmd
-" Yank and paste with the system clipboard
-set clipboard=unnamed
 " Turn off search highlights when entering insert
 nnoremap i :noh<CR>i
 nnoremap I :noh<CR>I
@@ -105,6 +105,13 @@ nnoremap <leader>B :bdelete<CR>
 
 " =========
 
+" TODO: Convert this to lua
+
+command! WFiles call fzf#run(fzf#wrap({'options': ['--query', expand('<cword>')]}))
+command! WGrep call RipgrepFzf(expand('<cword>'), <bang>0)
+
+nnoremap ;wf :WFiles<CR>
+nnoremap ;wg :WGrep<CR>
 
 " Syntax theme
 set termguicolors

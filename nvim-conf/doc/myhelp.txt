@@ -1,0 +1,18 @@
+*myhelp.txt*
+
+Little help file to remind me of useful commands that I do not use often enough for muscle memory.
+
+Note: run `:helptags ~/.config/nvim/doc/` to generate tags for this help.
+
+===============================================================
+HELP                                                *myhelp-help*
+
+Generate table of contents for any `help` command using `gO`
+
+
+===============================================================
+FUGITIVE                                        *myhelp-fugitive*
+
+`:0Gclog`   Show history of the current file
+
+vim:tw=78:ts=8:ft=help:norl:
