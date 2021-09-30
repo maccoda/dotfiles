@@ -9,8 +9,4 @@ function good-morning
   for repo in $repo_list
     repo-stat -y $repo
   end
-
-  ultralist ar c # Archive completed tasks
-  ultralist ar gc # Clean up completed tasks
-  ultralist l due:agenda # List what needs to be done today
 end

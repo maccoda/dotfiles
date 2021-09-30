@@ -18,5 +18,5 @@ brew_install gitui # Command line git UI tool
 brew_install tmux
 brew_install jrnl # Command line journal
 brew_install starship # shell agnostic formatting
-brew_install ultralist # Simple CLI for task management
+brew_install task # Simple CLI for task management
 brew_install zoxide # Better directory navigation

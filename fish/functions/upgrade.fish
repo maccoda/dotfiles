@@ -27,6 +27,7 @@ function upgrade
     echo "Updating brew taps..."
     brew upgrade
     brew cleanup
+    brew autoremove
 
     echo "Updating fisher packages..."
     fisher update
