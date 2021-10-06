@@ -16,18 +16,13 @@
 	excludesfile = ~/.gitignore
 	editor = nvim
 	autocrlf = input
-[difftool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
-	trustExitCode = true
+	pager = delta
 [commit]
 	template = ~/.gitmessage
 [alias]
     co = checkout
-	logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all -10
-	logpp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+	logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  -10
+	logpp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	unstage = reset HEAD --
 	st = status
 	discard = checkout --
@@ -37,3 +32,18 @@
     ap = add --patch
     amend = commit --amend --no-edit
 	stash = stash --include-untracked
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    features = line-numbers decorations
+	whitespace-error-style = 22 reverse
+	plus-style = "syntax #012800"
+	minus-style = "syntax #340001"
+    syntax-theme = base16
+    navigate = true
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+    hunk-header-decoration-style = yellow box
+
