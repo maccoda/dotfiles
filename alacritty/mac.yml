@@ -16,5 +16,3 @@ shell:
   program: "/usr/local/bin/fish"
   args:
       - -l
-      - -c
-      - "tmux-start"
