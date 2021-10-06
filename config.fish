@@ -17,9 +17,9 @@ set fish_greeting
 # Prefix jrnl command with space so none of the commands are kept in history
 abbr --add --global jrnl " jrnl"
 abbr --add --global t " task"
+abbr --add --global task " task"
 
 
 if status --is-interactive
   starship init fish | source
-  zoxide init fish | source
 end
