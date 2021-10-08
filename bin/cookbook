@@ -15,11 +15,6 @@ recipes = {
         { "description": "Notes taken to discuss with 1:1", "cmd": " jrnl work @manager -from \"last week\"" },
         { "description": "Edit last taken note in work journal", "cmd": " jrnl work -n 1 --edit" }
     ],
-    "ultralist": [
-        {"description": "List all uncompleted tasks grouped by project", "cmd": "ultralist list group:project completed:false"},
-        {"description": "Archive completed tasks", "cmd": "ultralist ar c"},
-        {"description": "Garbage collect archived tasks (frees up ids)", "cmd": "ultralist ar gc"}
-    ],
     "nvim": [
         {"description": "Show history of the current file", "cmd": ":0Gclog"}
     ],
