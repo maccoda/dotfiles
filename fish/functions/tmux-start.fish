@@ -3,7 +3,7 @@ function tmux-start
     set tmux_running (pgrep tmux)
 
     if test -z $TMUX
-      tmux new-session -d
+      tmux new-session -s "main" -d
       tmux split-window -v "change task ~/.task/ --clear"
       tmux rename-window "jrnl"
       tmux select-pane -t 0
