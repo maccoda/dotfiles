@@ -1,5 +1,5 @@
 function tmux-sessionizer
-    set selected (fd --type directory --max-depth 1 . $HOME/workplace/*/src $HOME | fzf)
+    set selected (fd --type directory --max-depth 1 . $HOME/workplace $HOME | fzf)
 
     if test -z $selected
         exit 0
