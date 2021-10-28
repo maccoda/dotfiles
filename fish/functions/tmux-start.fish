@@ -5,11 +5,14 @@ function tmux-start
 
     tmux has-session -t $main_name 2> /dev/null
     if test ! $status -eq 0
-      tmux new-session -s $main_name -d
-      tmux split-window -v "change task ~/.task/ --clear"
-      tmux rename-window "jrnl"
-      tmux select-pane -t 0
-      tmux new-window
+        tmux new-session -s $main_name -d
+        if test $MACCODA_ENV = "work"
+          tmux split-window -v "change task ~/.task/ --clear"
+          tmux rename-window "jrnl"
+          tmux select-pane -t 0
+          tmux new-window -n "sync" ninja-dev-sync
+        end
+        tmux new-window -n "dots" "dots"
     end
 
     if test -z $TMUX

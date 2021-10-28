@@ -39,5 +39,7 @@ function upgrade
     nvim +PlugUpdate +qall
     nvim +PlugClean +qall
 
-   work-upgrade
+   if test $MACCODA_ENV = "work"
+       work-upgrade
+   end
 end
