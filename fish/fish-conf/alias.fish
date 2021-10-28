@@ -5,7 +5,7 @@ alias vim='nvim'
 # git
 abbr --add --global g 'git'
 # Git log for rip-grepping
-alias grg='git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --date=short'
+alias grg='git log --pretty="format:%C(yellow)%h%C(reset) %C(blue)%<(15)%an%C(reset) %C(magenta)%cs%C(reset) %s"'
 alias gst='git status'
 
 # directory shortcut
