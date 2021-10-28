@@ -18,7 +18,8 @@ call plug#begin("~/.vim/plugged")
     " LSP plugins
     Plug 'neovim/nvim-lspconfig'
     Plug 'kabouzeid/nvim-lspinstall'
-    Plug 'hrsh7th/nvim-compe'
+    Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+    Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
     Plug 'ray-x/lsp_signature.nvim'
     "====
     Plug 'nvim-lua/plenary.nvim'
@@ -39,7 +40,7 @@ lua << EOF
   vim.o.softtabstop = 4
   vim.o.smarttab = true
   -- Indentation amount for < and > commands
-  vim.o.shiftwidth = 2
+  vim.o.shiftwidth = 4
   -- Insert spaces when tab is pressed
   vim.o.expandtab = true
   -- Copy indent from current line when start new line
@@ -253,65 +254,15 @@ require'lspinstall'.post_install_hook = function ()
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 
-EOF
-
-" == nvim-compe ==
-set completeopt=menuone,noselect
-
-let g:compe = {}
-let g:compe.enabled = v:true
-let g:compe.source = {
-\ 'path': v:true,
-\ 'buffer': v:true,
-\ 'nvim_lsp': v:true,
-\ }
-
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-lua << EOF
--- Map C-j and C-k
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif vim.fn['vsnip#available'](1) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn['vsnip#jumpable'](-1) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    -- If <S-Tab> is not working in your terminal, change it to <C-h>
-    return t "<S-Tab>"
+function _G.lsp_reinstall_all()
+  local lspinstall = require'lspinstall'
+  for _, server in ipairs(lspinstall.installed_servers()) do
+    lspinstall.install_server(server)
   end
 end
 
-vim.api.nvim_set_keymap("i", "<C-j>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<C-j>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<C-k>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<C-k>", "v:lua.s_tab_complete()", {expr = true})
+vim.cmd 'command! -nargs=0 LspReinstallAll call v:lua.lsp_reinstall_all()'
+
 EOF
 
 
@@ -331,4 +282,7 @@ ensure_installed = "maintained", -- one of "all", "maintained" (parsers with mai
   },
 }
 EOF
+
+" == COQ ==
+let g:coq_settings = { 'auto_start': v:true }
 
