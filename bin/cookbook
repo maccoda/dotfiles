@@ -21,6 +21,9 @@ recipes = {
     "git": [
         {"description": "Show commit count by author", "cmd": "git shortlog -sn --all"},
         {"description": "Rename branch", "cmd": "git branch -m <old> <new>"}
+    ],
+    "task": [
+        {"description": "See tasks completed yesterday", "cmd": "task end.after:today-1day completed"}
     ]
 }
 
