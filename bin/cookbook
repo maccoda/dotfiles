@@ -24,7 +24,8 @@ recipes = {
         {"description": "Remove untracked files", "cmd": "git clean -f"}
     ],
     "task": [
-        {"description": "See tasks completed yesterday", "cmd": "task end.after:today-1day completed"}
+        {"description": "See tasks completed yesterday", "cmd": "task end.after:today-1day completed"},
+        {"description": "Search for a completed task", "cmd": "task completed [search-term]"}
     ]
 }
 
