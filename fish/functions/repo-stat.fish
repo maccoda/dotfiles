@@ -13,8 +13,10 @@ function repo-stat
         echo "Will automatically fetch and pull from origin"
     end
 
+    set dirs (fd --hidden --no-ignore --type directory '\.git$' $startDir)
+    set num_dirs (echo $dirs | wc -w | string trim)
+    echo "Found $num_dirs git repositories"
     echo -n "Fetching updates for "
-    set dirs (fd --hidden --no-ignore --type directory '.git$' $startDir)
     for dir in $dirs
         set -l repoDir (echo $dir | sed "s/\/.git//")
         set -l short_name (basename $repoDir)

@@ -3,4 +3,8 @@
 function work-upgrade
     echo "Running work related upgrades"
 
+    # Add location of repository roots to check here (repo-stat will handle the rest)
+    for repo in $repo_list
+        repo-stat -y $repo
+    end
 end

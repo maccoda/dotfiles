@@ -1,17 +1,24 @@
 # Simple function to open from tmux to perform some
 # arbitrary action on the task list.
 function task-action
+    set repeat true
     task
-    read cmd --shell -P "Task command: "
+    while $repeat
+        set repeat false
+        read cmd --shell -P "Task command: "
 
-    if test -z $cmd
-        # If no command given just exit
-        exit 0
+        if test -z $cmd
+            # If no command given just exit
+            exit 0
+        end
+
+        clear
+        eval $cmd
+        task
+        read repeat_input -P "Anything else? [y/n] "
+        if test $repeat_input = "y"
+            set repeat true
+        end
     end
-
-    eval $cmd
-    clear
-    task
-    read -P "Hit enter to close"
     exit 0
 end

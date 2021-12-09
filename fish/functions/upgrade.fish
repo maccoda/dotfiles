@@ -32,10 +32,8 @@ function upgrade
     echo "Updating fisher packages..."
     fisher update
 
-    echo "Updating rust..."
-    rustup update
-
     echo "Updating vim..."
+    nvim +PlugUpgrade +qall
     nvim +PlugUpdate +qall
     nvim +PlugClean +qall
 
