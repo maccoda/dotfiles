@@ -10,7 +10,7 @@ encrypt: false
 highlight: true
 indent_character: '|'
 journals: null
-linewrap: 79
+linewrap: 120
 tagsymbols: '@'
 template: false
 timeformat: '%Y-%m-%d %H:%M'

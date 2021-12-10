@@ -5,7 +5,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'hoob3rt/lualine.nvim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-    Plug 'preservim/nerdcommenter'
+    Plug 'numToStr/Comment.nvim'
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'thaerkh/vim-workspace'
@@ -103,6 +103,8 @@ endif
 nnoremap <leader>b :bunload<CR>
 nnoremap <leader>B :bdelete<CR>
 
+" Yank current file path to clipboard
+nnoremap <leader>yp :let @+=expand("%:p")<CR>
 " =========
 
 " TODO: Convert this to lua
@@ -135,7 +137,7 @@ let g:fzf_action = {
     \ 'ctrl-v': 'vsplit'
     \}
 " Use fd - does not include ignored by git files
-let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git'
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git -E .undodir --no-ignore-vcs'
 " Below function taken from fzf.vim readme, it will invoke rg on each change
 " when performing search
 function! RipgrepFzf(query, fullscreen)
@@ -281,4 +283,7 @@ ensure_installed = "maintained", -- one of "all", "maintained" (parsers with mai
 }
 EOF
 
+
+" == Comment ==
+lua require('Comment').setup()
 
