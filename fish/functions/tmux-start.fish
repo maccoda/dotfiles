@@ -6,7 +6,7 @@ function tmux-start
     tmux has-session -t $main_name 2> /dev/null
     if test ! $status -eq 0
         tmux new-session -s $main_name -d
-        if test $MACCODA_ENV = "work"
+        if _is_work
           tmux split-window -v "change task ~/.task/ --clear"
           tmux rename-window "jrnl"
           tmux select-pane -t 0

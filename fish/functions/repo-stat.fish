@@ -6,9 +6,9 @@
 function repo-stat
     argparse 'y' -- $argv
 
-    set startDir $argv[1]
-    test -z $startDir; and set startDir (realpath '.')
-    echo "Starting at $startDir"
+    set intial_dir (pwd)
+    set startDir (_input_or_cwd $argv[1])
+    echo "Looking for repositories under $startDir"
     if set -q _flag_y
         echo "Will automatically fetch and pull from origin"
     end
@@ -23,7 +23,6 @@ function repo-stat
         echo -n "$short_name "
         cd $repoDir
         git fetch -q &
-        cd - > /dev/null
     end
 
     echo
@@ -62,6 +61,5 @@ function repo-stat
                 end
             end
         end
-        cd - > /dev/null
     end
 end

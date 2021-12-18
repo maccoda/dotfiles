@@ -2,5 +2,9 @@
   "install.conf.yaml": {
     "type": "config",
     "dispatch": "./install"
+  },
+  "fish/functions/*": {
+      "type": "source",
+      "dispatch": "./install"
   }
 }

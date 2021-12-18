@@ -4,13 +4,12 @@
 # Also checks tasks completed yesterday
 
 function stand-up-check
-    set startDir $argv[1]
-    test -z $startDir; and set startDir (realpath '.')
+    set startDir (_input_or_cwd $argv[1])
 
-    heading "Checking for local changes under $startDir"
+    heading "Looking for repositories under $startDir"
 
     set initial_dir (pwd)
-    set dirs (fd --hidden --no-ignore --type directory --max-depth 4 '.git$' $startDir)
+    set dirs (_get_git_dirs $argv[1])
     for dir in $dirs
         set -l repoDir (echo $dir | sed "s/\/.git//")
         set -l short_name (basename $repoDir)
