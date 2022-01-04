@@ -13,7 +13,6 @@ brew_install zola # Static site generator
 brew_install fzf # Fuzzy finder
 brew_install fswatch # File watch
 brew_install miniserve # Simple HTTP server
-brew_install ktlint
 brew_install gitui # Command line git UI tool
 brew_install tmux
 brew_install jrnl # Command line journal

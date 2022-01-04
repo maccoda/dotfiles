@@ -17,7 +17,6 @@ cask_install licecap # Screen capture GIF
 cask_install numi # Improved calculator
 cask_install insomnia # HTTP requests
 cask_install joplin # Note taking
-cask_install rambox # Messaging app
 cask_install jumpcut # Clipboard manager
 cask_install alacritty # Terminal emulator
 cask_install signal

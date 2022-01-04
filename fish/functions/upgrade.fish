@@ -7,6 +7,8 @@ function upgrade
     # Update any links
     ./install
 
+    cd -
+
     switch (uname -s)
 
        case Darwin
@@ -33,9 +35,7 @@ function upgrade
     fisher update
 
     echo "Updating vim..."
-    nvim +PlugUpgrade +qall
-    nvim +PlugUpdate +qall
-    nvim +PlugClean +qall
+    nvim +PlugUpgrade +PlugUpdate +PlugClean +qall
 
    if _is_work
        work-upgrade
