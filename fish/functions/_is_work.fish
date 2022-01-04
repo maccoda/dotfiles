@@ -1,7 +1,7 @@
 function _is_work
     if test -n $MACCODA_ENV -a $MACCODA_ENV = "work"
-        return true
+        true
     else
-        return false
+        false
     end
 end

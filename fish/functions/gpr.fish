@@ -2,9 +2,11 @@
 function gpr
     set -l repo_status (git status --porcelain)
     if test -z "$repo_status"
-        git pull -r
+        git pull -r > /dev/null
     else
         echo "Detected local changes, stashing all"
-        git stash --include-untracked; and git pull -r; and git stash pop
+        git stash --include-untracked > /dev/null
+        git pull -r > /dev/null
+        git stash pop > /dev/null
     end
 end

@@ -33,22 +33,17 @@ function repo-stat
         cd $repoDir
         set short_name (basename $repoDir)
 
-        set git_status (git status --porcelain)
-        set commits (git log origin/mainline..mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
         set commits_behind (git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
 
-        wait
-
-        if test -n "$git_status"
-            echo "$short_name is dirty"
+        if ! set -q _flag_y
+            # If -y flag is set will likely be automated so do not need the status
+            heading --no-trail $short_name
+            git status --short --branch
         end
 
-        if test $commits -gt 0
-            echo "$short_name is ahead of origin"
-        end
 
         if test $commits_behind -gt 0
-            echo "$short_name is behind origin"
+            echo "$short_name is behind origin by $commits_behind commits"
             if set -q _flag_y
                 gpr
             else
@@ -62,4 +57,5 @@ function repo-stat
             end
         end
     end
+    cd $intial_dir
 end

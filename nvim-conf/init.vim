@@ -24,8 +24,9 @@ call plug#begin("~/.vim/plugged")
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/gitsigns.nvim'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdateSync'}
     Plug 'blankname/vim-fish'
+    Plug 'sbdchd/neoformat'
     Plug 'ryanoasis/vim-devicons'
 call plug#end()
 

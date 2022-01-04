@@ -15,4 +15,14 @@ FUGITIVE                                        *myhelp-fugitive*
 
 `:0Gclog`   Show history of the current file
 
+
+===============================================================
+SEARCH                                            *myhelp-search*
+
+:%s/{search}/{replace}/g
+
+Replaces all occurences of {search} in the file (due to %) with
+{replace}. The /g will ensure that if the {search} term occurs
+more than once on a single line each is replaced.
+
 vim:tw=78:ts=8:ft=help:norl:
