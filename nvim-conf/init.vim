@@ -25,13 +25,15 @@ call plug#begin("~/.vim/plugged")
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/vim-vsnip'
+
     "====
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/gitsigns.nvim'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdateSync'}
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'blankname/vim-fish'
     Plug 'sbdchd/neoformat'
+    Plug 'folke/trouble.nvim'
     Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -365,3 +367,11 @@ EOF
 " == Comment ==
 lua require('Comment').setup()
 
+
+" == Trouble ==
+lua << EOF
+require("trouble").setup {
+        icons = false,
+        auto_preview = false
+    }
+EOF
