@@ -139,7 +139,7 @@ let g:fzf_action = {
     \ 'ctrl-v': 'vsplit'
     \}
 " Use fd - does not include ignored by git files
-let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git -E .undodir --no-ignore-vcs'
+let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git -E .undodir'
 " Below function taken from fzf.vim readme, it will invoke rg on each change
 " when performing search
 function! RipgrepFzf(query, fullscreen)
@@ -174,6 +174,21 @@ map [s <Plug>Lightspeed_S
 
 " == Lualine ==
 lua << EOF
+local function window()
+  return vim.api.nvim_win_get_number(0)
+end
+
+local function diff_source()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed
+    }
+  end
+end
+
 require('lualine').setup{
     options = {
         theme = 'tokyonight',
@@ -182,6 +197,13 @@ require('lualine').setup{
     },
     extensions = {
         "fugitive", "quickfix"
+    },
+    sections = {
+        lualine_a = {window, 'mode'},
+        lualine_b = { {'FugitiveHead', icon = ''}, {'diff', source = diff_source} },
+    },
+    inactive_sections = {
+        lualine_a = {window}
     }
 
 }

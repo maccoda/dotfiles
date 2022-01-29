@@ -25,4 +25,13 @@ Replaces all occurences of {search} in the file (due to %) with
 {replace}. The /g will ensure that if the {search} term occurs
 more than once on a single line each is replaced.
 
+===============================================================
+NAVIGATION                                    *myhelp-navigation*
+
+{num}<C-w>w
+
+Navigate to window {num} directly rather than needing to move
+using directional navigation.
+
+
 vim:tw=78:ts=8:ft=help:norl:
