@@ -10,7 +10,6 @@ function tmux-start
           tmux split-window -v "change task ~/.task/ --clear"
           tmux rename-window "jrnl"
           tmux select-pane -t 0
-          tmux new-window -n "sync" ninja-dev-sync
         end
         tmux new-window -n "dots" "dots"
     end

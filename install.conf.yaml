@@ -39,6 +39,8 @@
 
     "~/.config/alacritty/common.yml": alacritty/common.yml
 
+    "~/.taskrc": "taskrc"
+
 - clean:
     ~/:
       force: true
@@ -57,10 +59,6 @@
 - link:
     "~/.config/alacritty/alacritty.yml":
       path: alacritty/mac.yml
-    "~/Library/Application Support/Code/User/settings.json":
-      path: vscode/settings.json
-    "~/Library/Application Support/Code/User/keybindings.json":
-      path: vscode/keybindings.json
 
 
 # Linux

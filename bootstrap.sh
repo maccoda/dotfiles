@@ -34,10 +34,15 @@ echoo "It's about to get rusty!"
 check_if_binary_installed rustup || curl https://sh.rustup.rs -sSf | sh
 
 echoo "Getting package manager for fish"
-check_if_binary_installed fisher || curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+check_if_installed ~/.config/fish/functions/fisher.fish || fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
 
 # Update the autocomplete from man pages
 fish -c "fish_update_completions"
 # The install will need to be run again because it will need to work for fish
 # to add the OS dependent links
 fish -c "~/.dotfiles/install"
+
+echoo "To finish this off change the shell across to fish and start a new alacritty terminal"
+chsh -s (which fish)
+
+echoo "If the above failed ensure fish is in /etc/shells"

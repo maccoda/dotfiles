@@ -20,6 +20,10 @@ abbr --add --global t " task"
 abbr --add --global task " task"
 
 
+if test (uname) = "Darwin"
+    eval (/opt/homebrew/bin/brew shellenv)
+end
+
 if status --is-interactive
   starship init fish | source
 end

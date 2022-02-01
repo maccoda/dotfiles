@@ -1,4 +1,5 @@
 #!/bin/bash
+echoo "Installing the editor"
 brew_install neovim nvim
 
 # Install plugin manager

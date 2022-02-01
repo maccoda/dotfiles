@@ -23,7 +23,7 @@ function check_if_binary_installed {
 }
 
 function check_cask_installed {
-    ls /usr/local/Caskroom/$1 &>/dev/null && echog "$1 is already installed"
+    ls /opt/homebrew/Caskroom/$1 &>/dev/null && echog "$1 is already installed"
 }
 
 function check_snap_installed {
@@ -39,7 +39,7 @@ function brew_install {
 }
 
 function cask_install {
-    check_cask_installed $1 || brew cask install $1
+    check_cask_installed $1 || brew install --cask $1
 }
 
 

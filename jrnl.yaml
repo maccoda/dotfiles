@@ -16,8 +16,6 @@ template: false
 timeformat: '%Y-%m-%d %H:%M'
 version: v2.8
 journals:
-  work:
-    encrypt: true
-    journal: ~/.journals/work.txt
   default:
+    encrypt: true
     journal: ~/.journals/journal.txt
