@@ -8,6 +8,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'numToStr/Comment.nvim'
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-rhubarb'
     Plug 'thaerkh/vim-workspace'
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-dispatch'
@@ -18,15 +19,20 @@ call plug#begin("~/.vim/plugged")
     " LSP plugins
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'onsails/lspkind-nvim'
+    "====
+    " cmp sources
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-vsnip'
-    Plug 'hrsh7th/vim-vsnip'
-
+    Plug 'andersevenrud/cmp-tmux'
     "====
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/vim-vsnip-integ'
+    Plug 'rafamadriz/friendly-snippets'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/gitsigns.nvim'
@@ -34,6 +40,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'blankname/vim-fish'
     Plug 'sbdchd/neoformat'
     Plug 'folke/trouble.nvim'
+    Plug 'junegunn/gv.vim'
     Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -124,6 +131,8 @@ command! WGrep call RipgrepFzf(expand('<cword>'), <bang>0)
 nnoremap ;wf :WFiles<CR>
 nnoremap ;wg :WGrep<CR>
 
+" Quickly reload config
+nnoremap <leader>r :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
 " Syntax theme
 set termguicolors
 
@@ -250,14 +259,12 @@ nnoremap <leader>qw :CloseHiddenBuffers<CR>
 let g:workspace_autosave_always = 1
 
 " == Cmp ==
-"
 lua <<EOF
-  -- Setup nvim-cmp.
   local cmp = require'cmp'
+  local lspkind = require('lspkind')
 
   cmp.setup({
     snippet = {
-      -- REQUIRED - you must specify a snippet engine
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
         -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
@@ -269,22 +276,35 @@ lua <<EOF
       ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<tab>'] = cmp.config.disable, -- Mapping to ins-completion
       ['<C-e>'] = cmp.mapping({
         i = cmp.mapping.abort(),
         c = cmp.mapping.close(),
       }),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert}), -- Same ins-completion mapping and never replace
     },
     sources = cmp.config.sources({
+    -- Order of the sources determines menu sort order
       { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    })
+      { name = 'path' },
+      { name = 'vsnip' },
+      { name = 'buffer', keyword_length = 4 },
+      { name = 'tmux', keyword_length = 4 }
+    }),
+    formatting = {
+    format = lspkind.cmp_format {
+          with_text = true,
+          maxwidth = 50,
+          menu = {
+            buffer = "[buf]",
+            nvim_lsp = "[LSP]",
+            nvim_lua = "[api]",
+            path = "[path]",
+            luasnip = "[snip]",
+            vsnip = "[snip]",
+            tmux = "[tmux]"
+          },
+     }},
   })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -304,9 +324,6 @@ lua <<EOF
   })
 EOF
 
-
-
-
 " == LSP ==
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -316,18 +333,10 @@ local lsp_installer = require("nvim-lsp-installer")
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
 lsp_installer.on_server_ready(function(server)
     local opts = {}
 
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
-
-    -- This setup() function is exactly the same as lspconfig's setup function.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-
+    -- Function to run when the LSP is attached to a buffer
     local on_attach = function(client, bufnr)
         local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
@@ -392,3 +401,26 @@ require("trouble").setup {
         auto_preview = false
     }
 EOF
+
+" == Snippets ==
+" NOTE: You can use other key to expand snippet.
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+
+" If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
