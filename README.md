@@ -33,5 +33,4 @@ take effect.
 ```fish
 > set -Ux MACCODA_ENV work
 ```
-
 [set]: https://fishshell.com/docs/current/cmds/set.html

@@ -42,6 +42,13 @@ fish -c "fish_update_completions"
 # to add the OS dependent links
 fish -c "~/.dotfiles/install"
 
+# Install node
+fish -c "nvm install lts"
+fish -c "set —universal nvm_default_version lts"
+
+# Set vim mode keybindings in fish
+fish -c "fish_vi_key_bindings"
+
 echoo "To finish this off change the shell across to fish and start a new alacritty terminal"
 chsh -s (which fish)
 
