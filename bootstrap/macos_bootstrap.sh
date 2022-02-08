@@ -3,6 +3,8 @@
 echoo "It is time to begin this journey, let's get our trusty friend Homebrew"
 check_if_binary_installed "brew" || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+# TODO: brew is not immediately on the path need to fix this
+
 echoo "Now to work with our friend to find some more"
 brew_install awscli aws # AWS CLI
 brew_install stern # Kubernetes log aggregator

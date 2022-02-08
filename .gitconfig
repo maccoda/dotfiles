@@ -9,9 +9,9 @@
 	process = git-lfs filter-process
 	required = true
 [diff]
-	tool = p4merge
+    colorMoved = default
 [merge]
-	tool = p4merge
+    conflictstyle = diff3
 [core]
 	excludesfile = ~/.gitignore
 	editor = nvim

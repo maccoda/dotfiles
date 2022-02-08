@@ -8,7 +8,7 @@ function good-morning
         task
         # FIXME: This obviously does not work on a Monday
         heading "Journal entries from yesterday"
-        jrnl work -on yesterday
+        jrnl -on yesterday
     end
 
 end
