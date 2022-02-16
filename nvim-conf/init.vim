@@ -293,7 +293,18 @@ lua <<EOF
       { name = 'nvim_lsp' },
       { name = 'path' },
       { name = 'vsnip' },
-      { name = 'buffer', keyword_length = 4 },
+      { name = 'buffer',
+        keyword_length = 4,
+        option = {
+        get_bufnrs = function()
+          local bufs = {}
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            bufs[vim.api.nvim_win_get_buf(win)] = true
+          end
+          return vim.tbl_keys(bufs)
+        end
+        }
+      },
       { name = 'tmux', keyword_length = 4 }
     }),
     formatting = {
