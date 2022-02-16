@@ -10,9 +10,9 @@ brew_install awscli aws # AWS CLI
 brew_install stern # Kubernetes log aggregator
 brew_install tcpflow # TCP traffic logger
 brew_install telnet
-brew_install terraform # Infrastructure as code
+brew_install warrensbox/tap/tfswitch tfswitch # Infrastructure as code version manager
 brew_install watch
-brew install fish
+brew_install fish
 
 echoo "Let's move onto the bigger ones"
 cask_install docker # Docker
@@ -20,7 +20,7 @@ cask_install licecap # Screen capture GIF
 cask_install numi # Improved calculator
 cask_install insomnia # HTTP requests
 cask_install joplin # Note taking
-cask_install jumpcut # Clipboard manager
+cask_install flycut # Clipboard manager
 cask_install alacritty # Terminal emulator
 cask_install signal
 cask_install stretchly # Screen timer
