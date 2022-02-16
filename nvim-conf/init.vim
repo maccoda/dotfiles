@@ -16,6 +16,9 @@ call plug#begin("~/.vim/plugged")
     Plug 'justinmk/vim-dirvish'
     Plug 'tpope/vim-eunuch'
     Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-sleuth'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
     " LSP plugins
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
@@ -41,6 +44,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'sbdchd/neoformat'
     Plug 'folke/trouble.nvim'
     Plug 'junegunn/gv.vim'
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
     Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -89,6 +93,7 @@ nnoremap s :noh<CR>s
 autocmd BufWritePre * %s/\s\+$//e
 " Wrap markdown files to 80 column
 au BufRead,BufNewFile *.md setlocal textwidth=80
+au BufRead,BufNewFile *.jrnl setlocal textwidth=120
 " Wrap text files to 100 column
 au BufRead,BufNewFile *.tex setlocal textwidth=80
 " Set spell check in markdown and latex files
