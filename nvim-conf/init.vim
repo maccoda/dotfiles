@@ -10,7 +10,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb'
     Plug 'thaerkh/vim-workspace'
-    Plug 'jiangmiao/auto-pairs'
+    Plug 'windwp/nvim-autopairs'
     Plug 'tpope/vim-dispatch'
     Plug 'tpope/vim-projectionist'
     Plug 'justinmk/vim-dirvish'
@@ -40,6 +40,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'windwp/nvim-ts-autotag'
     Plug 'blankname/vim-fish'
     Plug 'sbdchd/neoformat'
     Plug 'folke/trouble.nvim'
@@ -267,6 +268,9 @@ let g:workspace_autosave_always = 1
 lua <<EOF
   local cmp = require'cmp'
   local lspkind = require('lspkind')
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+
+  cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
   cmp.setup({
     snippet = {
@@ -402,6 +406,9 @@ ensure_installed = "maintained", -- one of "all", "maintained" (parsers with mai
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
+  autotag = {
+    enable = true
+  }
 }
 EOF
 
@@ -419,7 +426,6 @@ require("trouble").setup {
 EOF
 
 " == Snippets ==
-" NOTE: You can use other key to expand snippet.
 
 " Expand
 imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
@@ -440,3 +446,9 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ['javascript']
 let g:vsnip_filetypes.typescriptreact = ['typescript']
+
+" == Auto Pairs --
+lua << EOF
+    require('nvim-autopairs').setup{}
+EOF
+

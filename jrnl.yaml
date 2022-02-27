@@ -10,7 +10,7 @@ encrypt: false
 highlight: true
 indent_character: '|'
 journals: null
-linewrap: 120
+linewrap: 122 # To match with nvim config and account for indent
 tagsymbols: '@'
 template: false
 timeformat: '%Y-%m-%d %H:%M'
