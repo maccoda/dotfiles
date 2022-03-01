@@ -1,0 +1,72 @@
+# Uber script to handle common dev actions.
+#
+# Motivation behind creating this is I will be able to use completions
+# so that I do not need to remember each script name when it is regarding
+# dev work with a repository
+function repo
+    ls .git &>/dev/null
+    if test $status -ne 0
+        echo "Not at the git root directory. This script must run at the root"
+        return 126
+    end
+
+    if test (count $argv) -eq 0
+        echo "ERROR: No sub command provided"
+        return 126
+    end
+
+    # Get a repo ready with all local elements that will not
+    # usually get pushed to the repo.
+    function __repo_setup
+        set -l projections_dir ~/.dotfiles/nvim-conf/projections
+        echo "Below are existing projections:"
+        exa $projections_dir/ --icons --oneline
+        read -P "Which projection do you want? (Only type the part before -projections.json) " chosen
+        # TODO: Should validate there is at least input or capture the copy failure
+        echo "Copying across $chosen projection"
+        cp $projections_dir/$chosen-projections.json .projections.json
+
+        functions -e __repo_setup
+    end
+
+    # Delete all branches that have been removed upstream
+    function __repo_prune_branches
+        argparse f/force -- $argv
+
+        set removed_branches (git branch -vv | rg ": gone]" | tr -s ' ' | cut -d ' ' -f 2)
+        echo "Branches to remove: $removed_branches"
+        for branch in $removed_branches
+            if set -q _flag_f
+                git branch -D $branch
+            else
+                git branch -d $branch
+                if test $status -ne 0
+                    echo "Failed to soft delete $branch, perhaps you use squash and merge".
+                    read -P "Would you like to force delete? (y/n) " response
+                    if test $response = y
+                        git branch -D $branch
+                    else
+                        echo "Leaving local branch $branch"
+                    end
+                else
+                    echo "Deleted $branch"
+                end
+            end
+        end
+
+        functions -e __repo_prune_branches
+    end
+
+    set command $argv[1]
+    set args $argv[2..]
+    if test $command = "setup"
+        __repo_setup
+    else if test $command = "prune-branches"
+        __repo_prune_branches $args
+    else if test $command = "feature-start"
+        feature-start $args
+    else
+        echo "Unknown sub-command $command"
+        return 127
+    end
+end

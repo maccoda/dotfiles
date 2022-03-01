@@ -5,6 +5,11 @@ function feature-start
         echo "Not a git directory"
         return 1
     end
+    set -l repo_status (git status --porcelain)
+    if test -n "$repo_status"
+        echo "Detected local changes, stashing all"
+        git stash --include-untracked
+    end
 
     # Look for the main branch
     git switch main &> /dev/null; or git switch master &> /dev/null
@@ -36,6 +41,9 @@ function feature-start
 
     end
     git switch -c $jira_id
+    if test -n "$repo_status"
+        git stash pop
+    end
 
 
 end

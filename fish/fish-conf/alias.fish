@@ -4,18 +4,10 @@ alias postgres_start='sudo service postgresql start'
 alias vim='nvim'
 # git
 abbr --add --global g 'git'
+abbr --add --global tf 'terraform'
 # Git log for rip-grepping
 alias grg='git log --pretty="format:%C(yellow)%h%C(reset) %C(blue)%<(15)%an%C(reset) %C(magenta)%cs%C(reset) %s"'
 alias gst='git status'
-
-# directory shortcut
-function dev
-    if test -d '/mnt/c/Users/dylan/dev'
-        cd /mnt/c/Users/dylan/dev
-    else
-        cd "$HOME/dev"
-    end
-end
 
 # Simple find to use at top level dev directory to check if
 # a project is checked out

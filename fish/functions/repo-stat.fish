@@ -33,7 +33,7 @@ function repo-stat
         cd $repoDir
         set short_name (basename $repoDir)
 
-        set commits_behind (git log mainline..origin/mainline 2> /dev/null | grep '^commit' | wc -l | tr -d " ")
+        set commits_behind (git branch -vv | rg --only-matching --replace "\$1"  "behind ([0-9]+)")
 
         if ! set -q _flag_y
             # If -y flag is set will likely be automated so do not need the status
@@ -43,7 +43,6 @@ function repo-stat
 
 
         if test $commits_behind -gt 0
-            echo "$short_name is behind origin by $commits_behind commits"
             if set -q _flag_y
                 gpr
             else

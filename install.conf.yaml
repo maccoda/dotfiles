@@ -25,6 +25,10 @@
       glob: true
       path: fish/functions/*
 
+    "~/.config/fish/completions":
+        glob: true
+        path: fish/completions/*
+
     "~/.vimrc": ".vimrc"
     "~/.config/nvim":
       glob: true
