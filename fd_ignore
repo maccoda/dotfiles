@@ -1,0 +1,3 @@
+# Ignore generated files by JVM LSPs (Scala, Java, Kotlin)
+*.class
+.bloop/

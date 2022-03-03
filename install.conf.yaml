@@ -45,6 +45,8 @@
 
     "~/.taskrc": "taskrc"
 
+    "~/.config/fd/ignore": fd_ignore
+
 - clean:
     ~/:
       force: true
