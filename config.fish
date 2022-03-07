@@ -4,7 +4,7 @@ fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin $HOME/.fzf/bin
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 
 # Set default theme for bat
-set -gx BAT_THEME "OneHalfDark"
+set -gx BAT_THEME "Coldark-Dark"
 
 # For linux /home/linuxbrew/.linuxbrew/bin
 if test (uname) = 'Linux'

@@ -3,7 +3,7 @@
 function work-upgrade
     echo "Running work related upgrades"
 
-    # Add location of repository roots to check here (repo-stat will handle the rest)
+    set repo_list (bat --plain ~/.devrc)
     for repo in $repo_list
         repo-stat -y $repo
     end

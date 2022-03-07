@@ -2,7 +2,8 @@ call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
     Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-    Plug 'hoob3rt/lualine.nvim'
+    Plug 'EdenEast/nightfox.nvim'
+    Plug 'nvim-lualine/lualine.nvim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
     Plug 'numToStr/Comment.nvim'
@@ -147,8 +148,8 @@ set termguicolors
 
 lua << EOF
   vim.g.tokyonight_style = "night"
+  vim.cmd 'colorscheme nightfox'
 
-  vim.cmd[[colorscheme tokyonight]]
 EOF
 
 
@@ -237,12 +238,11 @@ end
 
 require('lualine').setup{
     options = {
-        theme = 'tokyonight',
         section_separators = '',
         component_separators = ''
     },
     extensions = {
-        "fugitive", "quickfix"
+        "fzf","fugitive", "quickfix", "symbols-outline"
     },
     sections = {
         lualine_a = {window, 'mode'},

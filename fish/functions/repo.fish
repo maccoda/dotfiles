@@ -57,14 +57,28 @@ function repo
         functions -e __repo_prune_branches
     end
 
+    # Stores the repo to be used for other scripts that track it for PRs, etc
+    function __repo_follow
+        set repo_path (pwd)
+        echo "Following $repo_path"
+
+        echo $repo_path >> ~/.devrc
+        cp ~/.devrc /tmp/devrc
+        sort -u /tmp/devrc > ~/.devrc
+
+        functions -e __repo_follow
+    end
+
     set command $argv[1]
     set args $argv[2..]
-    if test $command = "setup"
+    if test $command = "init"
         __repo_setup
     else if test $command = "prune-branches"
         __repo_prune_branches $args
     else if test $command = "feature-start"
         feature-start $args
+    else if test $command = "follow"
+        __repo_follow $args
     else
         echo "Unknown sub-command $command"
         return 127
