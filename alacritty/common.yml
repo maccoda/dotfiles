@@ -214,34 +214,6 @@ schemes:
       # Tokyo Night theme, based on both:
   #   https://github.com/ghifarit53/tokyonight-vim
   #   https://github.com/enkia/tokyo-night-vscode-theme
-  tokyo-night: &tokyo-night
-    # Default colors
-    primary:
-      background: '0x1a1b26'
-      foreground: '0xa9b1d6'
-
-    # Normal colors
-    normal:
-      black:   '0x32344a'
-      red:     '0xf7768e'
-      green:   '0x9ece6a'
-      yellow:  '0xe0af68'
-      blue:    '0x7aa2f7'
-      magenta: '0xad8ee6'
-      cyan:    '0x449dab'
-      white:   '0x787c99'
-
-    # Bright colors
-    bright:
-      black:   '0x444b6a'
-      red:     '0xff7a93'
-      green:   '0xb9f27c'
-      yellow:  '0xff9e64'
-      blue:    '0x7da6ff'
-      magenta: '0xbb9af7'
-      cyan:    '0x0db9d7'
-      white:   '0xacb0d0'
-
   tokyo-night-storm: &tokyo-night-storm
     # Default colors
     primary:
@@ -270,9 +242,42 @@ schemes:
       cyan:    '0x0db9d7'
       white:   '0xacb0d0'
 
+  # Nightfox Alacritty Colors
+  # Style: nightfox
+  # Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/nightfox/nightfox_alacritty.yml
+  night-fox: &night-fox
+    # Default colors
+    primary:
+      background: '0x192330'
+      foreground: '0xcdcecf'
+    # Normal colors
+    normal:
+      black:   '0x393b44'
+      red:     '0xc94f6d'
+      green:   '0x81b29a'
+      yellow:  '0xdbc074'
+      blue:    '0x719cd6'
+      magenta: '0x9d79d6'
+      cyan:    '0x63cdcf'
+      white:   '0xdfdfe0'
+    # Bright colors
+    bright:
+      black:   '0x475072'
+      red:     '0xd6616b'
+      green:   '0x58cd8b'
+      yellow:  '0xffe37e'
+      blue:    '0x84cee4'
+      magenta: '0xb8a1e3'
+      cyan:    '0x59f0ff'
+      white:   '0xf2f2f2'
+    indexed_colors:
+      - { index: 16, color: '0xf4a261' }
+      - { index: 17, color: '0xd67ad2' }
+
+
 
 colors:
-  *tokyo-night-storm
+  *night-fox
 
 # Bell
 #
