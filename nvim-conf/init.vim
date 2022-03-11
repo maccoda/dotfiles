@@ -6,6 +6,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzy-native.nvim'
     Plug 'numToStr/Comment.nvim'
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
@@ -139,7 +141,7 @@ command! WFiles call fzf#run(fzf#wrap({'options': ['--query', expand('<cword>')]
 command! WGrep call RipgrepFzf(expand('<cword>'), <bang>0)
 
 nnoremap ;wf :WFiles<CR>
-nnoremap ;wg :WGrep<CR>
+nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<CR>
 
 " Quickly reload config
 nnoremap <leader>r :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
@@ -154,10 +156,11 @@ EOF
 
 
 " == FZF fuzzy finder ==
-nnoremap ;f :Files<cr>
-nnoremap ;g :RG<cr>
-nnoremap ;b :Buffers<cr>
+nnoremap ;f <cmd>lua require('telescope.builtin').git_files()<cr>
+nnoremap ;g <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap ;b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap ;w :Windows<cr>
+nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles({only_cwd = true})<cr>
 
 let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
@@ -188,6 +191,10 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 " Single escape exits
 autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+
+lua << EOF
+require("telescope").load_extension('fzy_native')
+EOF
 
 
 " == Git signs ==
