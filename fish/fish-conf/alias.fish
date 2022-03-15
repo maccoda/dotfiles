@@ -14,9 +14,6 @@ alias gst='git status'
 alias fd-project='fd -t d -d 3'
 
 # rust CLI remaps
-alias cat='bat'
-alias grep='rg'
-alias find='fd'
 alias ls='exa'
 alias du='dust'
 

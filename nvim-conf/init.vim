@@ -52,6 +52,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'folke/trouble.nvim'
     Plug 'junegunn/gv.vim'
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+    Plug 'norcalli/nvim-colorizer.lua'
     Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
@@ -465,8 +466,11 @@ let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ['javascript']
 let g:vsnip_filetypes.typescriptreact = ['typescript']
 
-" == Auto Pairs --
+" == Auto Pairs ==
 lua << EOF
     require('nvim-autopairs').setup{}
 EOF
+
+" == Colorizer ==
+lua require'colorizer'.setup()
 
