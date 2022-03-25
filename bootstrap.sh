@@ -44,7 +44,7 @@ fish -c "~/.dotfiles/install"
 
 # Install node
 fish -c "nvm install lts"
-fish -c "set —universal nvm_default_version lts"
+fish -c "set --universal nvm_default_version lts"
 
 # Set vim mode keybindings in fish
 fish -c "fish_vi_key_bindings"

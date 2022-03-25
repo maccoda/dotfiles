@@ -3,7 +3,7 @@
 function work-upgrade
     echo "Running work related upgrades"
 
-    set repo_list (bat --plain ~/.devrc)
+    set repo_list (bat --plain ~/.config/dev-tools/following)
     for repo in $repo_list
         repo-stat -y $repo
     end

@@ -4,10 +4,13 @@
 # so that I do not need to remember each script name when it is regarding
 # dev work with a repository
 function repo
-    ls .git &>/dev/null
-    if test $status -ne 0
-        echo "Not at the git root directory. This script must run at the root"
-        return 126
+    set -g config_dir ~/.config/dev-tools
+
+    set start_dir (pwd)
+    set git_root (git rev-parse --show-toplevel)
+    if test "$start_dir" != "$git_root"
+        echo "Not at the git root directory. Moving to the root"
+        cd $git_root
     end
 
     if test (count $argv) -eq 0
@@ -33,6 +36,8 @@ function repo
     function __repo_prune_branches
         argparse f/force -- $argv
 
+        git switch main
+        git fetch --all --prune
         set removed_branches (git branch -vv | rg ": gone]" | tr -s ' ' | cut -d ' ' -f 2)
         echo "Branches to remove: $removed_branches"
         for branch in $removed_branches
@@ -62,9 +67,10 @@ function repo
         set repo_path (pwd)
         echo "Following $repo_path"
 
-        echo $repo_path >> ~/.devrc
-        cp ~/.devrc /tmp/devrc
-        sort -u /tmp/devrc > ~/.devrc
+        set following_file "$config_dir/following"
+        echo $repo_path >> $following_file
+        cp $following_file /tmp/devrc_following
+        sort -u /tmp/devrc_following > $following_file
 
         functions -e __repo_follow
     end
@@ -83,4 +89,6 @@ function repo
         echo "Unknown sub-command $command"
         return 127
     end
+    cd $start_dir
+    set -e config_dir
 end
