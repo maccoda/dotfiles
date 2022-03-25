@@ -161,7 +161,7 @@ nnoremap ;f <cmd>lua require('telescope.builtin').git_files()<cr>
 nnoremap ;g <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap ;b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap ;w :Windows<cr>
-nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles({only_cwd = true})<cr>
+nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles()<cr>
 
 let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
@@ -195,6 +195,19 @@ autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 
 lua << EOF
 require("telescope").load_extension('fzy_native')
+
+require("telescope").setup {
+  pickers = {
+    live_grep = {
+      additional_args = function(opts)
+          return {"--hidden"}
+      end
+      },
+    oldfiles = {
+        only_cwd = true
+      }
+    }
+  }
 EOF
 
 
@@ -245,21 +258,17 @@ local function diff_source()
 end
 
 require('lualine').setup{
-    options = {
-        section_separators = '',
-        component_separators = ''
-    },
     extensions = {
         "fzf","fugitive", "quickfix", "symbols-outline"
     },
     sections = {
         lualine_a = {window, 'mode'},
         lualine_b = { {'FugitiveHead', icon = ''}, {'diff', source = diff_source} },
+        lualine_c = {{'filename', path = 1}}
     },
     inactive_sections = {
         lualine_a = {window}
     }
-
 }
 EOF
 
@@ -395,6 +404,7 @@ lsp_installer.on_server_ready(function(server)
         buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', map_opts)
         buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', map_opts)
         buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', map_opts)
+        buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', map_opts)
     end
 
     opts.on_attach = on_attach
@@ -404,8 +414,6 @@ lsp_installer.on_server_ready(function(server)
 end)
 
 EOF
-
-nnoremap <leader>f :Neoformat<CR>
 
 
 " == tree-sitter ==
@@ -439,7 +447,7 @@ require("trouble").setup {
         icons = false,
         auto_preview = false,
         mode = "document_diagnostics",
-        height = 5
+        height = 8
     }
 EOF
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
