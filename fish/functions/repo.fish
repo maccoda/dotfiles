@@ -36,8 +36,7 @@ function repo
     function __repo_prune_branches
         argparse f/force -- $argv
 
-        git switch main
-        git fetch --all --prune
+        git fetch --all --prune --quiet
         set removed_branches (git branch -vv | rg ": gone]" | tr -s ' ' | cut -d ' ' -f 2)
         echo "Branches to remove: $removed_branches"
         for branch in $removed_branches

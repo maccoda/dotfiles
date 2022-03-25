@@ -5,6 +5,11 @@ function work-upgrade
 
     set repo_list (bat --plain ~/.config/dev-tools/following)
     for repo in $repo_list
-        repo-stat -y $repo
+        cd $repo
+        heading (basename $repo)
+        git switch -q main &> /dev/null || git switch -q master &> /dev/null
+        repo prune-branches --force
+        gpr
+        cd -
     end
 end
