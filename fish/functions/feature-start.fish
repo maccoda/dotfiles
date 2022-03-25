@@ -1,5 +1,6 @@
 # Function for the repetitive stuff for starting new feature work with Github model
 function feature-start
+    argparse 'c/from-current' -- $argv
     git rev-parse 2&>/dev/null
     if test $status -ne 0
         echo "Not a git directory"
@@ -11,15 +12,19 @@ function feature-start
         git stash --include-untracked
     end
 
-    # Look for the main branch
-    git switch main &> /dev/null; or git switch master &> /dev/null
-    if test $status -ne 0
-        echo "Unknown main branch"
-        git branch
-        return 1
+    if ! set -q _flag_c
+        # Look for the main branch
+        git switch main &>/dev/null; or git switch master &>/dev/null
+        if test $status -ne 0
+            echo "Unknown main branch"
+            git branch
+            return 1
+        end
+        set main_branch (git branch --show-current)
+        echo "Determined main branch is $main_branch"
+    else
+        echo "Creating new branch from current"
     end
-    set main_branch (git branch --show-current)
-    echo "Determined main branch is $main_branch"
 
     # Pull latest changes
     echo "Pulling latest changes..."
