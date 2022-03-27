@@ -6,9 +6,13 @@ function good-morning
     if test $MACCODA_ENV = "work"
         heading "Tasks remaining"
         task
-        # FIXME: This obviously does not work on a Monday
-        heading "Journal entries from yesterday"
-        jrnl -on yesterday
+        if test (date | cut -f 1 -d ' ') = "Mon"
+            heading "Journal entries from last week"
+            jrnl -from "last week"
+        else
+            heading "Journal entries from yesterday"
+            jrnl -on yesterday
+        end
     end
 
 end
