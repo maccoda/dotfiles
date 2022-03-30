@@ -1,2 +1,2 @@
-complete -c dev --arguments "pr"
+complete -c dev --arguments "pr following"
 complete -c dev --no-files

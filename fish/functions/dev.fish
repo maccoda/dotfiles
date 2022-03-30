@@ -22,6 +22,11 @@ function dev
             end
         end
         cd $start_dir
+    else if test $command = "following"
+        echo "Currently following these repositories:"
+        for repo in (bat --plain ~/.config/dev-tools/following)
+            echo -e "$(basename $repo | string pad --width 40 --right) $repo"
+        end
     else
         echo "Unknown command $command"
         return 1

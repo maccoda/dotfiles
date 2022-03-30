@@ -200,7 +200,7 @@ require("telescope").setup {
   pickers = {
     live_grep = {
       additional_args = function(opts)
-          return {"--hidden"}
+          return {"--hidden", "--glob", "!__snapshots__"}
       end
       },
     oldfiles = {
