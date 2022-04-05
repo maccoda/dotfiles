@@ -27,6 +27,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'williamboman/nvim-lsp-installer'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'onsails/lspkind-nvim'
+    Plug 'jose-elias-alvarez/null-ls.nvim'
     "====
     " cmp sources
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -53,6 +54,8 @@ call plug#begin("~/.vim/plugged")
     Plug 'junegunn/gv.vim'
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
     Plug 'norcalli/nvim-colorizer.lua'
+    Plug 'folke/twilight.nvim'
+    Plug 'folke/zen-mode.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
@@ -264,7 +267,7 @@ require('lualine').setup{
     sections = {
         lualine_a = {window, 'mode'},
         lualine_b = { {'FugitiveHead', icon = ''}, {'diff', source = diff_source} },
-        lualine_c = {{'filename', path = 1}}
+        lualine_c = {{'filename', path = 1, shorting_target = 80}}
     },
     inactive_sections = {
         lualine_a = {window}
@@ -321,9 +324,10 @@ lua <<EOF
       { name = 'path' },
       { name = 'vsnip' },
       { name = 'buffer',
-        keyword_length = 4,
+        max_item_count = 5,
         option = {
         get_bufnrs = function()
+        -- Look in all buffers
           local bufs = {}
           for _, win in ipairs(vim.api.nvim_list_wins()) do
             bufs[vim.api.nvim_win_get_buf(win)] = true
@@ -332,7 +336,7 @@ lua <<EOF
         end
         }
       },
-      { name = 'tmux', keyword_length = 4 }
+      { name = 'tmux', max_item_count = 3 }
     }),
     formatting = {
     format = lspkind.cmp_format {
@@ -417,6 +421,13 @@ lsp_installer.on_server_ready(function(server)
             format = { enable = true }, -- this will enable formatting
         }
     end
+    -- Prefer eslint over tsserver formatting
+    if server.name == "tsserver" then
+      opts.on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = false
+          common_on_attach(client, bufnr)
+      end
+    end
 
     opts.capabilities = capabilities
 
@@ -425,19 +436,23 @@ end)
 
 EOF
 
+" == null-ls ==
+lua <<EOF
+require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.diagnostics.proselint,
+        require("null-ls").builtins.code_actions.proselint
+    },
+})
+EOF
+
 
 " == tree-sitter ==
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
-    enable = true,              -- false will disable the whole extension
-    -- disable = { "c", "rust" },  -- list of language that will be disabled
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
+    enable = true,
     additional_vim_regex_highlighting = false,
   },
   autotag = {
@@ -492,3 +507,14 @@ EOF
 " == Colorizer ==
 lua require'colorizer'.setup()
 
+" == Twilight ==
+lua require("twilight").setup()
+" == Zen Mode ==
+lua << EOF
+require("zen-mode").setup {
+  window = {
+    width = .85
+    }
+  }
+EOF
+nnoremap <leader>z <cmd>ZenMode<cr>
