@@ -74,16 +74,33 @@ function repo
         functions -e __repo_follow
     end
 
+    function __repo_rebase
+        set rebase_branch $argv[1]
+        echo "Rebasing onto $rebase_branch"
+        git fetch origin "$rebase_branch:$rebase_branch"
+        set repo_status (git status --porcelain)
+        if test -z "$repo_status"
+            git rebase $rebase_branch
+        else
+            echo "Detected local changes, stashing all"
+            git stash --include-untracked >/dev/null
+            git rebase $rebase_branch
+            git stash pop >/dev/null
+        end
+    end
+
     set command $argv[1]
     set args $argv[2..]
-    if test $command = "init"
+    if test $command = init
         __repo_setup
-    else if test $command = "prune-branches"
+    else if test $command = prune-branches
         __repo_prune_branches $args
-    else if test $command = "feature-start"
+    else if test $command = feature-start
         feature-start $args
-    else if test $command = "follow"
+    else if test $command = follow
         __repo_follow $args
+    else if test $command = rebase
+        __repo_rebase $args
     else
         echo "Unknown sub-command $command"
         return 127
