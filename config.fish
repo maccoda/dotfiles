@@ -6,6 +6,8 @@ set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 # Set default theme for bat
 set -gx BAT_THEME "Coldark-Dark"
 
+set -gx EDITOR "nvim"
+
 # For linux /home/linuxbrew/.linuxbrew/bin
 if test (uname) = 'Linux'
   fish_add_path /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/opt/node@12/bin /home/linuxbrew/.linuxbrew/opt/openjdk@11/bin

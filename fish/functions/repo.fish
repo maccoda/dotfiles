@@ -67,9 +67,9 @@ function repo
         echo "Following $repo_path"
 
         set following_file "$config_dir/following"
-        echo $repo_path >> $following_file
+        echo $repo_path >>$following_file
         cp $following_file /tmp/devrc_following
-        sort -u /tmp/devrc_following > $following_file
+        sort -u /tmp/devrc_following >$following_file
 
         functions -e __repo_follow
     end
@@ -87,6 +87,22 @@ function repo
             git rebase $rebase_branch
             git stash pop >/dev/null
         end
+        functions -e __repo_rebase
+    end
+
+    function __repo_main
+        set repo_status (git status --porcelain)
+        if test -z "$repo_status"
+            git switch main >/dev/null || git switch master >/dev/null
+            git pull
+        else
+            echo "Detected local changes, stashing all"
+            git stash --include-untracked >/dev/null
+            git switch main >/dev/null || git switch master >/dev/null
+            git pull
+            git stash pop >/dev/null
+        end
+        functions -e __repo_main
     end
 
     set command $argv[1]
@@ -101,6 +117,8 @@ function repo
         __repo_follow $args
     else if test $command = rebase
         __repo_rebase $args
+    else if test $command = main
+        __repo_main $args
     else
         echo "Unknown sub-command $command"
         return 127

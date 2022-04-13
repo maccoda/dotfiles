@@ -13,6 +13,7 @@ function good-morning
             heading "Journal entries from yesterday"
             jrnl -on yesterday
         end
+        dev pr
     end
 
 end
