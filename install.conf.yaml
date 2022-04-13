@@ -47,6 +47,12 @@
 
     "~/.config/fd/ignore": fd_ignore
 
+    "~/.config/kitty":
+      glob: true
+      path: "kitty/*"
+
+    "~/.config/gitui/key_bindings.ron": gitui/key_bindings.ron
+
 - clean:
     ~/:
       force: true
