@@ -291,6 +291,8 @@ let g:workspace_autosave_always = 1
 " Limit the number of items to 10 in popup window
 set pumheight=10
 
+set completeopt=menu,menuone,noselect
+
 lua <<EOF
   local cmp = require'cmp'
   local lspkind = require('lspkind')
@@ -307,7 +309,7 @@ lua <<EOF
         -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
       end,
     },
-    mapping = {
+    mapping = cmp.mapping.preset.insert({
       ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
@@ -317,7 +319,7 @@ lua <<EOF
         c = cmp.mapping.close(),
       }),
       ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert}), -- Same ins-completion mapping and never replace
-    },
+    }),
     sources = cmp.config.sources({
     -- Order of the sources determines menu sort order
       { name = 'nvim_lsp' },
@@ -450,7 +452,7 @@ EOF
 " == tree-sitter ==
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = {"rust", "typescript", "javascript", "lua"},
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
