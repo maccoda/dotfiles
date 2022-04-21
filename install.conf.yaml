@@ -29,7 +29,6 @@
         glob: true
         path: fish/completions/*
 
-    "~/.vimrc": ".vimrc"
     "~/.config/nvim":
       glob: true
       path: nvim-conf/*

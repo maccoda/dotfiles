@@ -1,6 +1,4 @@
 alias dc="docker-compose"
-alias mongo_start='sudo service mongodb start'
-alias postgres_start='sudo service postgresql start'
 alias vim='nvim'
 # git
 abbr --add --global g 'git'
