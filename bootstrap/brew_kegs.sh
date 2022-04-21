@@ -20,3 +20,4 @@ brew_install jrnl # Command line journal
 brew_install starship # shell agnostic formatting
 brew_install task # Simple CLI for task management
 brew_install jq # Handy JSON grep
+brew_install proselint # Linter for writting

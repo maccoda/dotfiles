@@ -1,11 +1,9 @@
 call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
-    Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+    " Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
     Plug 'EdenEast/nightfox.nvim'
     Plug 'nvim-lualine/lualine.nvim'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzy-native.nvim'
     Plug 'numToStr/Comment.nvim'
@@ -50,7 +48,6 @@ call plug#begin("~/.vim/plugged")
     "====
     Plug 'blankname/vim-fish'
     Plug 'sbdchd/neoformat'
-    Plug 'folke/trouble.nvim'
     Plug 'junegunn/gv.vim'
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
     Plug 'norcalli/nvim-colorizer.lua'
@@ -102,10 +99,9 @@ nnoremap A :noh<CR>A
 nnoremap s :noh<CR>s
 " Trim trailing white space on save
 autocmd BufWritePre * %s/\s\+$//e
-" Wrap markdown files to 80 column
+" Wrap writting files
 au BufRead,BufNewFile *.md setlocal textwidth=80
 au BufRead,BufNewFile *.jrnl setlocal textwidth=120
-" Wrap text files to 100 column
 au BufRead,BufNewFile *.tex setlocal textwidth=80
 " Set spell check in markdown and latex files
 autocmd BufRead,BufNewFile *.md setlocal spell
@@ -132,8 +128,7 @@ if &shell =~# 'fish$'
 endif
 
 " Close current buffer without closing vim
-nnoremap <leader>b :bunload<CR>
-nnoremap <leader>B :bdelete<CR>
+nnoremap Q :bdelete<CR>
 
 " Yank current file path to clipboard
 nnoremap <leader>yp :let @+=expand("%:p")<CR>
@@ -141,60 +136,20 @@ nnoremap <leader>yp :let @+=expand("%:p")<CR>
 
 " TODO: Convert this to lua
 
-command! WFiles call fzf#run(fzf#wrap({'options': ['--query', expand('<cword>')]}))
-command! WGrep call RipgrepFzf(expand('<cword>'), <bang>0)
-
-nnoremap ;wf :WFiles<CR>
-nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<CR>
-
 " Quickly reload config
 nnoremap <leader>r :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
 " Syntax theme
 set termguicolors
 
-lua << EOF
-  vim.g.tokyonight_style = "night"
-  vim.cmd 'colorscheme nightfox'
-
-EOF
+lua vim.cmd 'colorscheme nightfox'
 
 
-" == FZF fuzzy finder ==
+" == Telescope fuzzy finder ==
 nnoremap ;f <cmd>lua require('telescope.builtin').git_files()<cr>
 nnoremap ;g <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap ;b <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap ;w :Windows<cr>
 nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles()<cr>
-
-let g:fzf_action = {
-    \ 'ctrl-t': 'tab split',
-    \ 'ctrl-s': 'split',
-    \ 'ctrl-v': 'vsplit'
-    \}
-" Use fd - does not include ignored by git files
-let $FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git -E .undodir'
-" Below function taken from fzf.vim readme, it will invoke rg on each change
-" when performing search
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s; or true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-" Enable per-command history
-" - History files will be stored in the specified directory
-" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
-"   'previous-history' instead of 'down' and 'up'.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-" Place the window in the centre of the screen
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
-let $FZF_DEFAULT_OPTS='--reverse'
-" Single escape exits
-autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<CR>
 
 lua << EOF
 require("telescope").load_extension('fzy_native')
@@ -203,6 +158,7 @@ require("telescope").setup {
   pickers = {
     live_grep = {
       additional_args = function(opts)
+        -- Below additional arguments are provided to ripgrep
           return {"--hidden", "--glob", "!__snapshots__"}
       end
       },
@@ -249,24 +205,13 @@ local function window()
   return vim.api.nvim_win_get_number(0)
 end
 
-local function diff_source()
-  local gitsigns = vim.b.gitsigns_status_dict
-  if gitsigns then
-    return {
-      added = gitsigns.added,
-      modified = gitsigns.changed,
-      removed = gitsigns.removed
-    }
-  end
-end
-
 require('lualine').setup{
     extensions = {
-        "fzf","fugitive", "quickfix", "symbols-outline"
+        "fugitive", "quickfix"
     },
     sections = {
         lualine_a = {window, 'mode'},
-        lualine_b = { {'FugitiveHead', icon = ''}, {'diff', source = diff_source} },
+        lualine_b = { {'FugitiveHead', icon = ''} },
         lualine_c = {{'filename', path = 1, shorting_target = 80}}
     },
     inactive_sections = {
@@ -305,8 +250,6 @@ lua <<EOF
       expand = function(args)
         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
         -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
       end,
     },
     mapping = cmp.mapping.preset.insert({
@@ -453,31 +396,19 @@ EOF
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {"rust", "typescript", "javascript", "lua"},
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-  autotag = {
-    enable = true
-  }
+    highlight = {
+      enable = true,
+      additional_vim_regex_highlighting = false,
+    },
+    autotag = {
+      enable = true
+    }
 }
 EOF
 
 
 " == Comment ==
 lua require('Comment').setup()
-
-
-" == Trouble ==
-lua << EOF
-require("trouble").setup {
-        icons = false,
-        auto_preview = false,
-        mode = "document_diagnostics",
-        height = 8
-    }
-EOF
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
 
 " == Snippets ==
 
@@ -507,7 +438,7 @@ lua << EOF
 EOF
 
 " == Colorizer ==
-lua require'colorizer'.setup()
+lua require("colorizer").setup()
 
 " == Twilight ==
 lua require("twilight").setup()
