@@ -1,4 +1,4 @@
-fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin $HOME/.fzf/bin
+fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin
 
 # Used for fzf in vim mainly but default is to only look for files
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'

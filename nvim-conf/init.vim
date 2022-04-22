@@ -53,6 +53,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'folke/twilight.nvim'
     Plug 'folke/zen-mode.nvim'
+    Plug 'NoahTheDuke/vim-just'
     Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
@@ -216,6 +217,14 @@ require('lualine').setup{
     },
     inactive_sections = {
         lualine_a = {window}
+    },
+    tabline = {
+      lualine_a = {{'buffers', mode = 2}},
+      lualine_b = {},
+      lualine_c = {},
+      lualine_x = {},
+      lualine_y = {},
+      lualine_z = {'tabs'}
     }
 }
 EOF
@@ -301,6 +310,7 @@ lua <<EOF
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = 'buffer' }
     }
@@ -308,6 +318,7 @@ lua <<EOF
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = 'path' }
     }, {
@@ -447,6 +458,12 @@ lua << EOF
 require("zen-mode").setup {
   window = {
     width = .85
+    },
+  plugins = {
+    kitty = {
+      enabled = true,
+      font = "+4",
+      }
     }
   }
 EOF
