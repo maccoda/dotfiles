@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sudo add-apt-repository ppa:mmstick76/alacritty -y # Alacrity terminal
 sudo add-apt-repository ppa:linrunner/tlp -y # TLP laptop power saving
 sudo apt-add-repository ppa:fish-shell/release-3 -y # Fish shell
 sudo apt-get update -q
@@ -19,7 +18,6 @@ apt_install fish
 apt_install curl
 apt_install fswatch
 apt_install libavcodec-extra # Video codecs
-apt_install alacritty
 apt_install tlp # Battery life optimisation
 
 # SDK man for managing JVM sdks

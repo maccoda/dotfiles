@@ -36,11 +36,7 @@
     "~/.config/starship.toml": starship.toml
     "~/.config/fish/fish_plugins": fish_plugins
 
-    "~/.tmux.conf": tmux.conf
-
     "~/.config/jrnl/jrnl.yaml": jrnl.yaml
-
-    "~/.config/alacritty/common.yml": alacritty/common.yml
 
     "~/.taskrc": "taskrc"
 
@@ -67,9 +63,6 @@
     link:
       if: 'test (uname) = Darwin'
 
-- link:
-    "~/.config/alacritty/alacritty.yml":
-      path: alacritty/mac.yml
 
 
 # Linux
@@ -79,8 +72,6 @@
       if: 'test (uname) = Linux'
 
 - link:
-    "~/.config/alacritty/alacritty.yml":
-      path: alacritty/linux.yml
     "~/.config/Code/User/settings.json":
       path: vscode/settings.json
     "~/.config/Code/User/keybindings.json":

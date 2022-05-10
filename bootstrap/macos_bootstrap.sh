@@ -21,7 +21,7 @@ cask_install numi # Improved calculator
 cask_install insomnia # HTTP requests
 cask_install joplin # Note taking
 cask_install flycut # Clipboard manager
-cask_install alacritty # Terminal emulator
+cask_install kitty # Terminal emulator
 cask_install signal
 cask_install stretchly # Screen timer
 cask_install amethyst # Tiling window manager

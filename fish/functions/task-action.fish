@@ -1,4 +1,4 @@
-# Simple function to open from tmux to perform some
+# Simple function to open from terminal to perform some
 # arbitrary action on the task list.
 function task-action
     set repeat true

@@ -32,7 +32,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-vsnip'
-    Plug 'andersevenrud/cmp-tmux'
     "====
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
@@ -288,8 +287,7 @@ lua <<EOF
           return vim.tbl_keys(bufs)
         end
         }
-      },
-      { name = 'tmux', max_item_count = 3 }
+      }
     }),
     formatting = {
     format = lspkind.cmp_format {
@@ -301,8 +299,7 @@ lua <<EOF
             nvim_lua = "[api]",
             path = "[path]",
             luasnip = "[snip]",
-            vsnip = "[snip]",
-            tmux = "[tmux]"
+            vsnip = "[snip]"
           },
      }},
   })
