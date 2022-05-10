@@ -40,3 +40,5 @@ include dark-gray-256.theme
 #include no-color.theme
 
 news.version=2.6.0
+report.next.columns=id,start.age,depends,priority,project,tags,scheduled.countdown,due.relative,until.remaining,description,urgency
+report.next.labels=ID,Active,Deps,P,Project,Tag,S,Due,Until,Description,Urg

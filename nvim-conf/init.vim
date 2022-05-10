@@ -95,7 +95,6 @@ nnoremap o :noh<CR>o
 nnoremap O :noh<CR>O
 nnoremap a :noh<CR>a
 nnoremap A :noh<CR>A
-nnoremap s :noh<CR>s
 " Trim trailing white space on save
 autocmd BufWritePre * %s/\s\+$//e
 " Wrap writting files
@@ -127,7 +126,7 @@ if &shell =~# 'fish$'
 endif
 
 " Close current buffer without closing vim
-nnoremap Q :bprevious \| bdelete #<CR>
+nnoremap QQ :bprevious \| bdelete #<CR>
 
 " Yank current file path to clipboard
 nnoremap <leader>yp :let @+=expand("%:p")<CR>
@@ -148,7 +147,8 @@ nnoremap ;f <cmd>lua require('telescope.builtin').git_files()<cr>
 nnoremap ;g <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap ;b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles()<cr>
-nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<CR>
+nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<cr>
+nnoremap ;s <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
 
 lua << EOF
 require("telescope").load_extension('fzy_native')
