@@ -8,6 +8,7 @@ function dev
         else
             cd "$HOME/dev"
         end
+        exa
     else if test $command = pr
         # Check status of all pull requests
         for repo in (bat --plain ~/.config/dev-tools/following)

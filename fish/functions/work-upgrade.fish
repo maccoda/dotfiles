@@ -7,6 +7,7 @@ function work-upgrade
     for repo in $repo_list
         cd $repo
         heading (basename $repo)
+        repo main
         repo prune-branches --force
         cd -
     end
