@@ -25,7 +25,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'williamboman/nvim-lsp-installer'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'onsails/lspkind-nvim'
-    Plug 'jose-elias-alvarez/null-ls.nvim'
     "====
     " cmp sources
     Plug 'hrsh7th/cmp-nvim-lsp'
@@ -333,6 +332,10 @@ local nvim_lsp = require('lspconfig')
 local lsp_installer = require("nvim-lsp-installer")
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+lsp_installer.setup({
+  ensure_installed = {"prosemd_lsp", "tsserver", "eslint"}
+})
+
 local map_opts = { noremap=true, silent=true }
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', map_opts)
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', map_opts)
@@ -362,45 +365,13 @@ function common_on_attach(client, bufnr)
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', map_opts)
 end
 
--- Register a handler that will be called for all installed servers.
-lsp_installer.on_server_ready(function(server)
-    local opts = {on_attach = common_on_attach}
-
-
-    if server.name == "eslint" then
-        opts.on_attach = function (client, bufnr)
-            -- neovim's LSP client does not currently support dynamic capabilities registration, so we need to set
-            -- the resolved capabilities of the eslint server ourselves!
-            client.resolved_capabilities.document_formatting = true
-            common_on_attach(client, bufnr)
-        end
-        opts.settings = {
-            format = { enable = true }, -- this will enable formatting
-        }
-    end
-    -- Prefer eslint over tsserver formatting
-    if server.name == "tsserver" then
-      opts.on_attach = function(client, bufnr)
-          client.resolved_capabilities.document_formatting = false
-          common_on_attach(client, bufnr)
-      end
-    end
-
-    opts.capabilities = capabilities
-
-    server:setup(opts)
-end)
-
-EOF
-
-" == null-ls ==
-lua <<EOF
-require("null-ls").setup({
-    sources = {
-        require("null-ls").builtins.diagnostics.proselint,
-        require("null-ls").builtins.code_actions.proselint
-    },
-})
+local servers = lsp_installer.get_installed_servers()
+for _, lsp in pairs(servers) do
+  nvim_lsp[lsp.name].setup {
+    on_attach = common_on_attach,
+    capabilities = capabilities
+  }
+end
 EOF
 
 
