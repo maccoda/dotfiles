@@ -7,6 +7,9 @@ function upgrade
     # Update any links
     ./install
 
+    # Clean any non-existent directories
+    z --clean
+
     cd -
 
     switch (uname -s)
