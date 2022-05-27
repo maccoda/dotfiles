@@ -41,7 +41,7 @@ function upgrade
             fisher update
 
             echo "Updating vim..."
-            nvim +PlugUpgrade +PlugUpdate +PlugClean +PlugDiff
+            nvim +PlugUpgrade +PlugUpdate +PlugClean
         end
 
         work-upgrade
@@ -55,6 +55,6 @@ function upgrade
         fisher update
 
         echo "Updating vim..."
-        nvim +PlugUpgrade +PlugUpdate +PlugClean +PlugDiff
+        nvim +PlugUpgrade +PlugUpdate +PlugClean
     end
 end

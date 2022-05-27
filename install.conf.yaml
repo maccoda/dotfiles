@@ -56,23 +56,3 @@
     ~/.config:
       force: true
       recursive: true
-
-# MacOS
-
-- defaults:
-    link:
-      if: 'test (uname) = Darwin'
-
-
-
-# Linux
-
-- defaults:
-    link:
-      if: 'test (uname) = Linux'
-
-- link:
-    "~/.config/Code/User/settings.json":
-      path: vscode/settings.json
-    "~/.config/Code/User/keybindings.json":
-      path: vscode/keybindings.json

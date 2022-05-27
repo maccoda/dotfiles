@@ -135,7 +135,9 @@ nnoremap <leader>yp :let @+=expand("%:p")<CR>
 " TODO: Convert this to lua
 
 " Quickly reload config
-nnoremap <leader>r :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
+nnoremap <leader>rr :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
+" Clear all buffers and open file explorer (go home)
+nnoremap <leader>gh :Dirvish<CR><C-w>o:CloseHiddenBuffers<CR>
 " Syntax theme
 set termguicolors
 
@@ -149,6 +151,7 @@ nnoremap ;b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles()<cr>
 nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<cr>
 nnoremap ;s <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
+nnoremap ;t :Telescope<cr>
 
 lua << EOF
 require("telescope").load_extension('fzy_native')
@@ -226,6 +229,7 @@ require('lualine').setup{
     }
 }
 EOF
+nnoremap <leader>b :LualineBuffersJump<space>
 
 " == Fugitive ==
 " Fugitive Conflict Resolution
