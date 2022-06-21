@@ -130,6 +130,11 @@ nnoremap QQ :bprevious \| bdelete #<CR>
 
 " Yank current file path to clipboard
 nnoremap <leader>yp :let @+=expand("%:p")<CR>
+
+" have a fixed column for the diagnostics to appear in
+" this removes the jitter when warnings/errors flow in
+set signcolumn=yes
+
 " =========
 
 " TODO: Convert this to lua
@@ -247,7 +252,12 @@ let g:workspace_autosave_always = 1
 " Limit the number of items to 10 in popup window
 set pumheight=10
 
-set completeopt=menu,menuone,noselect
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
+" Avoid showing extra messages when using completion
+set shortmess+=c
 
 lua <<EOF
   local cmp = require'cmp'
@@ -328,6 +338,25 @@ lua <<EOF
 EOF
 
 " == LSP ==
+
+" Set updatetime for CursorHold
+" 300ms of no cursor movement to trigger CursorHold
+set updatetime=300
+" Show diagnostic popup on cursor hold
+autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+
+lua << EOF
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
+vim.diagnostic.config {
+  virtual_text = false,
+}
+EOF
+
 lua << EOF
 local nvim_lsp = require('lspconfig')
 local lsp_installer = require("nvim-lsp-installer")
