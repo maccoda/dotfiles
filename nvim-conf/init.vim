@@ -156,6 +156,9 @@ nnoremap ;b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles()<cr>
 nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<cr>
 nnoremap ;s <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
+nnoremap ;ld <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap ;lw <cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>
+
 nnoremap ;t :Telescope<cr>
 
 lua << EOF
@@ -249,8 +252,6 @@ nnoremap <leader>qw :CloseHiddenBuffers<CR>
 let g:workspace_autosave_always = 1
 
 " == Cmp ==
-" Limit the number of items to 10 in popup window
-set pumheight=10
 
 " menuone: popup even when there's only one match
 " noinsert: Do not insert text until a selection is made
@@ -264,7 +265,7 @@ lua <<EOF
   local lspkind = require('lspkind')
   local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
-  cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+  cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
   cmp.setup({
     snippet = {
@@ -286,7 +287,11 @@ lua <<EOF
     }),
     sources = cmp.config.sources({
     -- Order of the sources determines menu sort order
-      { name = 'nvim_lsp' },
+      {
+          name = 'nvim_lsp',
+          max_item_count = 10,
+          priority = 5,
+      },
       { name = 'path' },
       { name = 'vsnip' },
       { name = 'buffer',
@@ -341,7 +346,7 @@ EOF
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
-set updatetime=300
+set updatetime=1200
 " Show diagnostic popup on cursor hold
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
