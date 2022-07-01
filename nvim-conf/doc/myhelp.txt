@@ -33,8 +33,26 @@ NAVIGATION                                    *myhelp-navigation*
 Navigate to window {num} directly rather than needing to move
 using directional navigation.
 
-:GF?
+|gv|
 
-Open FZF looking only at modified files using git
+Re-select the last visual selection.
+
+|=|
+
+Run indent formatting on the selected line.
+
+===============================================================
+SURROUND                                        *myhelp-surround*
+
+|yss|{surround}
+
+Selects the current sentence to surround but this also works with surrounding
+the current line.
+
+|ys_|{surround}
+
+This will select up to the previous new line character. Therefore it is
+similar to above but the {surround} character will be placed on the line above
+and below rather than at the start and end of the line.
 
 vim:tw=78:ts=8:ft=help:norl:

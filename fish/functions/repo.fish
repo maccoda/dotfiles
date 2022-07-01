@@ -24,6 +24,7 @@ function repo
         set -l projections_dir ~/.dotfiles/nvim-conf/projections
         echo "Below are existing projections:"
         exa $projections_dir/ --icons --oneline
+        # TODO: This should specify the source folder also because the file can be nested and this would work for the monorepo style
         read -P "Which projection do you want? (Only type the part before -projections.json) " chosen
         # TODO: Should validate there is at least input or capture the copy failure
         echo "Copying across $chosen projection"
@@ -78,6 +79,8 @@ function repo
         set rebase_branch $argv[1]
         echo "Rebasing onto $rebase_branch"
         git fetch origin "$rebase_branch:$rebase_branch"
+        # Need this if reusing an old branch previously merged and deleted
+        git fetch --prune
         set repo_status (git status --porcelain)
         if test -z "$repo_status"
             git rebase $rebase_branch
@@ -93,12 +96,12 @@ function repo
     function __repo_main
         set repo_status (git status --porcelain)
         if test -z "$repo_status"
-            git switch main >/dev/null || git switch master >/dev/null
+            git switch main &>/dev/null || git switch master &>/dev/null
             git pull
         else
             echo "Detected local changes, stashing all"
             git stash --include-untracked >/dev/null
-            git switch main >/dev/null || git switch master >/dev/null
+            git switch main &>/dev/null || git switch master &>/dev/null
             git pull
             git stash pop >/dev/null
         end

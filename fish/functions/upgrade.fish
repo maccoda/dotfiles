@@ -31,7 +31,7 @@ function upgrade
 
     if _is_work
         if test (date | cut -f 1 -d ' ') = Mon
-           # Just do one big upgrade at the start of the week
+            # Just do one big upgrade at the start of the week
             echo "Updating brew taps..."
             brew upgrade
             brew cleanup
@@ -39,6 +39,7 @@ function upgrade
 
             echo "Updating fisher packages..."
             fisher update
+            fish_update_completions
 
             echo "Updating vim..."
             nvim +PlugUpgrade +PlugUpdate +PlugClean
