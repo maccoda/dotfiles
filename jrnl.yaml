@@ -9,13 +9,12 @@ editor: nvim
 encrypt: false
 highlight: true
 indent_character: '|'
-journals: null
-linewrap: 122 # To match with nvim config and account for indent
-tagsymbols: '@'
-template: false
-timeformat: '%Y-%m-%d %H:%M'
-version: v2.8
 journals:
   default:
     encrypt: true
     journal: ~/.journals/journal.txt
+linewrap: 122
+tagsymbols: '#@'
+template: false
+timeformat: '%Y-%m-%d %H:%M'
+version: v3.0
