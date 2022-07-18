@@ -108,6 +108,21 @@ function repo
         functions -e __repo_main
     end
 
+    function __repo_diff
+        # Some useful diffs presets
+        set choice $argv[1]
+        if test $choice = "main"
+            git diff main
+        else if test $choice = "tag"
+            git diff (git last-tag)..HEAD
+        else
+            echo "Unknown diff choice $choice"
+            exit 1
+        end
+
+        functions -e __repo_diff
+    end
+
     set command $argv[1]
     set args $argv[2..]
     if test $command = init
@@ -122,6 +137,8 @@ function repo
         __repo_rebase $args
     else if test $command = main
         __repo_main $args
+    else if test $command = diff
+        __repo_diff $args
     else
         echo "Unknown sub-command $command"
         return 127

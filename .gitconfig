@@ -21,18 +21,19 @@
 	template = ~/.gitmessage
 [alias]
     co = checkout
-	dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
-	logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  -10
-	logpp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	unstage = reset HEAD --
-	st = status
-	discard = checkout --
-	am = commit -a -m
-	last = show --stat HEAD
-	yesterday = log --after='yesterday' --oneline --author='Dylan Maccora'
+    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)%an <%ae>%C(reset) %C(magenta)%cr%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
+    logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  -10
+    logpp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    unstage = reset HEAD --
+    st = status
+    discard = checkout --
+    am = commit -a -m
+    last = show --stat HEAD
+    yesterday = log --after='yesterday' --oneline --author='Dylan Maccora'
     ap = add --patch
     amend = commit --amend --no-edit
-	stash = stash --include-untracked
+    stash = stash --include-untracked
+    last-tag = describe --abbrev=0 --tags
 [interactive]
     diffFilter = delta --color-only
 [delta]
