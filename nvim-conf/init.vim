@@ -4,8 +4,8 @@ call plug#begin("~/.vim/plugged")
     " Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
     Plug 'EdenEast/nightfox.nvim'
     Plug 'nvim-lualine/lualine.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzy-native.nvim'
+    Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
     Plug 'numToStr/Comment.nvim'
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
@@ -150,7 +150,7 @@ lua vim.cmd 'colorscheme nightfox'
 
 
 " == Telescope fuzzy finder ==
-nnoremap ;f <cmd>lua require('telescope.builtin').git_files()<cr>
+nnoremap ;f <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap ;g <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap ;b <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles()<cr>
@@ -162,15 +162,19 @@ nnoremap ;lw <cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>
 nnoremap ;t :Telescope<cr>
 
 lua << EOF
-require("telescope").load_extension('fzy_native')
+require('telescope').load_extension('fzf')
 
 require("telescope").setup {
   pickers = {
     live_grep = {
       additional_args = function(opts)
         -- Below additional arguments are provided to ripgrep
-          return {"--hidden", "--glob", "!__snapshots__"}
+          return {"--hidden", "--glob", "!__snapshots__", "--glob", "!.git"}
       end
+      },
+    find_files = {
+        find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--exclude", ".git" },
+        hidden = true
       },
     oldfiles = {
         only_cwd = true
