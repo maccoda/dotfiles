@@ -111,9 +111,15 @@ function repo
     function __repo_diff
         # Some useful diffs presets
         set choice $argv[1]
-        if test $choice = "main"
-            git diff main
-        else if test $choice = "tag"
+        if test $choice = main
+            git branch | rg main &>/dev/null
+            if test $status -ne 0
+                set main_branch "master"
+            else
+                set main_branch "main"
+            end
+            git diff $main_branch
+        else if test $choice = tag
             git diff (git last-tag)..HEAD
         else
             echo "Unknown diff choice $choice"
