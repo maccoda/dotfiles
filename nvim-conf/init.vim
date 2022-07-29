@@ -1,7 +1,7 @@
 call plug#begin("~/.vim/plugged")
     " Plugin Section
     " ==============
-    " Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+    Plug 'antoinemadec/FixCursorHold.nvim'
     Plug 'EdenEast/nightfox.nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
@@ -84,7 +84,12 @@ lua << EOF
   vim.o.showcmd = false
   -- Yank and paste with the system clipboard
   vim.o.clipboard = 'unnamed'
+  vim.o.foldmethod = 'expr'
+  vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 EOF
+
+" Open all folds by default
+set nofoldenable
 
 filetype plugin on
 
@@ -208,11 +213,6 @@ require('gitsigns').setup {
 }
 EOF
 
-" == Lightspeed ==
-" Remap
-map ]s <Plug>Lightspeed_s
-map [s <Plug>Lightspeed_S
-
 " == Lualine ==
 lua << EOF
 local function window()
@@ -274,8 +274,7 @@ lua <<EOF
   cmp.setup({
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        vim.fn["vsnip#anonymous"](args.body)
       end,
     },
     mapping = cmp.mapping.preset.insert({
@@ -297,7 +296,10 @@ lua <<EOF
           priority = 5,
       },
       { name = 'path' },
-      { name = 'vsnip' },
+      {
+        name = 'vsnip',
+        max_item_count = 10,
+      },
       { name = 'buffer',
         max_item_count = 5,
         option = {
@@ -349,8 +351,7 @@ EOF
 " == LSP ==
 
 " Set updatetime for CursorHold
-" 300ms of no cursor movement to trigger CursorHold
-set updatetime=1200
+set updatetime=500
 " Show diagnostic popup on cursor hold
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
