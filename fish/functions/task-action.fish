@@ -15,10 +15,7 @@ function task-action
         clear
         eval $cmd
         task
-        read repeat_input -P "Anything else? [y/n] "
-        if test $repeat_input = "y"
-            set repeat true
-        end
+        gum confirm "Anything else?" && set repeat true
     end
     exit 0
 end

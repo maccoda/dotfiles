@@ -37,7 +37,7 @@ function repo
     function __repo_prune_branches
         argparse f/force -- $argv
 
-        git fetch --all --prune --quiet
+        gum spin --title "Fetching all branches" -- git fetch --all --prune --quiet
         set removed_branches (git branch -vv | rg ": gone]" | tr -s ' ' | cut -d ' ' -f 2)
         echo "Branches to remove: $removed_branches"
         for branch in $removed_branches
@@ -78,7 +78,7 @@ function repo
     function __repo_rebase
         set rebase_branch $argv[1]
         echo "Rebasing onto $rebase_branch"
-        git fetch origin "$rebase_branch:$rebase_branch"
+        gum spin --title "Fetching latest changes from $rebase_branch" -- git fetch origin "$rebase_branch:$rebase_branch"
         # Need this if reusing an old branch previously merged and deleted
         git fetch --prune
         set repo_status (git status --porcelain)
@@ -97,12 +97,12 @@ function repo
         set repo_status (git status --porcelain)
         if test -z "$repo_status"
             git switch main &>/dev/null || git switch master &>/dev/null
-            git pull
+            gum spin --title "Pulling latest changes on main" -- git pull
         else
             echo "Detected local changes, stashing all"
             git stash --include-untracked >/dev/null
             git switch main &>/dev/null || git switch master &>/dev/null
-            git pull
+            gum spin --title "Pulling latest changes on main" -- git pull
             git stash pop >/dev/null
         end
         functions -e __repo_main
