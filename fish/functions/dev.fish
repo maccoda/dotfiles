@@ -18,8 +18,8 @@ function dev
             test -z $has_prs; and set has_prs 0
             if test $has_prs -gt 0
                 heading --no-trail (basename $repo)
-                gh pr list --search "$search_query" --json number,title,url,author,reviewDecision,createdAt --template \
-                    '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") (timeago .createdAt) (printf "@%v" .author.login | autocolor "blue") (truncate 60 .title) .reviewDecision  .url}}{{end}}'
+                gh pr list --search "$search_query" --json number,title,url,author,reviewDecision,createdAt,updatedAt --template \
+                    '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") (printf "@%v" .author.login | autocolor "blue") (truncate 60 .title) .reviewDecision  .url (timeago .createdAt | printf "C: %v") (timeago .updatedAt | printf "U: %v")}}{{end}}'
             end
         end
         cd $start_dir

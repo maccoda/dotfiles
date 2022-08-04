@@ -6,12 +6,6 @@
 function repo
     set -g config_dir ~/.config/dev-tools
 
-    set start_dir (pwd)
-    set git_root (git rev-parse --show-toplevel)
-    if test "$start_dir" != "$git_root"
-        echo "Not at the git root directory. Moving to the root"
-        cd $git_root
-    end
 
     if test (count $argv) -eq 0
         echo "ERROR: No sub command provided"
@@ -21,6 +15,13 @@ function repo
     # Get a repo ready with all local elements that will not
     # usually get pushed to the repo.
     function __repo_setup
+
+        set start_dir (pwd)
+        set git_root (git rev-parse --show-toplevel)
+        if test "$start_dir" != "$git_root"
+            echo "Not at the git root directory. Moving to the root"
+            cd $git_root
+        end
         set -l projections_dir ~/.dotfiles/nvim-conf/projections
         echo "Below are existing projections:"
         exa $projections_dir/ --icons --oneline
@@ -30,6 +31,7 @@ function repo
         echo "Copying across $chosen projection"
         cp $projections_dir/$chosen-projections.json .projections.json
 
+        cd $start_dir
         functions -e __repo_setup
     end
 
@@ -39,7 +41,6 @@ function repo
 
         gum spin --title "Fetching all branches" -- git fetch --all --prune --quiet
         set removed_branches (git branch -vv | rg ": gone]" | tr -s ' ' | cut -d ' ' -f 2)
-        echo "Branches to remove: $removed_branches"
         for branch in $removed_branches
             if set -q _flag_f
                 git branch -D $branch
@@ -114,9 +115,9 @@ function repo
         if test $choice = main
             git branch | rg main &>/dev/null
             if test $status -ne 0
-                set main_branch "master"
+                set main_branch master
             else
-                set main_branch "main"
+                set main_branch main
             end
             git diff $main_branch
         else if test $choice = tag
@@ -127,6 +128,26 @@ function repo
         end
 
         functions -e __repo_diff
+    end
+
+    function __repo_switch
+        git branch --format='%(refname:short)' | gum choose | xargs git switch
+        functions -e __repo_switch
+    end
+
+    function __repo_cd
+        if test -d ./projects
+            set projects_root projects
+        else if test -d ./packages
+            set projects_root packages
+        else
+            echo "Unknown package structure"
+            exit 1
+        end
+        set dirs (ls $projects_root)
+        set choice (echo $dirs | string split -n ' ' | gum choose)
+        cd "$projects_root/$choice"
+        functions -e __repo_cd
     end
 
     set command $argv[1]
@@ -145,10 +166,13 @@ function repo
         __repo_main $args
     else if test $command = diff
         __repo_diff $args
+    else if test $command = switch
+        __repo_switch $args
+    else if test $command = cd
+        __repo_cd $args
     else
         echo "Unknown sub-command $command"
         return 127
     end
-    cd $start_dir
     set -e config_dir
 end
