@@ -1,6 +1,7 @@
 # Script to run at start of work day or log in to upgrade
 # packages and check current status of work.
 function good-morning
+    set start_dir (pwd)
     upgrade
 
     if test $MACCODA_ENV = "work"
@@ -15,5 +16,5 @@ function good-morning
         end
         dev pr
     end
-
+    cd $start_dir
 end

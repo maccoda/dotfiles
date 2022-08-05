@@ -14,6 +14,7 @@ Generate table of contents for any `help` command using `gO`
 FUGITIVE                                        *myhelp-fugitive*
 
 `:0Gclog`   Show history of the current file
+:.Gclog   Show history of the current line
 
 
 ===============================================================

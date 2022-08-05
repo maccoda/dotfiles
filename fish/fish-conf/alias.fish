@@ -16,3 +16,5 @@ alias fd-project='fd -t d -d 3'
 alias ls='exa'
 alias du='dust'
 
+# Ring the terminal bell
+alias alert="tput bel"
