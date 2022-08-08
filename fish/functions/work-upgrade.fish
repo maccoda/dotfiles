@@ -7,8 +7,10 @@ function work-upgrade
     for repo in $repo_list
         cd $repo
         heading (basename $repo)
+        set previous_branch (git branch | rg "\*" | cut -d " " -f 2)
         repo main
         repo prune-branches --force
+        git switch $previous_branch &> /dev/null
         cd -
     end
 end

@@ -9,6 +9,7 @@ function repo
 
     if test (count $argv) -eq 0
         echo "ERROR: No sub command provided"
+        echo "Sub-commands: feature-start init prune-branches follow rebase main diff switch cd"
         return 126
     end
 
