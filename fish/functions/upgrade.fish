@@ -1,8 +1,7 @@
 function upgrade
-    echo "Pulling updates for dotfiles..."
     cd $HOME/.dotfiles
-    git submodule update --recursive --remote
-    gpr
+    gum spin --title "Updating dotbot" -- git submodule update --recursive --remote --quiet
+    gum spin --title "Pulling updates for dotfiles" -- gpr
 
     # Update any links
     ./install
@@ -19,9 +18,8 @@ function upgrade
 
         case Linux
             echo "Detected Linux. Running Linux specific managers..."
-            sudo apt-get update -q
-            sudo apt-get upgrade -qy
-            sudo apt-get autoremove -qy
+            sudo apt-get update -q && sudo apt-get upgrade -qy
+            sudo apt-get autoremove -qy && sudo apt-get autoclean
             snap refresh
 
         case '*'
@@ -40,6 +38,8 @@ function upgrade
             echo "Updating fisher packages..."
             fisher update
             fish_update_completions
+            # Grab any updates to nnn plugins
+            curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
 
             echo "Updating vim..."
             nvim +PlugUpgrade +PlugUpdate +PlugClean +qall

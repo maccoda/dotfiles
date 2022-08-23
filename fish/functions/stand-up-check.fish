@@ -4,19 +4,20 @@
 # Also checks tasks completed yesterday
 
 function stand-up-check
-    set startDir (_input_or_cwd $argv[1])
+    set startDir $argv[1]
+    test -z $startDir; and set startDir "$HOME/dev"
 
     heading "Looking for repositories under $startDir"
 
     set initial_dir (pwd)
-    set dirs (_get_git_dirs $argv[1])
+    set dirs (_get_git_dirs $startDir)
     for dir in $dirs
         set -l repoDir (echo $dir | sed "s/\/.git//")
         set -l short_name (basename $repoDir)
         cd $repoDir
         set -l git_yesterday (git yesterday)
         if test -n "$git_yesterday"
-            echo $short_name
+            heading --no-trail $short_name
             git yesterday
         end
 
