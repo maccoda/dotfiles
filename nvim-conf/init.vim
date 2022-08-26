@@ -151,7 +151,15 @@ nnoremap <leader>gh :Dirvish<CR><C-w>o:CloseHiddenBuffers<CR>
 " Syntax theme
 set termguicolors
 
-lua vim.cmd 'colorscheme nightfox'
+lua << EOF
+  require('nightfox').setup({
+    options = {
+      dim_inactive = false
+    }
+  })
+
+  vim.cmd('colorscheme nightfox')
+EOF
 
 
 " == Telescope fuzzy finder ==
