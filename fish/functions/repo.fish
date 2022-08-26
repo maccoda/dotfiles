@@ -9,7 +9,7 @@ function repo
 
     if test (count $argv) -eq 0
         echo "ERROR: No sub command provided"
-        echo "Sub-commands: feature-start init prune-branches follow rebase main diff switch cd"
+        echo "Sub-commands: feature init prune-branches follow rebase main diff switch cd"
         return 126
     end
 
@@ -143,10 +143,10 @@ function repo
             set projects_root packages
         else
             echo "Unknown package structure"
-            exit 1
+            return 1
         end
         set dirs (ls $projects_root)
-        set choice (echo $dirs | string split -n ' ' | gum choose)
+        set choice (echo $dirs | string split -n ' ' | gum filter)
         cd "$projects_root/$choice"
         functions -e __repo_cd
     end
@@ -157,7 +157,7 @@ function repo
         __repo_setup
     else if test $command = prune-branches
         __repo_prune_branches $args
-    else if test $command = feature-start
+    else if test $command = feature
         feature-start $args
     else if test $command = follow
         __repo_follow $args
