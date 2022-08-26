@@ -10,7 +10,6 @@ call plug#begin("~/.vim/plugged")
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb'
-    Plug 'thaerkh/vim-workspace'
     Plug 'windwp/nvim-autopairs'
     Plug 'tpope/vim-dispatch'
     Plug 'tpope/vim-projectionist'
@@ -46,13 +45,12 @@ call plug#begin("~/.vim/plugged")
     "====
     Plug 'blankname/vim-fish'
     Plug 'sbdchd/neoformat'
-    Plug 'junegunn/gv.vim'
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
     Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'folke/twilight.nvim'
     Plug 'folke/zen-mode.nvim'
     Plug 'NoahTheDuke/vim-just'
     Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'karb94/neoscroll.nvim'
 call plug#end()
 
 
@@ -86,6 +84,10 @@ lua << EOF
   vim.o.clipboard = 'unnamed'
   vim.o.foldmethod = 'expr'
   vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+  vim.o.autowriteall = true
+  vim.api.nvim_create_autocmd({"InsertLeave", "BufLeave"}, {
+    command = "wall"
+  })
 EOF
 
 " Open all folds by default
@@ -125,13 +127,11 @@ set mouse=nv
 " Yanking will return to where cursor was prior to initiating the yank
 vmap y y`]
 
-" Vim likes a POSIX compatible shell
-if &shell =~# 'fish$'
-    set shell=bash
-endif
-
 " Close current buffer without closing vim
 nnoremap QQ :bprevious \| bdelete #<CR>
+
+" Close current buffer and window
+nnoremap QZ :bdelete<CR><C-w>c
 
 " Yank current file path to clipboard
 nnoremap <leader>yp :let @+=expand("%:p")<CR>
@@ -171,8 +171,9 @@ nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<cr>
 nnoremap ;s <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
 nnoremap ;ld <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
 nnoremap ;lw <cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>
+nnoremap ;t <cmd>lua require('telescope.builtin').treesitter()<cr>
 
-nnoremap ;t :Telescope<cr>
+nnoremap ;; :Telescope<cr>
 
 lua << EOF
 require('telescope').load_extension('fzf')
@@ -257,18 +258,12 @@ nnoremap <leader>gd :Gvdiffsplit!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
 
-" == Vim Workspace ==
-" If open a specific file do not try open a workspace
-let g:workspace_session_disable_on_args = 1
-nnoremap <leader>qw :CloseHiddenBuffers<CR>
-let g:workspace_autosave_always = 1
-
 " == Cmp ==
 
 " menuone: popup even when there's only one match
 " noinsert: Do not insert text until a selection is made
 " noselect: Do not select, force user to select one from the menu
-set completeopt=menuone,noinsert,noselect
+set completeopt=menuone,noinsert
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
@@ -295,18 +290,19 @@ lua <<EOF
         c = cmp.mapping.close(),
       }),
       ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert}), -- Same ins-completion mapping and never replace
+      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert}),
     }),
     sources = cmp.config.sources({
     -- Order of the sources determines menu sort order
       {
           name = 'nvim_lsp',
-          max_item_count = 10,
+          max_item_count = 20,
           priority = 5,
       },
       { name = 'path' },
       {
         name = 'vsnip',
-        max_item_count = 10,
+        max_item_count = 15,
       },
       { name = 'buffer',
         max_item_count = 5,
@@ -326,14 +322,6 @@ lua <<EOF
     format = lspkind.cmp_format {
           with_text = true,
           maxwidth = 50,
-          menu = {
-            buffer = "[buf]",
-            nvim_lsp = "[LSP]",
-            nvim_lua = "[api]",
-            path = "[path]",
-            luasnip = "[snip]",
-            vsnip = "[snip]"
-          },
      }},
   })
 
@@ -403,9 +391,6 @@ function common_on_attach(client, bufnr)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', map_opts)
     buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', map_opts)
     buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', map_opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', map_opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', map_opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', map_opts)
     buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', map_opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', map_opts)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', map_opts)
@@ -464,15 +449,11 @@ let g:vsnip_filetypes.javascriptreact = ['javascript']
 let g:vsnip_filetypes.typescriptreact = ['typescript']
 
 " == Auto Pairs ==
-lua << EOF
-    require('nvim-autopairs').setup()
-EOF
+lua require('nvim-autopairs').setup()
 
 " == Colorizer ==
 lua require("colorizer").setup()
 
-" == Twilight ==
-lua require("twilight").setup()
 " == Zen Mode ==
 lua << EOF
 require("zen-mode").setup {
@@ -488,3 +469,5 @@ require("zen-mode").setup {
   }
 EOF
 nnoremap <leader>z <cmd>ZenMode<cr>
+
+lua require('neoscroll').setup()
