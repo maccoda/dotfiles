@@ -1,10 +1,9 @@
 function upgrade
     cd $HOME/.dotfiles
-    gum spin --title "Updating dotbot" -- git submodule update --recursive --remote --quiet
     gum spin --title "Pulling updates for dotfiles" -- gpr
 
     # Update any links
-    ./install
+    ./install -q
 
     # Clean any non-existent directories
     z --clean
@@ -35,11 +34,8 @@ function upgrade
             brew cleanup
             brew autoremove
 
-            echo "Updating fisher packages..."
-            fisher update
+            gum spin --title "Updating fisher packages" -- fish -c "fisher update"
             fish_update_completions
-            # Grab any updates to nnn plugins
-            curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
 
             echo "Updating vim..."
             nvim +PlugUpgrade +PlugUpdate +PlugClean +qall
@@ -52,8 +48,7 @@ function upgrade
         brew cleanup
         brew autoremove
 
-        echo "Updating fisher packages..."
-        fisher update
+        gum spin --title "Updating fisher packages" -- fish -c "fisher update"
 
         echo "Updating vim..."
         nvim +PlugUpgrade +PlugUpdate +PlugClean +qall

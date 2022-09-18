@@ -1,3 +1,6 @@
 [username]
 # Disable as seems to take most time and do not use
 disabled = true
+
+[time]
+disabled = false

@@ -6,13 +6,17 @@
 function repo
     set -g config_dir ~/.config/dev-tools
 
+    git rev-parse --show-toplevel &> /dev/null
+    if test $status -ne 0
+        echo "ERROR: Not in git repository"
+        return 126
+    end
 
     if test (count $argv) -eq 0
         echo "ERROR: No sub command provided"
         echo "Sub-commands: feature init prune-branches follow rebase main diff switch cd"
         return 126
     end
-
     # Get a repo ready with all local elements that will not
     # usually get pushed to the repo.
     function __repo_setup
@@ -87,7 +91,6 @@ function repo
         if test -z "$repo_status"
             git rebase $rebase_branch
         else
-            echo "Detected local changes, stashing all"
             git stash --include-untracked >/dev/null
             git rebase $rebase_branch
             git stash pop >/dev/null
@@ -101,7 +104,6 @@ function repo
             git switch main &>/dev/null || git switch master &>/dev/null
             gum spin --title "Pulling latest changes on main" -- git pull
         else
-            echo "Detected local changes, stashing all"
             git stash --include-untracked >/dev/null
             git switch main &>/dev/null || git switch master &>/dev/null
             gum spin --title "Pulling latest changes on main" -- git pull
@@ -125,7 +127,7 @@ function repo
             git diff (git last-tag)..HEAD
         else
             echo "Unknown diff choice $choice"
-            exit 1
+            return 1
         end
 
         functions -e __repo_diff
