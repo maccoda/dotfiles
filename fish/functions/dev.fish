@@ -1,4 +1,7 @@
 function dev
+    function __dev_config_folowing
+        dasel select -f $MACCODA_CONFIG --parser toml -m ".repos.[*].path"
+    end
     set command $argv[1]
     set start_dir (pwd)
     if test -z $command
@@ -10,22 +13,26 @@ function dev
         end
         exa
     else if test $command = pr
-        # Check status of all pull requests
-        for repo in (bat --plain ~/.config/dev-tools/following)
+        set repo_search
+        for repo in (__dev_config_folowing)
             cd $repo
-            set search_query "draft:false"
-            set has_prs (gh pr list --search "$search_query" --json number --limit 1 --jq '.[] | length' | string trim)
-            test -z $has_prs; and set has_prs 0
-            if test $has_prs -gt 0
-                heading --no-trail (basename $repo)
-                gh pr list --search "$search_query" --json number,title,url,author,reviewDecision,createdAt,updatedAt --template \
-                    '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") (printf "@%v" .author.login | autocolor "blue") (truncate 60 .title) .reviewDecision  .url (timeago .createdAt | printf "C: %v") (timeago .updatedAt | printf "U: %v")}}{{end}}'
-            end
+            set repo_name (git remote -v | rg "origin.+fetch" | cut -d ":" -f 2 | cut -d "." -f 1)
+            set --append repo_search $repo_name
         end
+        set joined (string join "," $repo_search)
+        set template '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") (printf "@%v" .author.login | autocolor "blue") (truncate 60 .title) .url (timeago .createdAt | printf "C: %v") (timeago .updatedAt | printf "U: %v")}}{{end}}'
+        set github_org (dasel select -f $MACCODA_CONFIG --parser toml "github_org")
+
+        heading --no-trail "Review requests"
+        gh search prs --state=open --owner=$github_org --review-requested=@me --draft=false --repo $joined --json number,title,url,author,createdAt,updatedAt --template $template
+
+        heading --no-trail "Reviews created"
+        gh search prs --author=@me --state=open --owner=$github_org --draft=false --json number,title,url,author,createdAt,updatedAt --template $template
+
         cd $start_dir
     else if test $command = "following"
         echo "Currently following these repositories:"
-        for repo in (bat --plain ~/.config/dev-tools/following)
+        for repo in (__dev_config_folowing)
             echo -e "$(basename $repo | string pad --width 40 --right) $repo"
         end
     else
