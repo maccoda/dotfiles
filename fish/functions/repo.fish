@@ -6,7 +6,7 @@
 function repo
     set -g config_dir ~/.config/dev-tools
 
-    git rev-parse --show-toplevel &> /dev/null
+    git rev-parse --show-toplevel &>/dev/null
     if test $status -ne 0
         echo "ERROR: Not in git repository"
         return 126
@@ -71,12 +71,12 @@ function repo
     # Stores the repo to be used for other scripts that track it for PRs, etc
     function __repo_follow
         set repo_path (pwd)
-        echo "Following $repo_path"
-
-        set following_file "$config_dir/following"
-        echo $repo_path >>$following_file
-        cp $following_file /tmp/devrc_following
-        sort -u /tmp/devrc_following >$following_file
+        if rg --quiet $repo_path $MACCODA_CONFIG
+            echo "Already following $repo_path"
+        else
+            echo "Following $repo_path"
+            dasel put object --parser toml -f $MACCODA_CONFIG --type string "repos.[]" path="$repo_path"
+        end
 
         functions -e __repo_follow
     end
@@ -109,6 +109,7 @@ function repo
             gum spin --title "Pulling latest changes on main" -- git pull
             git stash pop >/dev/null
         end
+        __repo_prune_branches --force
         functions -e __repo_main
     end
 
@@ -139,6 +140,7 @@ function repo
     end
 
     function __repo_cd
+        cd (git rev-parse --show-toplevel)
         if test -d ./projects
             set projects_root projects
         else if test -d ./packages
@@ -148,8 +150,13 @@ function repo
             return 1
         end
         set dirs (ls $projects_root)
-        set choice (echo $dirs | string split -n ' ' | gum filter)
-        cd "$projects_root/$choice"
+        set choice (echo "^ $dirs" | string split -n ' ' | gum filter --limit=1)
+        echo $choice
+        if test $choice = "^"
+            cd (git rev-parse --show-toplevel)
+        else
+            cd "$projects_root/$choice"
+        end
         functions -e __repo_cd
     end
 
