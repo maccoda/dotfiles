@@ -57,51 +57,59 @@ call plug#end()
 " Config Section
 " =============
 lua << EOF
-  vim.o.number = true
-  vim.o.relativenumber = true
-  vim.o.syntax = 'on'
-  vim.o.tabstop = 4
-  vim.o.softtabstop = 4
-  vim.o.smarttab = true
+  vim.opt.number = true
+  vim.opt.relativenumber = true
+  vim.opt.syntax = 'on'
+  vim.opt.tabstop = 4
+  vim.opt.softtabstop = 4
+  vim.opt.smarttab = true
   -- Indentation amount for < and > commands
-  vim.o.shiftwidth = 4
+  vim.opt.shiftwidth = 4
   -- Insert spaces when tab is pressed
-  vim.o.expandtab = true
+  vim.opt.expandtab = true
   -- Copy indent from current line when start new line
-  vim.o.autoindent = true
-  vim.o.smartindent = true
+  vim.opt.autoindent = true
+  vim.opt.smartindent = true
   -- Highlight cursor line
-  vim.o.cursorline = true
-  vim.o.wrap = false
+  vim.opt.cursorline = true
+  vim.opt.wrap = false
   -- Auto load from file useful when formatters run
-  vim.o.autoread = true
+  vim.opt.autoread = true
   -- Open new split panes to the right and below
-  vim.o.splitright = true
-  vim.o.splitbelow = true
+  vim.opt.splitright = true
+  vim.opt.splitbelow = true
   -- Do not show the last command
-  vim.o.showcmd = false
+  vim.opt.showcmd = false
   -- Yank and paste with the system clipboard
-  vim.o.clipboard = 'unnamed'
-  vim.o.foldmethod = 'expr'
-  vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-  vim.o.autowriteall = true
+  vim.opt.clipboard = 'unnamed'
+  vim.opt.foldmethod = 'expr'
+  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+  vim.opt.autowriteall = true
   vim.api.nvim_create_autocmd({"InsertLeave", "BufLeave"}, {
     command = "wall"
   })
+  -- Open all folds by default
+  vim.opt.foldenable = false
+  -- Turn off search highlights when entering insert
+  vim.api.nvim_set_keymap('n', 'i', '<cmd>noh<CR>i', { noremap = true })
+  vim.api.nvim_set_keymap('n', 'I', '<cmd>noh<CR>I', { noremap = true })
+  vim.api.nvim_set_keymap('n', 'o', '<cmd>noh<CR>o', { noremap = true })
+  vim.api.nvim_set_keymap('n', 'O', '<cmd>noh<CR>O', { noremap = true })
+  vim.api.nvim_set_keymap('n', 'a', '<cmd>noh<CR>a', { noremap = true })
+  vim.api.nvim_set_keymap('n', 'A', '<cmd>noh<CR>A', { noremap = true })
+  -- Use hidden to keep things like undo history present when change buffer
+  vim.opt.hidden = true
+  -- Improve search in file (similar to other editors)
+  vim.opt.ignorecase = true
+  vim.opt.smartcase = true
+  -- Allow mouse mode because sometimes we just want to click
+  vim.opt.mouse = 'nv'
+  -- Map the leader key
+  vim.g.mapleader = " "
+  -- Yanking will return to where cursor was prior to initiating the yank
+  vim.api.nvim_set_keymap('v', 'y', 'y`]', {})
 EOF
 
-" Open all folds by default
-set nofoldenable
-
-filetype plugin on
-
-" Turn off search highlights when entering insert
-nnoremap i :noh<CR>i
-nnoremap I :noh<CR>I
-nnoremap o :noh<CR>o
-nnoremap O :noh<CR>O
-nnoremap a :noh<CR>a
-nnoremap A :noh<CR>A
 " Trim trailing white space on save
 autocmd BufWritePre * %s/\s\+$//e
 " Wrap writting files
@@ -112,20 +120,9 @@ au BufRead,BufNewFile *.tex setlocal textwidth=80
 autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.tex setlocal spell
 " Show tabs and trailing whitespace
-set list listchars=tab:>-,trail:.,extends:>
-" Use hidden to keep things like undo history present when change buffer
-set hidden
-" Map the leader key
-let mapleader = " "
-" Improve search in file (similar to other editors)
-set ignorecase
-set smartcase
+" set list listchars=tab:>-,trail:.,extends:>
 
-" Allow mouse mode because sometimes we just want to click
-set mouse=nv
 
-" Yanking will return to where cursor was prior to initiating the yank
-vmap y y`]
 
 " Close current buffer without closing vim
 nnoremap QQ :bprevious \| bdelete #<CR>
@@ -146,12 +143,9 @@ set signcolumn=yes
 
 " Quickly reload config
 nnoremap <leader>rr :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
-" Clear all buffers and open file explorer (go home)
-nnoremap <leader>gh :Dirvish<CR><C-w>o:CloseHiddenBuffers<CR>
 " Syntax theme
-set termguicolors
-
 lua << EOF
+  vim.opt.termguicolors = true
   require('nightfox').setup({
     options = {
       dim_inactive = false
@@ -163,19 +157,20 @@ EOF
 
 
 " == Telescope fuzzy finder ==
-nnoremap ;f <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap ;g <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap ;b <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap ;of <cmd>lua require('telescope.builtin').oldfiles()<cr>
-nnoremap ;wg <cmd>lua require('telescope.builtin').grep_string()<cr>
-nnoremap ;s <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
-nnoremap ;ld <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
-nnoremap ;lw <cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>
-nnoremap ;t <cmd>lua require('telescope.builtin').treesitter()<cr>
-
-nnoremap ;; :Telescope<cr>
 
 lua << EOF
+local builtin = require('telescope.builtin')
+local opts = { noremap = true }
+vim.keymap.set('n', ';f',builtin.find_files, opts)
+vim.keymap.set('n', ';g', builtin.live_grep, opts)
+vim.keymap.set('n', ';b', builtin.buffers, opts)
+vim.keymap.set('n', ';of', builtin.oldfiles, opts)
+vim.keymap.set('n', ';wg', builtin.grep_string, opts)
+vim.keymap.set('n', ';s', builtin.current_buffer_fuzzy_find, opts)
+vim.keymap.set('n', ';ld', builtin.lsp_document_symbols, opts)
+vim.keymap.set('n', ';lw', builtin.lsp_workspace_symbols, opts)
+vim.keymap.set('n', ';t', builtin.treesitter, opts)
+vim.keymap.set('n', ';;', builtin.builtin, opts)
 require('telescope').load_extension('fzf')
 
 require("telescope").setup {
@@ -290,7 +285,6 @@ lua <<EOF
         c = cmp.mapping.close(),
       }),
       ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert}), -- Same ins-completion mapping and never replace
-      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert}),
     }),
     sources = cmp.config.sources({
     -- Order of the sources determines menu sort order
@@ -395,7 +389,7 @@ function common_on_attach(client, bufnr)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', map_opts)
     buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', map_opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', map_opts)
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', map_opts)
+    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', map_opts)
 end
 
 local servers = lsp_installer.get_installed_servers()
@@ -467,7 +461,7 @@ require("zen-mode").setup {
       }
     }
   }
+vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>ZenMode<cr>', { noremap = true })
 EOF
-nnoremap <leader>z <cmd>ZenMode<cr>
 
 lua require('neoscroll').setup()
