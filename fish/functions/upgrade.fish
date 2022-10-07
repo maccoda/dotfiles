@@ -38,7 +38,7 @@ function upgrade
             fish_update_completions
 
             echo "Updating vim..."
-            nvim +PlugUpgrade +PlugUpdate +PlugClean +qall
+            nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
         end
 
         work-upgrade
@@ -51,6 +51,6 @@ function upgrade
         gum spin --title "Updating fisher packages" -- fish -c "fisher update"
 
         echo "Updating vim..."
-        nvim +PlugUpgrade +PlugUpdate +PlugClean +qall
+        nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
     end
 end

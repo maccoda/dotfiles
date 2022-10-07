@@ -4,3 +4,7 @@ disabled = true
 
 [time]
 disabled = false
+format = '[$time]($style) '
+
+[cmd_duration]
+disabled = true
