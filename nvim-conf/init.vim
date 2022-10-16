@@ -5,7 +5,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'EdenEast/nightfox.nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     Plug 'numToStr/Comment.nvim'
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
@@ -31,6 +31,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-vsnip'
+    Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
     "====
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
@@ -293,6 +294,7 @@ lua <<EOF
           max_item_count = 20,
           priority = 5,
       },
+      { name = 'nvim_lsp_signature_help' },
       { name = 'path' },
       {
         name = 'vsnip',
@@ -317,6 +319,10 @@ lua <<EOF
           with_text = true,
           maxwidth = 50,
      }},
+     window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+     }
   })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
