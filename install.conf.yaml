@@ -32,6 +32,7 @@
     "~/.config/nvim":
       glob: true
       path: nvim-conf/*
+      exclude: ["nvim-conf/init.vim"]
 
     "~/.config/starship.toml": starship.toml
     "~/.config/fish/fish_plugins": fish_plugins

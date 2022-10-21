@@ -1,10 +1,9 @@
 vim.call('plug#begin', '~/.vim/plugged')
 local Plug = vim.fn['plug#']
-    Plug 'antoinemadec/FixCursorHold.nvim'
     Plug 'EdenEast/nightfox.nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
-    Plug('nvim-telescope/telescope-fzf-native.nvim', { do= 'make' })
+    Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
     Plug 'numToStr/Comment.nvim'
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
@@ -23,7 +22,7 @@ local Plug = vim.fn['plug#']
     Plug 'williamboman/nvim-lsp-installer'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'onsails/lspkind-nvim'
-    --====
+    ----------
     -- cmp sources
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
@@ -31,7 +30,7 @@ local Plug = vim.fn['plug#']
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-    --====
+    ----------
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
     Plug 'rafamadriz/friendly-snippets'
@@ -39,23 +38,20 @@ local Plug = vim.fn['plug#']
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/gitsigns.nvim'
     -- Tree sitter modules
-    Plug('nvim-treesitter/nvim-treesitter', {do= ':TSUpdate'})
+    Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
     Plug 'windwp/nvim-ts-autotag'
     Plug 'romgrk/nvim-treesitter-context'
-    --====
+    ----------
     Plug 'blankname/vim-fish'
     Plug 'sbdchd/neoformat'
-    Plug('iamcco/markdown-preview.nvim', { do= 'cd app && yarn install'  })
+    Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install'  })
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'folke/zen-mode.nvim'
     Plug 'folke/twilight.nvim'
     Plug 'NoahTheDuke/vim-just'
+    Plug 'simrat39/rust-tools.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'karb94/neoscroll.nvim'
-    -- Work
-    Plug 'amadeus/vim-mjml'
-    Plug 'scalameta/nvim-metals'
-    Plug 'sindrets/diffview.nvim'
 vim.call('plug#end')
 
 vim.opt.number = true
@@ -138,7 +134,8 @@ vim.api.nvim_create_autocmd(
 )
 
 --" Quickly reload config
--- nnoremap <leader>rr :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
+vim.api.nvim_set_keymap('n', '<leader>rr', '<cmd>luafile ~/.dotfiles/nvim-conf/init.lua<cr><cmd>echo "Config reloaded"<cr>', { noremap = true})
+
 -- Syntax theme
 vim.opt.termguicolors = true
 require('nightfox').setup({
@@ -392,10 +389,12 @@ end
 
 local servers = lsp_installer.get_installed_servers()
 for _, lsp in pairs(servers) do
-  nvim_lsp[lsp.name].setup {
-    on_attach = common_on_attach,
-    capabilities = capabilities
-  }
+  if lsp.name ~= 'rust_analyzer' then
+    nvim_lsp[lsp.name].setup {
+      on_attach = common_on_attach,
+      capabilities = capabilities
+    }
+  end
 end
 
 
@@ -457,8 +456,15 @@ vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>ZenMode<cr>', { noremap = true }
 
 require('neoscroll').setup()
 
-require("twilight").setup {
--- your configuration comes here
--- or leave it empty to use the default settings
--- refer to the configuration section below
-}
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})

@@ -50,6 +50,7 @@ call plug#begin("~/.vim/plugged")
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'folke/zen-mode.nvim'
     Plug 'NoahTheDuke/vim-just'
+    Plug 'simrat39/rust-tools.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'karb94/neoscroll.nvim'
 call plug#end()
@@ -410,10 +411,12 @@ end
 
 local servers = lsp_installer.get_installed_servers()
 for _, lsp in pairs(servers) do
+  if lsp.name ~= 'rust_analyzer' then
   nvim_lsp[lsp.name].setup {
     on_attach = common_on_attach,
     capabilities = capabilities
   }
+  end
 end
 EOF
 
@@ -480,3 +483,18 @@ vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>ZenMode<cr>', { noremap = true }
 EOF
 
 lua require('neoscroll').setup()
+
+lua << EOF
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = function(_, bufnr)
+      -- Hover actions
+      vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+      -- Code action groups
+      vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    end,
+  },
+})
+EOF
