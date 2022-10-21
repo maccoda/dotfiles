@@ -1,11 +1,10 @@
-call plug#begin("~/.vim/plugged")
-    " Plugin Section
-    " ==============
+vim.call('plug#begin', '~/.vim/plugged')
+local Plug = vim.fn['plug#']
     Plug 'antoinemadec/FixCursorHold.nvim'
     Plug 'EdenEast/nightfox.nvim'
     Plug 'nvim-lualine/lualine.nvim'
-    Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
+    Plug('nvim-telescope/telescope-fzf-native.nvim', { do= 'make' })
     Plug 'numToStr/Comment.nvim'
     Plug 'ggandor/lightspeed.nvim'
     Plug 'tpope/vim-fugitive'
@@ -19,151 +18,147 @@ call plug#begin("~/.vim/plugged")
     Plug 'tpope/vim-sleuth'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
-    " LSP plugins
+    -- LSP plugins
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'onsails/lspkind-nvim'
-    "====
-    " cmp sources
+    --====
+    -- cmp sources
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-    "====
+    --====
     Plug 'hrsh7th/vim-vsnip'
     Plug 'hrsh7th/vim-vsnip-integ'
     Plug 'rafamadriz/friendly-snippets'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/popup.nvim'
     Plug 'lewis6991/gitsigns.nvim'
-    " Tree sitter modules
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    -- Tree sitter modules
+    Plug('nvim-treesitter/nvim-treesitter', {do= ':TSUpdate'})
     Plug 'windwp/nvim-ts-autotag'
     Plug 'romgrk/nvim-treesitter-context'
-    "====
+    --====
     Plug 'blankname/vim-fish'
     Plug 'sbdchd/neoformat'
-    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+    Plug('iamcco/markdown-preview.nvim', { do= 'cd app && yarn install'  })
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'folke/zen-mode.nvim'
+    Plug 'folke/twilight.nvim'
     Plug 'NoahTheDuke/vim-just'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'karb94/neoscroll.nvim'
-call plug#end()
+    -- Work
+    Plug 'amadeus/vim-mjml'
+    Plug 'scalameta/nvim-metals'
+    Plug 'sindrets/diffview.nvim'
+vim.call('plug#end')
 
-
-" Config Section
-" =============
-lua << EOF
-  vim.opt.number = true
-  vim.opt.relativenumber = true
-  vim.opt.syntax = 'on'
-  vim.opt.tabstop = 4
-  vim.opt.softtabstop = 4
-  vim.opt.smarttab = true
-  -- Indentation amount for < and > commands
-  vim.opt.shiftwidth = 4
-  -- Insert spaces when tab is pressed
-  vim.opt.expandtab = true
-  -- Copy indent from current line when start new line
-  vim.opt.autoindent = true
-  vim.opt.smartindent = true
-  -- Highlight cursor line
-  vim.opt.cursorline = true
-  vim.opt.wrap = false
-  -- Auto load from file useful when formatters run
-  vim.opt.autoread = true
-  -- Open new split panes to the right and below
-  vim.opt.splitright = true
-  vim.opt.splitbelow = true
-  -- Do not show the last command
-  vim.opt.showcmd = false
-  -- Yank and paste with the system clipboard
-  vim.opt.clipboard = 'unnamed'
-  vim.opt.foldmethod = 'expr'
-  vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-  vim.opt.autowriteall = true
-  vim.api.nvim_create_autocmd(
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.syntax = 'on'
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.smarttab = true
+-- Indentation amount for < and > commands
+vim.opt.shiftwidth = 4
+-- Insert spaces when tab is pressed
+vim.opt.expandtab = true
+-- Copy indent from current line when start new line
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+-- Highlight cursor line
+vim.opt.cursorline = true
+vim.opt.wrap = false
+-- Auto load from file useful when formatters run
+vim.opt.autoread = true
+-- Open new split panes to the right and below
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+-- Do not show the last command
+vim.opt.showcmd = false
+-- Yank and paste with the system clipboard
+vim.opt.clipboard = 'unnamed'
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.autowriteall = true
+vim.api.nvim_create_autocmd(
     {"InsertLeave", "BufLeave"},
     {command = "wall"}
-  )
-  -- Open all folds by default
-  vim.opt.foldenable = false
-  -- have a fixed column for the diagnostics to appear in
-  -- this removes the jitter when warnings/errors flow in
-  vim.opt.signcolumn = 'yes'
-  -- Turn off search highlights when entering insert
-  vim.api.nvim_set_keymap('n', 'i', '<cmd>noh<CR>i', { noremap = true })
-  vim.api.nvim_set_keymap('n', 'I', '<cmd>noh<CR>I', { noremap = true })
-  vim.api.nvim_set_keymap('n', 'o', '<cmd>noh<CR>o', { noremap = true })
-  vim.api.nvim_set_keymap('n', 'O', '<cmd>noh<CR>O', { noremap = true })
-  vim.api.nvim_set_keymap('n', 'a', '<cmd>noh<CR>a', { noremap = true })
-  vim.api.nvim_set_keymap('n', 'A', '<cmd>noh<CR>A', { noremap = true })
-  -- Use hidden to keep things like undo history present when change buffer
-  vim.opt.hidden = true
-  -- Improve search in file (similar to other editors)
-  vim.opt.ignorecase = true
-  vim.opt.smartcase = true
-  -- Allow mouse mode because sometimes we just want to click
-  vim.opt.mouse = 'nv'
-  -- Map the leader key
-  vim.g.mapleader = " "
-  -- Yanking will return to where cursor was prior to initiating the yank
-  vim.api.nvim_set_keymap('v', 'y', 'y`]', {})
-  -- Close current buffer without closing vim
-  vim.api.nvim_set_keymap('n', 'QQ', '<cmd>bprevious | bdelete #<cr>', { noremap = true })
-  -- Close current buffer and window
-  vim.api.nvim_set_keymap('n', 'QZ', '<cmd>bdelete<cr><c-w>c', { noremap = true })
-  -- Set spell check on certain files
-  vim.api.nvim_create_autocmd(
+)
+-- Open all folds by default
+vim.opt.foldenable = false
+-- have a fixed column for the diagnostics to appear in
+-- this removes the jitter when warnings/errors flow in
+vim.opt.signcolumn = 'yes'
+-- Turn off search highlights when entering insert
+vim.api.nvim_set_keymap('n', 'i', '<cmd>noh<CR>i', { noremap = true })
+vim.api.nvim_set_keymap('n', 'I', '<cmd>noh<CR>I', { noremap = true })
+vim.api.nvim_set_keymap('n', 'o', '<cmd>noh<CR>o', { noremap = true })
+vim.api.nvim_set_keymap('n', 'O', '<cmd>noh<CR>O', { noremap = true })
+vim.api.nvim_set_keymap('n', 'a', '<cmd>noh<CR>a', { noremap = true })
+vim.api.nvim_set_keymap('n', 'A', '<cmd>noh<CR>A', { noremap = true })
+-- Use hidden to keep things like undo history present when change buffer
+vim.opt.hidden = true
+-- Improve search in file (similar to other editors)
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+-- Allow mouse mode because sometimes we just want to click
+vim.opt.mouse = 'nv'
+-- Map the leader key
+vim.g.mapleader = " "
+-- Yanking will return to where cursor was prior to initiating the yank
+vim.api.nvim_set_keymap('v', 'y', 'y`]', {})
+-- Close current buffer without closing vim
+vim.api.nvim_set_keymap('n', 'QQ', '<cmd>bprevious | bdelete #<cr>', { noremap = true })
+-- Close current buffer and window
+vim.api.nvim_set_keymap('n', 'QZ', '<cmd>bdelete<cr><c-w>c', { noremap = true })
+-- Set spell check on certain files
+vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     { pattern = { "*.md", "*.tex" }, command = "setlocal spell"}
-  )
-  -- Trim trailing white space on save
-  vim.api.nvim_create_autocmd(
+)
+-- Trim trailing white space on save
+vim.api.nvim_create_autocmd(
     { "BufWritePre" },
     { command = "%s/\\s\\+$//e"}
-  )
-  -- Wrap writing files
-  vim.api.nvim_create_autocmd(
+)
+-- Wrap writing files
+vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     { pattern = { "*.md", "*.tex" }, command = "setlocal textwidth=80"}
-  )
-  vim.api.nvim_create_autocmd(
+)
+vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     { pattern = { "*.jrnl" }, command = "setlocal textwidth=120"}
-  )
-EOF
-" =========
+)
 
-" Quickly reload config
-nnoremap <leader>rr :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
-" Syntax theme
-lua << EOF
-  vim.opt.termguicolors = true
-  require('nightfox').setup({
-    options = {
-      dim_inactive = true,
-      modules = {
-        cmp = true,
-        telescope = true,
-        lightspeed = true,
-        treesitter = true,
-        gitsigns = true
-      }
-    }
-  })
+--" Quickly reload config
+-- nnoremap <leader>rr :source ~/.dotfiles/nvim-conf/init.vim<CR>:echo "Config reloaded"<CR>
+-- Syntax theme
+vim.opt.termguicolors = true
+require('nightfox').setup({
+options = {
+  dim_inactive = true,
+  modules = {
+    cmp = true,
+    telescope = true,
+    lightspeed = true,
+    treesitter = true,
+    gitsigns = true
+  }
+}
+})
 
-  vim.cmd('colorscheme nightfox')
-EOF
+vim.cmd('colorscheme nightfox')
 
 
-" == Telescope fuzzy finder ==
+-- == Telescope fuzzy finder ==
 
-lua << EOF
 local builtin = require('telescope.builtin')
 local opts = { noremap = true }
 vim.keymap.set('n', ';f',builtin.find_files, opts)
@@ -195,11 +190,9 @@ require("telescope").setup {
       }
     }
   }
-EOF
 
 
-" == Git signs ==
-lua << EOF
+-- == Git signs ==
 require('gitsigns').setup {
     current_line_blame = true,
     on_attach = function(bufnr)
@@ -220,10 +213,8 @@ require('gitsigns').setup {
         map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
     end
 }
-EOF
 
-" == Lualine ==
-lua << EOF
+-- == Lualine ==
 local function window()
   return vim.api.nvim_win_get_number(0)
 end
@@ -250,19 +241,14 @@ require('lualine').setup{
     }
 }
 vim.api.nvim_set_keymap('n', '<leader>b', ':LualineBuffersJump<space>', { noremap = true })
-EOF
 
-" == Fugitive ==
-" Fugitive Conflict Resolution
-lua << EOF
+-- == Fugitive ==
+-- Fugitive Conflict Resolution
   vim.api.nvim_set_keymap('n', '<leader>gd', '<cmd>Gvdiffsplit!<cr>', { noremap = true })
   vim.api.nvim_set_keymap('n', 'gdh', '<cmd>diffget //2<cr>', { noremap = true })
   vim.api.nvim_set_keymap('n', 'gdl', '<cmd>diffget //3<cr>', { noremap = true })
-EOF
 
-" == Cmp ==
-
-lua <<EOF
+-- == Cmp ==
   -- menuone: popup even when there's only one match
   -- noinsert: Do not insert text until a selection is made
   -- noselect: Do not select, force user to select one from the menu
@@ -347,11 +333,9 @@ lua <<EOF
       { name = 'cmdline' }
     })
   })
-EOF
 
-" == LSP ==
+-- == LSP ==
 
-lua << EOF
 -- Show diagnostic popup on cursor hold
 vim.api.nvim_create_autocmd(
   { "CursorHold" },
@@ -371,9 +355,7 @@ end
 vim.diagnostic.config {
   virtual_text = false,
 }
-EOF
 
-lua << EOF
 local nvim_lsp = require('lspconfig')
 local lsp_installer = require("nvim-lsp-installer")
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -415,11 +397,10 @@ for _, lsp in pairs(servers) do
     capabilities = capabilities
   }
 end
-EOF
 
 
-" == tree-sitter ==
-lua <<EOF
+
+-- == tree-sitter ==
 require'nvim-treesitter.configs'.setup {
     ensure_installed = {"rust", "typescript", "javascript", "lua"},
     highlight = {
@@ -430,15 +411,13 @@ require'nvim-treesitter.configs'.setup {
       enable = true
     }
 }
-EOF
 
 
-" == Comment ==
-lua require('Comment').setup()
+-- == Comment ==
+require('Comment').setup()
 
-" == Snippets ==
+-- == Snippets ==
 
-lua << EOF
 -- Expand
 vim.api.nvim_set_keymap('i', '<C-j>', [[vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>']], {expr = true})
 vim.api.nvim_set_keymap('s', '<C-j>', [[vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>']], {expr = true})
@@ -455,16 +434,14 @@ vim.api.nvim_set_keymap('s', '<S-Tab>', [[vsnip#jumpable(-1) ? '<Plug>(vsnip-jum
 
 -- If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
 vim.g.vsnip_filetypes = { javascriptreact = { 'javascript' }, typescriptreact = { 'typescript' }}
-EOF
 
-" == Auto Pairs ==
-lua require('nvim-autopairs').setup()
+-- == Auto Pairs ==
+require('nvim-autopairs').setup()
 
-" == Colorizer ==
-lua require("colorizer").setup()
+-- == Colorizer ==
+require("colorizer").setup()
 
-" == Zen Mode ==
-lua << EOF
+-- == Zen Mode ==
 require("zen-mode").setup {
   window = {
     width = .85
@@ -477,6 +454,11 @@ require("zen-mode").setup {
     }
   }
 vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>ZenMode<cr>', { noremap = true })
-EOF
 
-lua require('neoscroll').setup()
+require('neoscroll').setup()
+
+require("twilight").setup {
+-- your configuration comes here
+-- or leave it empty to use the default settings
+-- refer to the configuration section below
+}
