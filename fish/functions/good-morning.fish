@@ -6,7 +6,7 @@ function good-morning
 
     if test $MACCODA_ENV = "work"
         heading "Tasks remaining"
-        task
+        task due.before:eoww
         if test (date | cut -f 1 -d ' ') = "Mon"
             heading "Journal entries from last week"
             jrnl -from "last week"

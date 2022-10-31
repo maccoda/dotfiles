@@ -1,6 +1,6 @@
 function upgrade
     cd $HOME/.dotfiles
-    gum spin --title "Pulling updates for dotfiles" -- gpr
+    gum spin --title "Pulling updates for dotfiles" -- fish -c "gpr"
 
     # Update any links
     ./install -q

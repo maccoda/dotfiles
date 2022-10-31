@@ -41,6 +41,8 @@ fish -c "fish_update_completions"
 # The install will need to be run again because it will need to work for fish
 # to add the OS dependent links
 fish -c "~/.dotfiles/install"
+# Set up personal tooling
+fish -c "set -Ux MACCODA_CONFIG $HOME/.config/dev-tools/config.toml"
 
 # Install node
 fish -c "nvm install lts"

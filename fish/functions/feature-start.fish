@@ -36,16 +36,8 @@ function feature-start
     else
         set jira_id $argv[1]
     end
-    echo $jira_id | rg -e "\w+-\d+" --quiet
-    if test $status -ne 0
-        echo "This ID doesn't look quite right."
-        read -P "Re-enter the ID or leave blank to use [$jira_id] " new_jira_id
-        if test -n $new_jira_id
-            set jira_id $new_jira_id
-        end
-
-    end
-    git switch -c $jira_id
+    set jira_id_cleaned (echo $jira_id | sed 's/ /-/g')
+    git switch -c $jira_id_cleaned
     if test -n "$repo_status"
         git stash pop
     end
