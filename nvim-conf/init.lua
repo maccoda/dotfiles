@@ -29,7 +29,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-Plug('L3MON4D3/LuaSnip', { tag = 'v1.*'})
+Plug('L3MON4D3/LuaSnip', { tag = 'v1.*' })
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 ----------
 Plug 'rafamadriz/friendly-snippets'
@@ -218,9 +218,9 @@ require('lualine').setup {
         lualine_c = { { 'filename', path = 1, shorting_target = 80 } }
     },
     tabline = {
-        lualine_a = { { 'buffers', mode = 2 } },
+        lualine_a = {},
         lualine_b = {},
-        lualine_c = {},
+        lualine_c = { { 'buffers', mode = 2 } },
         lualine_x = {},
         lualine_y = {},
         lualine_z = { 'tabs' }
@@ -403,23 +403,23 @@ require('Comment').setup()
 require("luasnip.loaders.from_vscode").lazy_load()
 local ls = require("luasnip")
 -- This will expand the current item or jump to the next item in the snippet
-vim.keymap.set({"i", "s"}, "<c-k>", function ()
-   if ls.expand_or_jumpable() then
-       ls.expand_or_jump()
-   end
-end, { silent = true})
+vim.keymap.set({ "i", "s" }, "<c-k>", function()
+    if ls.expand_or_jumpable() then
+        ls.expand_or_jump()
+    end
+end, { silent = true })
 -- This will move backwards to the previous item in the snippet
-vim.keymap.set({"i", "s"}, "<c-j>", function ()
-   if ls.jumpable(-1) then
-       ls.jump(-1)
-   end
-end, { silent = true})
+vim.keymap.set({ "i", "s" }, "<c-j>", function()
+    if ls.jumpable(-1) then
+        ls.jump(-1)
+    end
+end, { silent = true })
 -- Cycle through list of snippet options
-vim.keymap.set({"i", "s"}, "<c-l>", function ()
-   if ls.choice_active() then
-       ls.change_choice(1)
-   end
-end, { silent = true})
+vim.keymap.set({ "i", "s" }, "<c-l>", function()
+    if ls.choice_active() then
+        ls.change_choice(1)
+    end
+end, { silent = true })
 
 -- == Auto Pairs ==
 require('nvim-autopairs').setup()
