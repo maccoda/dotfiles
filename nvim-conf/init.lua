@@ -127,10 +127,15 @@ vim.api.nvim_create_autocmd(
     { pattern = { "*.jrnl" }, command = "setlocal textwidth=120" }
 )
 
---" Quickly reload config
+-- Quickly reload config
 vim.api.nvim_set_keymap('n', '<leader>rr',
     '<cmd>luafile ~/.dotfiles/nvim-conf/init.lua<cr><cmd>echo "Config reloaded"<cr>', { noremap = true })
 
+-- Show some whitespace
+vim.cmd([[
+    set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
+    set list
+]])
 -- Syntax theme
 vim.opt.termguicolors = true
 require('nightfox').setup({

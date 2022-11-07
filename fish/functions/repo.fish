@@ -42,9 +42,12 @@ function repo
 
     # Delete all branches that have been removed upstream
     function __repo_prune_branches
-        argparse f/force -- $argv
+        # TODO: Probably also want to clean any branches that are only local and have no upstream
+        argparse f/force n/no-fetch -- $argv
 
-        gum spin --title "Fetching all branches" -- git fetch --all --prune --quiet
+        if ! set -q _flag_n
+            gum spin --title "Fetching all branches" -- git fetch --all --prune --quiet
+        end
         set removed_branches (git branch -vv | rg ": gone]" | tr -s ' ' | cut -d ' ' -f 2)
         for branch in $removed_branches
             if set -q _flag_f
@@ -102,14 +105,14 @@ function repo
         set repo_status (git status --porcelain)
         if test -z "$repo_status"
             git switch main &>/dev/null || git switch master &>/dev/null
-            gum spin --title "Pulling latest changes on main" -- git pull
+            gum spin --title "Pulling latest changes on main" -- git pull --prune
         else
             git stash --include-untracked >/dev/null
             git switch main &>/dev/null || git switch master &>/dev/null
-            gum spin --title "Pulling latest changes on main" -- git pull
+            gum spin --title "Pulling latest changes on main" -- git pull --prune
             git stash pop >/dev/null
         end
-        __repo_prune_branches --force
+        __repo_prune_branches --force --no-fetch
         functions -e __repo_main
     end
 
