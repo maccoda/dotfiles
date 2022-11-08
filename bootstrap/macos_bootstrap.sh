@@ -32,3 +32,4 @@ cask_install scroll-reverser # Sensible scrolling on the mouse
 echoo "Add some fonts"
 brew tap homebrew/cask-fonts
 cask_install font-inconsolata-nerd-font
+cask_install font-jetbrains-mono

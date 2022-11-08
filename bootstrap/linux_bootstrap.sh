@@ -47,6 +47,8 @@ if [[ ! -f $FONT_NAME ]]; then
     echo "Fetching $FONT_NAME"
     curl -fLo "$FONT_NAME" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete.otf
 fi
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"
 cd - &>/dev/null
 
 
