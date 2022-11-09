@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 echoo "It is time to begin this journey, let's get our trusty friend Homebrew"
 check_if_binary_installed "brew" || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
