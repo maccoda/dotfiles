@@ -6,5 +6,6 @@ disabled = true
 disabled = false
 format = '[$time]($style) '
 
-[cmd_duration]
-disabled = true
+
+[git_commit]
+tag_disabled = false

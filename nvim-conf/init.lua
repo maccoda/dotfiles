@@ -39,7 +39,7 @@ Plug 'lewis6991/gitsigns.nvim'
 -- Tree sitter modules
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug 'windwp/nvim-ts-autotag'
-Plug 'romgrk/nvim-treesitter-context'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 ----------
 Plug 'blankname/vim-fish'
 Plug 'sbdchd/neoformat'
@@ -75,13 +75,13 @@ vim.opt.showcmd = false
 vim.opt.clipboard = 'unnamed'
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+-- Open all folds by default
+vim.opt.foldenable = false
 vim.opt.autowriteall = true
 vim.api.nvim_create_autocmd(
     { "InsertLeave", "BufLeave", "FocusLost" },
     { command = "wall" }
 )
--- Open all folds by default
-vim.opt.foldenable = false
 -- have a fixed column for the diagnostics to appear in
 -- this removes the jitter when warnings/errors flow in
 vim.opt.signcolumn = 'yes'
@@ -405,7 +405,16 @@ require 'nvim-treesitter.configs'.setup {
     },
     autotag = {
         enable = true
-    }
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    },
 }
 
 
