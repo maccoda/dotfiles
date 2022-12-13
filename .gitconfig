@@ -35,7 +35,7 @@
     stash = stash --include-untracked
     last-tag = describe --abbrev=0 --tags
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter = delta --color-only --features=interactive
 [delta]
     features = line-numbers decorations
 	whitespace-error-style = 22 reverse
