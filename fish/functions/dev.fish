@@ -1,6 +1,6 @@
 function dev
     function __dev_config_folowing
-        dasel select -f $MACCODA_CONFIG --parser toml -m ".repos.[*].path"
+        dasel --file $MACCODA_CONFIG ".repos.all().path"
     end
     set command $argv[1]
     set start_dir (pwd)
@@ -21,13 +21,13 @@ function dev
         end
         set joined (string join "," $repo_search)
         set template '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") (printf "@%v" .author.login | autocolor "blue") (truncate 60 .title) .url (timeago .createdAt | printf "C: %v") (timeago .updatedAt | printf "U: %v")}}{{end}}'
-        set github_org (dasel select -f $MACCODA_CONFIG --parser toml "github_org")
+        set github_org (dasel --file $MACCODA_CONFIG "github_org")
 
         heading --no-trail "Review requests"
         gh search prs --state=open --owner=$github_org --review-requested=@me --draft=false --repo $joined --json number,title,url,author,createdAt,updatedAt --template $template
 
         heading --no-trail "Reviews created"
-        gh search prs --author=@me --state=open --owner=$github_org --draft=false --json number,title,url,author,createdAt,updatedAt --template $template
+        gh search prs --author=@me --state=open --owner=$github_org --draft=false --json number,title,url,author,createdAt,updatedAt --template $template -- NOT "[Snyk]"
 
         cd $start_dir
     else if test $command = "following"

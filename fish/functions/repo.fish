@@ -78,7 +78,7 @@ function repo
             echo "Already following $repo_path"
         else
             echo "Following $repo_path"
-            dasel put object --parser toml -f $MACCODA_CONFIG --type string "repos.[]" path="$repo_path"
+            dasel put object --write toml -f $MACCODA_CONFIG --type string "repos.[]" path="$repo_path"
         end
 
         functions -e __repo_follow
