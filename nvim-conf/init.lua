@@ -19,7 +19,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 -- LSP plugins
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind-nvim'
 ----------
@@ -72,7 +73,7 @@ vim.opt.splitbelow = true
 -- Do not show the last command
 vim.opt.showcmd = false
 -- Yank and paste with the system clipboard
-vim.opt.clipboard = 'unnamed'
+vim.opt.clipboard = 'unnamed,unnamedplus'
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 -- Open all folds by default
@@ -343,12 +344,12 @@ vim.diagnostic.config {
 }
 
 local nvim_lsp = require('lspconfig')
-local lsp_installer = require("nvim-lsp-installer")
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = { "prosemd_lsp", "tsserver" }
+})
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-lsp_installer.setup({
-    ensure_installed = { "prosemd_lsp", "tsserver", "eslint" }
-})
 
 local map_opts = { noremap = true, silent = true }
 vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', map_opts)
@@ -376,25 +377,24 @@ local function common_on_attach(client, bufnr)
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', map_opts)
 end
 
-local servers = lsp_installer.get_installed_servers()
-for _, lsp in pairs(servers) do
-    if lsp.name ~= 'rust_analyzer' then
-        nvim_lsp[lsp.name].setup {
+require("mason-lspconfig").setup_handlers {
+    -- The first entry (without a key) will be the default handler
+    -- and will be called for each installed server that doesn't have
+    -- a dedicated handler.
+    function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {
             on_attach = common_on_attach,
             capabilities = capabilities
         }
+    end,
+    -- Next, you can provide a dedicated handler for specific servers.
+    -- For example, a handler override for the `rust_analyzer`:
+    ["rust_analyzer"] = function ()
+        require("rust-tools").setup {
+            on_attach = common_on_attach
+        }
     end
-end
-
-local rt = require("rust-tools")
-
-rt.setup({
-    server = {
-        on_attach = common_on_attach
-    },
-})
-
-
+}
 
 -- == tree-sitter ==
 require 'nvim-treesitter.configs'.setup {
