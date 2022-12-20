@@ -18,9 +18,9 @@ brew_install gitui # Command line git UI tool
 brew_install jrnl # Command line journal
 brew_install starship # shell agnostic formatting
 brew_install task # Simple CLI for task management
-brew_install jq # Handy JSON grep
 brew_install watchexec # Utiliy tool to re-run commands on file change
 brew_install just # General purpose command runner
 brew_install gum # Shell script utilities
 brew_install shellcheck # Shell linting
 brew_install dasel # JSON/YAML/TOML tool
+brew_install nnn # CLI file explorer
