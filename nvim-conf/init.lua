@@ -53,6 +53,8 @@ Plug 'NoahTheDuke/vim-just'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'karb94/neoscroll.nvim'
+Plug 'stevearc/dressing.nvim'
+Plug 'olimorris/persisted.nvim'
 vim.call('plug#end')
 
 vim.opt.number = true
@@ -467,7 +469,7 @@ end, { silent = true })
 -- Cycle through list of snippet options
 vim.keymap.set({ "i", "s" }, "<c-l>", function()
     if ls.choice_active() then
-        ls.change_choice(1)
+        require("luasnip.extras.select_choice")()
     end
 end, { silent = true })
 
@@ -496,3 +498,9 @@ require("twilight").setup()
 require("todo-comments").setup {
     signs = false
 }
+require("persisted").setup({
+    autoload = true,
+      on_autoload_no_session = function()
+    vim.notify("No existing session to load.")
+  end
+})
