@@ -32,6 +32,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
 Plug('L3MON4D3/LuaSnip', { tag = 'v1.*' })
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug('tzachar/cmp-tabnine', { ['do'] = './install.sh' })
 ----------
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-lua/plenary.nvim'
@@ -265,20 +266,21 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }) -- Same ins-completion mapping and never replace
+        ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
     }),
     sources = cmp.config.sources({
         -- Order of the sources determines menu sort order
         {
             name = 'nvim_lsp',
-            max_item_count = 20,
-            priority = 5,
+            max_item_count = 20
         },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'path' },
+        { name = 'cmp_tabnine' },
         { name = 'luasnip' },
+        { name = 'path' },
         { name = 'buffer',
             max_item_count = 5,
+            keyword_length = 3,
             option = {
                 get_bufnrs = function()
                     -- Look in all buffers
@@ -292,10 +294,23 @@ cmp.setup({
         }
     }),
     formatting = {
-        format = lspkind.cmp_format {
-            with_text = true,
-            maxwidth = 50,
-        }
+        format = function(entry, vim_item)
+                    vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol_text"})
+                    if entry.source.name == "cmp_tabnine" then
+                        local detail = (entry.completion_item.data or {}).detail
+                        vim_item.kind = " T9"
+                        if detail and detail:find('.*%%.*') then
+                            vim_item.kind = vim_item.kind .. ' ' .. detail
+                        end
+
+                        if (entry.completion_item.data or {}).multiline then
+                            vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
+                        end
+                    end
+                    local maxwidth = 80
+                    vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
+                    return vim_item
+              end,
     },
     window = {
         completion = cmp.config.window.bordered(),
@@ -319,6 +334,19 @@ cmp.setup.cmdline(':', {
     }, {
         { name = 'cmdline' }
     })
+})
+
+-- == TabNine ==
+-- To view local config type -> tabnine::config
+local tabnine = require('cmp_tabnine.config')
+
+tabnine:setup({
+	max_lines = 1000,
+	max_num_results = 20,
+	sort = true,
+	run_on_every_keystroke = true,
+	snippet_placeholder = '..',
+	show_prediction_strength = false
 })
 
 -- == LSP ==
