@@ -1,5 +1,7 @@
-# Make a quick temporary note
+# Make a quick note
 function jot
+    mkdir -p $HOME/jot
     set stamp (date '+%Y-%m-%dT%H-%M-%S')
-    nvim "/tmp/jot-$stamp.txt"
+    set file_path "$HOME/jot/jot-$stamp.txt"
+    nvim $file_path
 end

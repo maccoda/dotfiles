@@ -52,6 +52,7 @@ Plug 'folke/todo-comments.nvim'
 Plug 'NoahTheDuke/vim-just'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'folke/trouble.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'stevearc/dressing.nvim'
 Plug 'olimorris/persisted.nvim'
@@ -494,6 +495,7 @@ require('neoscroll').setup()
 
 require("twilight").setup()
 
+require("trouble").setup()
 
 require("todo-comments").setup {
     signs = false

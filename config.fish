@@ -2,6 +2,9 @@ fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin
 
 # Used for fzf in vim mainly but default is to only look for files
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'
+# Allow the ctrl-T and alt-c integration to respect gitignore
+set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -gx FZF_ALT_C_COMMAND "fd --type directory"
 
 # Set default theme for bat
 set -gx BAT_THEME "Coldark-Dark"
