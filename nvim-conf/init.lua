@@ -1,6 +1,7 @@
 vim.call('plug#begin', '~/.vim/plugged')
 local Plug = vim.fn['plug#']
 Plug 'EdenEast/nightfox.nvim'
+Plug('catppuccin/nvim', { as = 'catppuccin' })
 Plug 'nvim-lualine/lualine.nvim'
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
@@ -76,8 +77,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 -- Do not show the last command
 vim.opt.showcmd = false
--- Yank and paste with the system clipboard
-vim.opt.clipboard = 'unnamed,unnamedplus'
+-- Set folds by tree sitter
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 -- Open all folds by default
@@ -146,17 +146,23 @@ vim.opt.termguicolors = true
 require('nightfox').setup({
     options = {
         dim_inactive = true,
-        modules = {
-            cmp = true,
-            telescope = true,
-            lightspeed = true,
-            treesitter = true,
-            gitsigns = true
+    }
+})
+
+require("catppuccin").setup({
+    dim_inactive = {
+        enabled = true,
+    },
+    color_overrides = {
+        all = {
+            -- Make comments a little lighter
+            surface2 = "#676a81"
         }
     }
 })
 
-vim.cmd('colorscheme nightfox')
+-- vim.cmd('colorscheme nightfox')
+vim.cmd.colorscheme "catppuccin"
 
 
 -- == Telescope fuzzy finder ==
@@ -219,6 +225,11 @@ require('gitsigns').setup {
 -- == Lualine ==
 
 require('lualine').setup {
+    options = {
+        theme = 'catppuccin',
+        component_separators = '|',
+        section_separators = { left = '', right = '' },
+    },
     extensions = {
         "fugitive", "quickfix"
     },
@@ -298,26 +309,29 @@ cmp.setup({
     }),
     formatting = {
         format = function(entry, vim_item)
-                    vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol_text"})
-                    if entry.source.name == "cmp_tabnine" then
-                        local detail = (entry.completion_item.data or {}).detail
-                        vim_item.kind = " T9"
-                        if detail and detail:find('.*%%.*') then
-                            vim_item.kind = vim_item.kind .. ' ' .. detail
-                        end
+            vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol_text" })
+            if entry.source.name == "cmp_tabnine" then
+                local detail = (entry.completion_item.data or {}).detail
+                vim_item.kind = " T9"
+                if detail and detail:find('.*%%.*') then
+                    vim_item.kind = vim_item.kind .. ' ' .. detail
+                end
 
-                        if (entry.completion_item.data or {}).multiline then
-                            vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
-                        end
-                    end
-                    local maxwidth = 80
-                    vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-                    return vim_item
-              end,
+                if (entry.completion_item.data or {}).multiline then
+                    vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
+                end
+            end
+            local maxwidth = 80
+            vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
+            return vim_item
+        end,
     },
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
+    },
+    view = {
+        entries = { name = 'custom', selection_order = 'near_cursor' }
     }
 })
 
@@ -344,12 +358,12 @@ cmp.setup.cmdline(':', {
 local tabnine = require('cmp_tabnine.config')
 
 tabnine:setup({
-	max_lines = 1000,
-	max_num_results = 20,
-	sort = true,
-	run_on_every_keystroke = true,
-	snippet_placeholder = '..',
-	show_prediction_strength = false
+    max_lines = 1000,
+    max_num_results = 20,
+    sort = true,
+    run_on_every_keystroke = true,
+    snippet_placeholder = '..',
+    show_prediction_strength = false
 })
 
 -- == LSP ==
@@ -412,7 +426,7 @@ require("mason-lspconfig").setup_handlers {
     -- The first entry (without a key) will be the default handler
     -- and will be called for each installed server that doesn't have
     -- a dedicated handler.
-    function (server_name) -- default handler (optional)
+    function(server_name) -- default handler (optional)
         require("lspconfig")[server_name].setup {
             on_attach = common_on_attach,
             capabilities = capabilities
@@ -420,7 +434,7 @@ require("mason-lspconfig").setup_handlers {
     end,
     -- Next, you can provide a dedicated handler for specific servers.
     -- For example, a handler override for the `rust_analyzer`:
-    ["rust_analyzer"] = function ()
+    ["rust_analyzer"] = function()
         require("rust-tools").setup {
             on_attach = common_on_attach
         }
@@ -429,7 +443,9 @@ require("mason-lspconfig").setup_handlers {
 
 -- == tree-sitter ==
 require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "rust", "typescript", "javascript", "lua" },
+    ensure_installed = { "rust", "typescript", "javascript", "lua", "go" },
+    -- Automatically install missing parsers when entering buffer
+    auto_install = true,
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
@@ -500,9 +516,11 @@ require("trouble").setup()
 require("todo-comments").setup {
     signs = false
 }
+
 require("persisted").setup({
     autoload = true,
-      on_autoload_no_session = function()
-    vim.notify("No existing session to load.")
-  end
+    on_autoload_no_session = function()
+        vim.notify("No existing session to load.")
+    end
+})
 })
