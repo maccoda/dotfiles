@@ -115,7 +115,7 @@ vim.api.nvim_set_keymap('n', 'QZ', '<cmd>bdelete<cr><c-w>c', { noremap = true })
 -- Set spell check on certain files
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
-    { pattern = { "*.md", "*.tex" }, command = "setlocal spell" }
+    { pattern = { "*.md", "*.tex", "*.txt" }, command = "setlocal spell" }
 )
 -- Trim trailing white space on save
 vim.api.nvim_create_autocmd(
@@ -125,7 +125,7 @@ vim.api.nvim_create_autocmd(
 -- Wrap writing files
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
-    { pattern = { "*.md", "*.tex" }, command = "setlocal textwidth=80" }
+    { pattern = { "*.md", "*.tex", "*.txt" }, command = "setlocal textwidth=80" }
 )
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
@@ -522,5 +522,4 @@ require("persisted").setup({
     on_autoload_no_session = function()
         vim.notify("No existing session to load.")
     end
-})
 })
