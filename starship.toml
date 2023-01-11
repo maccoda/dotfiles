@@ -4,7 +4,7 @@ disabled = true
 
 [time]
 disabled = false
-format = '[$time]($style) '
+format = '[$time](#F2CDCD) '
 
 
 [git_commit]

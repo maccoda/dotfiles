@@ -472,7 +472,7 @@ require('Comment').setup()
 require("luasnip.loaders.from_vscode").lazy_load()
 local ls = require("luasnip")
 -- This will expand the current item or jump to the next item in the snippet
-vim.keymap.set({ "i", "s" }, "<c-k>", function()
+vim.keymap.set({ "i", "s" }, "<c-l>", function()
     if ls.expand_or_jumpable() then
         ls.expand_or_jump()
     end

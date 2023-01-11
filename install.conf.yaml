@@ -47,7 +47,9 @@
       glob: true
       path: "kitty/*"
 
-    "~/.config/gitui/key_bindings.ron": gitui/key_bindings.ron
+    "~/.config/gitui/":
+      glob: true
+      path: gitui/*.ron
 
 - clean:
     ~/:
