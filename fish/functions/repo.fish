@@ -20,13 +20,19 @@ function repo
     # Get a repo ready with all local elements that will not
     # usually get pushed to the repo.
     function __repo_setup
+        argparse c/from-curent -- $argv
 
         set start_dir (pwd)
-        set git_root (git rev-parse --show-toplevel)
-        if test "$start_dir" != "$git_root"
-            echo "Not at the git root directory. Moving to the root"
-            cd $git_root
+        if ! set -q _flag_c
+            set git_root (git rev-parse --show-toplevel)
+            if test "$start_dir" != "$git_root"
+                echo "Not at the git root directory. Moving to the root"
+                cd $git_root
+            end
+        else
+            echo "Running from current directory"
         end
+
         set -l projections_dir ~/.dotfiles/nvim-conf/projections
         echo "Below are existing projections:"
         exa $projections_dir/ --icons --oneline
@@ -166,7 +172,7 @@ function repo
     set command $argv[1]
     set args $argv[2..]
     if test $command = init
-        __repo_setup
+        __repo_setup $args
     else if test $command = prune-branches
         __repo_prune_branches $args
     else if test $command = feature
