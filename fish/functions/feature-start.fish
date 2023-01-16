@@ -37,7 +37,10 @@ function feature-start
         set jira_id $argv[1]
     end
     set jira_id_cleaned (echo $jira_id | sed 's/ /-/g')
-    git switch -c $jira_id_cleaned
+    if ! git switch -c $jira_id_cleaned
+        echo "Failed to switch branch"
+        return 1
+    end
     if test -n "$repo_status"
         git stash pop
     end

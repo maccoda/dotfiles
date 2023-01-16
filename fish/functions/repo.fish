@@ -193,5 +193,6 @@ function repo
         echo "Unknown sub-command $command"
         return 127
     end
+    return $status
     set -e config_dir
 end
