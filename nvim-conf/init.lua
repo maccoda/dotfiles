@@ -6,13 +6,14 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 Plug 'numToStr/Comment.nvim'
-Plug 'ggandor/lightspeed.nvim'
+Plug 'ggandor/leap.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
 Plug 'justinmk/vim-dirvish'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-sleuth'
@@ -177,7 +178,15 @@ vim.keymap.set('n', ';ld', builtin.lsp_document_symbols, opts)
 vim.keymap.set('n', ';lw', builtin.lsp_workspace_symbols, opts)
 vim.keymap.set('n', ';t', builtin.treesitter, opts)
 vim.keymap.set('n', ';;', builtin.builtin, opts)
-require('telescope').load_extension('fzf')
+vim.api.nvim_set_keymap('n', ';l', '<cmd>Telescope file_browser path=%:p:h<cr>', { noremap = true })
+-- Open new sessions with find files window
+vim.cmd([[
+augroup ReplaceNetrw
+    autocmd VimEnter * silent! autocmd! FileExplorer
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | call luaeval("require('telescope.builtin').find_files()", argv()[0]) | endif
+augroup END
+]])
 
 require("telescope").setup {
     pickers = {
@@ -196,6 +205,9 @@ require("telescope").setup {
         }
     }
 }
+
+require('telescope').load_extension('fzf')
+require("telescope").load_extension("file_browser")
 
 
 -- == Git signs ==
@@ -386,7 +398,6 @@ vim.diagnostic.config {
     virtual_text = false,
 }
 
-local nvim_lsp = require('lspconfig')
 require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = { "prosemd_lsp", "tsserver" }
@@ -454,10 +465,10 @@ require 'nvim-treesitter.configs'.setup {
     incremental_selection = {
         enable = true,
         keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
+            init_selection = "<cr>",
+            node_incremental = "<cr>",
+            scope_incremental = "<s-cr>",
+            node_decremental = "<bs>",
         },
     },
 }
@@ -482,7 +493,7 @@ vim.keymap.set({ "i", "s" }, "<c-j>", function()
     end
 end, { silent = true })
 -- Cycle through list of snippet options
-vim.keymap.set({ "i", "s" }, "<c-l>", function()
+vim.keymap.set({ "i", "s" }, "<c-h>", function()
     if ls.choice_active() then
         require("luasnip.extras.select_choice")()
     end
@@ -515,4 +526,6 @@ require("todo-comments").setup {
     signs = false
 }
 
+require('leap').add_default_mappings()
+vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
 })
