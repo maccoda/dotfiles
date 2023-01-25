@@ -39,8 +39,12 @@ function repo
         # TODO: This should specify the source folder also because the file can be nested and this would work for the monorepo style
         read -P "Which projection do you want? (Only type the part before -projections.json) " chosen
         # TODO: Should validate there is at least input or capture the copy failure
-        echo "Copying across $chosen projection"
-        cp $projections_dir/$chosen-projections.json .projections.json
+        if test -z $chosen
+            echo "No input given. Not copying"
+        else
+            echo "Copying across $chosen projection"
+            cp $projections_dir/$chosen-projections.json .projections.json
+        end
 
         cd $start_dir
         functions -e __repo_setup
@@ -189,6 +193,8 @@ function repo
         __repo_switch $args
     else if test $command = cd
         __repo_cd $args
+    else if test $command = pr
+        gh pr create --draft && sleep 8 && gh pr checks --watch && gh pr ready; alert
     else
         echo "Unknown sub-command $command"
         return 127

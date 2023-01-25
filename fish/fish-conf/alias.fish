@@ -18,3 +18,5 @@ alias du='dust'
 
 # Ring the terminal bell
 alias alert="tput bel"
+
+alias nnn="nnn -e"

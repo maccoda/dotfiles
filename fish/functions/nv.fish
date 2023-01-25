@@ -4,6 +4,10 @@ function nv
         git fetch --prune --quiet &
     end
 
+    if ! test -f .projections.json
+        repo init
+    end
+
     if test -e Session.vim
         nvim
     else
