@@ -37,7 +37,6 @@ Plug('tzachar/cmp-tabnine', { ['do'] = './install.sh' })
 ----------
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/popup.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 -- Tree sitter modules
 Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
@@ -56,7 +55,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'stevearc/dressing.nvim'
-Plug 'olimorris/persisted.nvim'
 vim.call('plug#end')
 
 vim.opt.number = true
@@ -517,9 +515,4 @@ require("todo-comments").setup {
     signs = false
 }
 
-require("persisted").setup({
-    autoload = true,
-    on_autoload_no_session = function()
-        vim.notify("No existing session to load.")
-    end
 })
