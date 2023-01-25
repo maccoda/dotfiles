@@ -50,6 +50,7 @@ fish -c "set --universal nvm_default_version lts"
 
 # Set vim mode keybindings in fish
 fish -c "fish_vi_key_bindings"
+fish -c "fish_config theme save 'Catppuccin Mocha'"
 
 echoo "To finish this off change the shell across to fish and start a new terminal"
 chsh -s (which fish)
