@@ -12,7 +12,6 @@ Plug 'tpope/vim-rhubarb'
 Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
-Plug 'justinmk/vim-dirvish'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
@@ -178,7 +177,8 @@ vim.keymap.set('n', ';ld', builtin.lsp_document_symbols, opts)
 vim.keymap.set('n', ';lw', builtin.lsp_workspace_symbols, opts)
 vim.keymap.set('n', ';t', builtin.treesitter, opts)
 vim.keymap.set('n', ';;', builtin.builtin, opts)
-vim.api.nvim_set_keymap('n', ';l', '<cmd>Telescope file_browser path=%:p:h<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', ';a', '<cmd>Telescope file_browser path=%:p:h<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '-', '<cmd>Telescope file_browser path=%:p:h<cr>', { noremap = true })
 -- Open new sessions with find files window
 vim.cmd([[
 augroup ReplaceNetrw
@@ -290,7 +290,21 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
+        ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+        ['<C-l>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(1) then
+                luasnip.jump(1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<C-h>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
     }),
     sources = cmp.config.sources({
         -- Order of the sources determines menu sort order
@@ -342,6 +356,9 @@ cmp.setup({
     },
     view = {
         entries = { name = 'custom', selection_order = 'near_cursor' }
+    },
+    experimental = {
+        ghost_text = true
     }
 })
 
@@ -396,7 +413,24 @@ end
 
 vim.diagnostic.config {
     virtual_text = false,
+    severity_sort = true,
+    float = {
+        border = 'rounded',
+        source = 'if_many',
+        header = '',
+        prefix = '',
+    },
 }
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+    vim.lsp.handlers.hover,
+    { border = 'rounded' }
+)
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+    vim.lsp.handlers.signature_help,
+    { border = 'rounded' }
+)
 
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -487,13 +521,13 @@ vim.keymap.set({ "i", "s" }, "<c-l>", function()
     end
 end, { silent = true })
 -- This will move backwards to the previous item in the snippet
-vim.keymap.set({ "i", "s" }, "<c-j>", function()
+vim.keymap.set({ "i", "s" }, "<c-h>", function()
     if ls.jumpable(-1) then
         ls.jump(-1)
     end
 end, { silent = true })
 -- Cycle through list of snippet options
-vim.keymap.set({ "i", "s" }, "<c-h>", function()
+vim.keymap.set({ "i", "s" }, "<c-j>", function()
     if ls.choice_active() then
         require("luasnip.extras.select_choice")()
     end
