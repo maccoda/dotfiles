@@ -14,13 +14,13 @@ Generate table of contents for any `help` command using `gO`
 FUGITIVE                                        *myhelp-fugitive*
 
 `:0Gclog`   Show history of the current file
-:.Gclog   Show history of the current line
+`:.Gclog`   Show history of the current line
 
 
 ===============================================================
 SEARCH                                            *myhelp-search*
 
-:%s/{search}/{replace}/g
+`:%s/{search}/{replace}/g`
 
 Replaces all occurences of {search} in the file (due to %) with
 {replace}. The /g will ensure that if the {search} term occurs
@@ -55,5 +55,13 @@ the current line.
 This will select up to the previous new line character. Therefore it is
 similar to above but the {surround} character will be placed on the line above
 and below rather than at the start and end of the line.
+
+===============================================================
+TELESCOPE                                      *myhelp-telescope*
+
+`:Telescope live_grep search_dirs={"%"}`
+
+When run in a Dirvish buffer this will perform the grep action under the
+current directory.
 
 vim:tw=78:ts=8:ft=help:norl:
