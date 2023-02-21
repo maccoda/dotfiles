@@ -6,6 +6,11 @@ disabled = true
 disabled = false
 format = '[$time](#F2CDCD) '
 
-
 [git_commit]
 tag_disabled = false
+
+[custom.task]
+# Choose +9 in case it is set at midnight by due:tom
+command = 'task due.before:tom+9h status:pending count' # shows output of command
+when = ''' test "$HOME" = "$PWD" -a (task due.before:tom+9h status:pending count) -gt 0'''
+format = ' [$output tasks]($style) '
