@@ -1,6 +1,5 @@
 vim.call('plug#begin', '~/.vim/plugged')
 local Plug = vim.fn['plug#']
-Plug 'EdenEast/nightfox.nvim'
 Plug('catppuccin/nvim', { as = 'catppuccin' })
 Plug 'nvim-lualine/lualine.nvim'
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
@@ -12,6 +11,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
+Plug 'justinmk/vim-dirvish'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
@@ -52,7 +52,6 @@ Plug 'folke/todo-comments.nvim'
 Plug 'NoahTheDuke/vim-just'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'folke/trouble.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'stevearc/dressing.nvim'
 vim.call('plug#end')
@@ -141,11 +140,6 @@ vim.cmd([[
 ]])
 -- Syntax theme
 vim.opt.termguicolors = true
-require('nightfox').setup({
-    options = {
-        dim_inactive = true,
-    }
-})
 
 require("catppuccin").setup({
     dim_inactive = {
@@ -178,7 +172,6 @@ vim.keymap.set('n', ';lw', builtin.lsp_workspace_symbols, opts)
 vim.keymap.set('n', ';t', builtin.treesitter, opts)
 vim.keymap.set('n', ';;', builtin.builtin, opts)
 vim.api.nvim_set_keymap('n', ';a', '<cmd>Telescope file_browser path=%:p:h<cr>', { noremap = true })
-vim.api.nvim_set_keymap('n', '-', '<cmd>Telescope file_browser path=%:p:h<cr>', { noremap = true })
 -- Open new sessions with find files window
 vim.cmd([[
 augroup ReplaceNetrw
@@ -189,6 +182,11 @@ augroup END
 ]])
 
 require("telescope").setup {
+    defaults = {
+        path_display = {
+            truncate = true
+        }
+    },
     pickers = {
         live_grep = {
             additional_args = function(opts)
@@ -290,7 +288,7 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
         ['<C-l>'] = cmp.mapping(function(fallback)
             if luasnip.jumpable(1) then
                 luasnip.jump(1)
@@ -313,7 +311,10 @@ cmp.setup({
             max_item_count = 20
         },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'cmp_tabnine' },
+        {
+            name = 'cmp_tabnine',
+            max_item_count = 10
+        },
         { name = 'luasnip' },
         { name = 'path' },
         { name = 'buffer',
@@ -404,7 +405,7 @@ vim.api.nvim_create_autocmd(
     }
 )
 -- Set updatetime for CursorHold
-vim.opt.updatetime = 500
+vim.opt.updatetime = 800
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
@@ -553,11 +554,6 @@ vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>ZenMode<cr>', { noremap = true }
 require('neoscroll').setup()
 
 require("twilight").setup()
-
-require("trouble").setup {
-    use_diagnostic_signs = true
-}
-
 
 require("todo-comments").setup {
     signs = false
