@@ -2,6 +2,7 @@
 
 # brew binaries that are shared between macOS and linux
 
+brew_install coreutils # Core GNU utils
 brew_install fd # Rust implementation of find
 brew_install ripgrep rg # Rust implementation of grep
 brew_install bat # cat alternative

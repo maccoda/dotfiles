@@ -5,13 +5,13 @@ function good-morning
     upgrade
 
     if test $MACCODA_ENV = "work"
-        heading "Tasks remaining"
+        heading --no-trail "Tasks remaining"
         task due.before:eoww
         if test (date | cut -f 1 -d ' ') = "Mon"
-            heading "Journal entries from last week"
+            heading --no-trail "Journal entries from last week"
             jrnl -from "last week"
         else
-            heading "Journal entries from yesterday"
+            heading --no-trail "Journal entries from yesterday"
             jrnl -on yesterday
         end
         dev pr
