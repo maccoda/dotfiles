@@ -5,3 +5,6 @@ Session.vim
 .project
 fish/functions/work-upgrade.fish
 fish/fish-conf/work-alias.fish
+
+# Do not track generated tags
+nvim-conf/doc/tags

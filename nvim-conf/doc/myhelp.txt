@@ -4,21 +4,22 @@ Little help file to remind me of useful commands that I do not use often enough 
 
 Note: run `:helptags ~/.config/nvim/doc/` to generate tags for this help.
 
-===============================================================
-HELP                                                *myhelp-help*
+=============================================================================
+HELP                                                             *myhelp-help*
 
-Generate table of contents for any `help` command using `gO`
+- Generate table of contents for any `help` command using `gO`
 
+- Press `^]` on a link to jump to a tag
 
-===============================================================
-FUGITIVE                                        *myhelp-fugitive*
+=============================================================================
+FUGITIVE                                                     *myhelp-fugitive*
 
 `:0Gclog`   Show history of the current file
 `:.Gclog`   Show history of the current line
 
 
-===============================================================
-SEARCH                                            *myhelp-search*
+=============================================================================
+SEARCH                                                         *myhelp-search*
 
 `:%s/{search}/{replace}/g`
 
@@ -26,8 +27,8 @@ Replaces all occurences of {search} in the file (due to %) with
 {replace}. The /g will ensure that if the {search} term occurs
 more than once on a single line each is replaced.
 
-===============================================================
-NAVIGATION                                    *myhelp-navigation*
+=============================================================================
+NAVIGATION                                                 *myhelp-navigation*
 
 {num}<C-w>w
 
@@ -42,8 +43,13 @@ Re-select the last visual selection.
 
 Run indent formatting on the selected line.
 
-===============================================================
-SURROUND                                        *myhelp-surround*
+|z.| or |zz|
+
+Put the current line into the centre of the screen. For more information see
+|scroll-cursor|
+
+=============================================================================
+SURROUND                                                     *myhelp-surround*
 
 |yss|{surround}
 
@@ -56,12 +62,24 @@ This will select up to the previous new line character. Therefore it is
 similar to above but the {surround} character will be placed on the line above
 and below rather than at the start and end of the line.
 
-===============================================================
-TELESCOPE                                      *myhelp-telescope*
+=============================================================================
+TELESCOPE                                                    *myhelp-telescope*
 
 `:Telescope live_grep search_dirs={"%"}`
 
 When run in a Dirvish buffer this will perform the grep action under the
 current directory.
+
+`:Telescope live_grep grep_open_files=true`
+
+The above will search across all open files. Particularly useful when wanting
+to search across currently open buffers.
+
+=============================================================================
+INSERT MODE                                                     *myhelp-insert*
+
+When in insert mode it is sometimes nice to be able to use motions, etc.
+Particularly when in any of the refactoring pop outs (arguably general insert
+mode you should just go back to normal mode). To do this use `<C-O>`
 
 vim:tw=78:ts=8:ft=help:norl:
