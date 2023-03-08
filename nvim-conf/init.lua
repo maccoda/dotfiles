@@ -138,10 +138,15 @@ vim.cmd([[
     set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
     set list
 ]])
+
+-- Remove command line
+vim.opt.cmdheight = 0
+
 -- Syntax theme
 vim.opt.termguicolors = true
 
 require("catppuccin").setup({
+    flavour = "macchiato",
     dim_inactive = {
         enabled = true,
     },
@@ -150,6 +155,14 @@ require("catppuccin").setup({
             -- Make comments a little lighter
             surface2 = "#676a81"
         }
+    },
+    integrations = {
+        gitsigns = true,
+        leap = true,
+        markdown = true,
+        cmp = true,
+        treesitter = true,
+        telescope = true
     }
 })
 
@@ -180,6 +193,7 @@ augroup ReplaceNetrw
     autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | call luaeval("require('telescope.builtin').find_files()", argv()[0]) | endif
 augroup END
 ]])
+local actions = require "telescope.actions"
 
 require("telescope").setup {
     defaults = {
@@ -200,6 +214,13 @@ require("telescope").setup {
         },
         oldfiles = {
             only_cwd = true
+        },
+        buffers = {
+            mappings = {
+                i = {
+                    ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+                }
+            }
         }
     }
 }
@@ -243,8 +264,8 @@ require('lualine').setup {
     },
     sections = {
         lualine_a = { 'mode' },
-        lualine_b = { { 'FugitiveHead', icon = '' } },
-        lualine_c = { { 'filename', path = 1, shorting_target = 80 } }
+        lualine_b = { { 'FugitiveHead', icon = '' }, 'diagnostics' },
+        lualine_c = { { '%=', separator = '' }, { 'filename', path = 1, shorting_target = 80 } },
     },
     tabline = {
         lualine_a = {},
@@ -306,15 +327,8 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         -- Order of the sources determines menu sort order
-        {
-            name = 'nvim_lsp',
-            max_item_count = 20
-        },
+        { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
-        {
-            name = 'cmp_tabnine',
-            max_item_count = 10
-        },
         { name = 'luasnip' },
         { name = 'path' },
         { name = 'buffer',
@@ -330,7 +344,11 @@ cmp.setup({
                     return vim.tbl_keys(bufs)
                 end
             }
-        }
+        },
+        {
+            name = 'cmp_tabnine',
+            max_item_count = 10
+        },
     }),
     formatting = {
         format = function(entry, vim_item)
