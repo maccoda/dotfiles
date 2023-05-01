@@ -114,11 +114,6 @@ vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     { pattern = { "*.md", "*.tex", "*.txt" }, command = "setlocal spell" }
 )
--- Trim trailing white space on save
-vim.api.nvim_create_autocmd(
-    { "BufWritePre" },
-    { command = "%s/\\s\\+$//e" }
-)
 -- Wrap writing files
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
