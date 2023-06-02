@@ -34,7 +34,7 @@ function feature-start
     if test -z $argv[1]
         read -P "Enter JIRA ticket ID: " jira_id
     else
-        set jira_id $argv[1]
+        set jira_id $argv
     end
     set jira_id_cleaned (echo $jira_id | sed 's/ /-/g')
     if ! git switch -c $jira_id_cleaned

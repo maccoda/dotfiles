@@ -29,6 +29,7 @@ if test (uname) = "Darwin"
     eval (/opt/homebrew/bin/brew shellenv)
 end
 
+zoxide init fish --cmd j | source
 if status --is-interactive
   starship init fish | source
 end

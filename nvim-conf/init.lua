@@ -12,11 +12,10 @@ Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
 Plug 'justinmk/vim-dirvish'
-Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-surround'
+Plug 'kylechui/nvim-surround'
 Plug 'tpope/vim-repeat'
 -- LSP plugins
 Plug 'neovim/nvim-lspconfig'
@@ -44,10 +43,7 @@ Plug 'windwp/nvim-ts-autotag'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 ----------
 Plug 'blankname/vim-fish'
-Plug 'sbdchd/neoformat'
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
-Plug 'folke/zen-mode.nvim'
-Plug 'folke/twilight.nvim'
 Plug 'folke/todo-comments.nvim'
 Plug 'NoahTheDuke/vim-just'
 Plug 'simrat39/rust-tools.nvim'
@@ -82,7 +78,14 @@ vim.opt.foldenable = false
 vim.opt.autowriteall = true
 vim.api.nvim_create_autocmd(
     { "InsertLeave", "BufLeave", "FocusLost" },
-    { command = "wall" }
+    {
+        callback = function(args)
+            if args.file ~= nil and args.file ~= '' and vim.o.buftype == '' then
+                vim.cmd("wall")
+            end
+        end,
+        desc = "Save all buffers on various events when it is a known file"
+    }
 )
 -- have a fixed column for the diagnostics to appear in
 -- this removes the jitter when warnings/errors flow in
@@ -101,6 +104,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 -- Allow mouse mode because sometimes we just want to click
 vim.opt.mouse = 'nv'
+-- Configure diff mode
+vim.opt.diffopt = { internal = true, linematch = 60, filler = true }
 -- Map the leader key
 vim.g.mapleader = " "
 -- Yanking will return to where cursor was prior to initiating the yank
@@ -161,7 +166,6 @@ require("catppuccin").setup({
     }
 })
 
--- vim.cmd('colorscheme nightfox')
 vim.cmd.colorscheme "catppuccin"
 
 
@@ -176,10 +180,9 @@ vim.keymap.set('n', ';of', builtin.oldfiles, opts)
 vim.keymap.set('n', ';wg', builtin.grep_string, opts)
 vim.keymap.set('n', ';s', builtin.current_buffer_fuzzy_find, opts)
 vim.keymap.set('n', ';ld', builtin.lsp_document_symbols, opts)
-vim.keymap.set('n', ';lw', builtin.lsp_workspace_symbols, opts)
+vim.keymap.set('n', ';lw', builtin.lsp_dynamic_workspace_symbols, opts)
 vim.keymap.set('n', ';t', builtin.treesitter, opts)
 vim.keymap.set('n', ';;', builtin.builtin, opts)
-vim.api.nvim_set_keymap('n', ';a', '<cmd>Telescope file_browser path=%:p:h<cr>', { noremap = true })
 -- Open new sessions with find files window
 vim.cmd([[
 augroup ReplaceNetrw
@@ -221,7 +224,6 @@ require("telescope").setup {
 }
 
 require('telescope').load_extension('fzf')
-require("telescope").load_extension("file_browser")
 
 
 -- == Git signs ==
@@ -326,7 +328,8 @@ cmp.setup({
         { name = 'nvim_lsp_signature_help' },
         { name = 'luasnip' },
         { name = 'path' },
-        { name = 'buffer',
+        {
+            name = 'buffer',
             max_item_count = 5,
             keyword_length = 3,
             option = {
@@ -412,9 +415,10 @@ tabnine:setup({
 -- Show diagnostic popup on cursor hold
 vim.api.nvim_create_autocmd(
     { "CursorHold" },
-    { callback = function()
-        vim.diagnostic.open_float(nil, { focusable = false })
-    end
+    {
+        callback = function()
+            vim.diagnostic.open_float(nil, { focusable = false })
+        end
     }
 )
 -- Set updatetime for CursorHold
@@ -454,10 +458,11 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 
 
 local map_opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', map_opts)
+vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', map_opts)
 vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', map_opts)
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', map_opts)
-vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', map_opts)
+vim.api.nvim_set_keymap('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', map_opts)
+vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', map_opts)
 
 -- Function to run when the LSP is attached to a buffer
 local function common_on_attach(client, bufnr)
@@ -472,11 +477,11 @@ local function common_on_attach(client, bufnr)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', map_opts)
     buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', map_opts)
     buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', map_opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', map_opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', map_opts)
-    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', map_opts)
+    buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', map_opts)
+    buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', map_opts)
+    buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', map_opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', map_opts)
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', map_opts)
+    buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', map_opts)
 end
 
 require("mason-lspconfig").setup_handlers {
@@ -550,23 +555,9 @@ end, { silent = true })
 -- == Auto Pairs ==
 require('nvim-autopairs').setup()
 
--- == Zen Mode ==
-require("zen-mode").setup {
-    window = {
-        width = .85
-    },
-    plugins = {
-        kitty = {
-            enabled = true,
-            font = "+4",
-        }
-    }
-}
-vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>ZenMode<cr>', { noremap = true })
 
 require('neoscroll').setup()
 
-require("twilight").setup()
 
 require("todo-comments").setup {
     signs = false
@@ -574,4 +565,5 @@ require("todo-comments").setup {
 
 require('leap').add_default_mappings()
 vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
+require("nvim-surround").setup()
 })
