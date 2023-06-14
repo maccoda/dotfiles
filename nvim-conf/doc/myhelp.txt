@@ -82,4 +82,9 @@ When in insert mode it is sometimes nice to be able to use motions, etc.
 Particularly when in any of the refactoring pop outs (arguably general insert
 mode you should just go back to normal mode). To do this use `<C-O>`
 
+=============================================================================
+MAPPINGS                                                      *myhelp-mappings*
+
+To view the current mappings, for example to determine if that combination is
+already used use `:map`. You can use mode specific ones like `:nmap` also.
 vim:tw=78:ts=8:ft=help:norl:

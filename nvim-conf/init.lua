@@ -11,7 +11,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-projectionist'
-Plug 'justinmk/vim-dirvish'
+Plug 'luukvbaal/nnn.nvim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-sleuth'
@@ -48,7 +48,6 @@ Plug 'folke/todo-comments.nvim'
 Plug 'NoahTheDuke/vim-just'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'karb94/neoscroll.nvim'
 Plug 'stevearc/dressing.nvim'
 vim.call('plug#end')
 
@@ -555,15 +554,29 @@ end, { silent = true })
 -- == Auto Pairs ==
 require('nvim-autopairs').setup()
 
-
-require('neoscroll').setup()
-
-
 require("todo-comments").setup {
     signs = false
 }
 
 require('leap').add_default_mappings()
 vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
+
 require("nvim-surround").setup()
+
+-- ====== NNN =======
+local builtin = require("nnn").builtin
+require("nnn").setup({
+  mappings = {
+    { "<C-t>", builtin.open_in_tab },       -- open file(s) in tab
+    { "<C-x>", builtin.open_in_split },     -- open file(s) in split
+    { "<C-v>", builtin.open_in_vsplit },    -- open file(s) in vertical split
+    { "<C-p>", builtin.open_in_preview },   -- open file in preview split keeping nnn focused
+    { "<C-y>", builtin.copy_to_clipboard }, -- copy file(s) to clipboard
+    { "<C-e>", builtin.populate_cmdline },  -- populate cmdline (:) with file(s)
+  }
+})
+vim.api.nvim_set_keymap('n', '<leader>n', '<cmd>NnnPicker %:p:h<cr>', { noremap = true })
+-- ======= Session management =========
+vim.api.nvim_create_user_command('StartSession', 'mksession', {})
+vim.api.nvim_create_user_command('DeleteSession', 'silent !rm Session.vim', {})
 })

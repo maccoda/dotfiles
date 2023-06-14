@@ -9,7 +9,7 @@ function nv
         end
 
         if test -e Session.vim
-            nvim
+            nvim -S Session.vim
         else
             nvim .
         end
