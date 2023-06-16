@@ -28,23 +28,7 @@ function upgrade
             exit 1
     end
 
-    if _is_work
-        if test (date | cut -f 1 -d ' ') = Mon
-            # Just do one big upgrade at the start of the week
-            echo "Updating brew taps..."
-            brew upgrade
-            brew cleanup
-            brew autoremove
-
-            gum spin --title "Updating fisher packages" -- fish -c "fisher update"
-            fish_update_completions
-
-            echo "Updating vim..."
-            nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
-        end
-
-        work-upgrade
-    else
+    function __general_update
         echo "Updating brew taps..."
         brew upgrade
         brew cleanup
@@ -52,7 +36,21 @@ function upgrade
 
         gum spin --title "Updating fisher packages" -- fish -c "fisher update"
 
+        gum spin --title "Updating nnn plugins" -- sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
+
         echo "Updating vim..."
         nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
+        functions -e __general_update
+    end
+
+    if _is_work
+        if test (date | cut -f 1 -d ' ') = Mon
+            # Just do one big upgrade at the start of the week
+            __general_update
+            fish_update_completions
+        end
+        work-upgrade
+    else
+        __general_update
     end
 end
