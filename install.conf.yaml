@@ -53,6 +53,8 @@
       glob: true
       path: gitui/*.ron
 
+    "~/.config/bat/themes/Catppuccin-macchiato.tmTheme": bat-theme.tmTheme
+
 - clean:
     ~/:
       force: true

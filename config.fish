@@ -7,7 +7,12 @@ set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_ALT_C_COMMAND "fd --type directory"
 
 # Set default theme for bat
-set -gx BAT_THEME "Coldark-Dark"
+set -gx BAT_THEME "Catppuccin-macchiato"
+
+set -gx FZF_DEFAULT_OPTS "\
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 set -gx EDITOR "nvim"
 
@@ -30,6 +35,7 @@ if test (uname) = "Darwin"
 end
 
 zoxide init fish --cmd j | source
+
 if status --is-interactive
   starship init fish | source
 end
