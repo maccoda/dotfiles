@@ -129,7 +129,10 @@ function repo
     function __repo_diff
         # Some useful diffs presets
         set choice $argv[1]
-        if test $choice = main
+        if test -z $choice
+            echo "repo diff requires a reference to diff against"
+            return 1
+        else if test $choice = main
             git branch | rg main &>/dev/null
             if test $status -ne 0
                 set main_branch master

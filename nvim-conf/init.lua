@@ -133,10 +133,8 @@ vim.api.nvim_set_keymap('n', '<leader>rr',
     '<cmd>luafile ~/.dotfiles/nvim-conf/init.lua<cr><cmd>echo "Config reloaded"<cr>', { noremap = true })
 
 -- Show some whitespace
-vim.cmd([[
-    set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<
-    set list
-]])
+vim.opt.listchars = { eol = '¬', tab = '>·', trail = '~', extends = '>', precedes = '<' }
+vim.opt.list = true
 
 -- Remove command line
 vim.opt.cmdheight = 0
@@ -566,17 +564,30 @@ require("nvim-surround").setup()
 -- ====== NNN =======
 local builtin = require("nnn").builtin
 require("nnn").setup({
-  mappings = {
-    { "<C-t>", builtin.open_in_tab },       -- open file(s) in tab
-    { "<C-x>", builtin.open_in_split },     -- open file(s) in split
-    { "<C-v>", builtin.open_in_vsplit },    -- open file(s) in vertical split
-    { "<C-p>", builtin.open_in_preview },   -- open file in preview split keeping nnn focused
-    { "<C-y>", builtin.copy_to_clipboard }, -- copy file(s) to clipboard
-    { "<C-e>", builtin.populate_cmdline },  -- populate cmdline (:) with file(s)
-  }
+    mappings = {
+        { "<C-t>", builtin.open_in_tab },       -- open file(s) in tab
+        { "<C-x>", builtin.open_in_split },     -- open file(s) in split
+        { "<C-v>", builtin.open_in_vsplit },    -- open file(s) in vertical split
+        { "<C-p>", builtin.open_in_preview },   -- open file in preview split keeping nnn focused
+        { "<C-y>", builtin.copy_to_clipboard }, -- copy file(s) to clipboard
+        { "<C-e>", builtin.populate_cmdline },  -- populate cmdline (:) with file(s)
+    }
 })
-vim.api.nvim_set_keymap('n', '<leader>n', '<cmd>NnnPicker %:p:h<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>p', '<cmd>NnnPicker %:p:h<cr>', { noremap = true })
+
 -- ======= Session management =========
+-- TODO: Session does not auto update, need to do this
 vim.api.nvim_create_user_command('StartSession', 'mksession', {})
 vim.api.nvim_create_user_command('DeleteSession', 'silent !rm Session.vim', {})
+
+local metals_config = require("metals").bare_config()
+metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- Autocmd that will actually be in charging of starting the whole thing
+local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "scala", "sbt" },
+    callback = function()
+        require("metals").initialize_or_attach(metals_config)
+    end,
+    group = nvim_metals_group,
 })
