@@ -4,8 +4,12 @@ Plug('catppuccin/nvim', { as = 'catppuccin' })
 Plug 'nvim-lualine/lualine.nvim'
 Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
 Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'gfanto/fzf-lsp.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'ggandor/leap.nvim'
+Plug 'ggandor/flit.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'windwp/nvim-autopairs'
@@ -51,6 +55,9 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'stevearc/dressing.nvim'
 vim.call('plug#end')
 
+-- Unmap some actions/commands
+-- Remove x as there are too many ways to change/delete things
+vim.api.nvim_set_keymap('n', 'x', '<Nop>', { noremap = true })
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4
@@ -127,6 +134,10 @@ vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
     { pattern = { "*.jrnl" }, command = "setlocal textwidth=120" }
 )
+vim.api.nvim_create_autocmd(
+    { "BufRead", "BufNewFile" },
+    { pattern = { "*.conf" }, command = "set filetype=conf" }
+)
 
 -- Quickly reload config
 vim.api.nvim_set_keymap('n', '<leader>rr',
@@ -135,9 +146,6 @@ vim.api.nvim_set_keymap('n', '<leader>rr',
 -- Show some whitespace
 vim.opt.listchars = { eol = '¬', tab = '>·', trail = '~', extends = '>', precedes = '<' }
 vim.opt.list = true
-
--- Remove command line
-vim.opt.cmdheight = 0
 
 -- Syntax theme
 vim.opt.termguicolors = true
@@ -170,22 +178,58 @@ vim.cmd.colorscheme "catppuccin"
 
 local builtin = require('telescope.builtin')
 local opts = { noremap = true }
-vim.keymap.set('n', ';f', builtin.find_files, opts)
-vim.keymap.set('n', ';g', builtin.live_grep, opts)
-vim.keymap.set('n', ';b', builtin.buffers, opts)
-vim.keymap.set('n', ';of', builtin.oldfiles, opts)
-vim.keymap.set('n', ';wg', builtin.grep_string, opts)
-vim.keymap.set('n', ';s', builtin.current_buffer_fuzzy_find, opts)
-vim.keymap.set('n', ';ld', builtin.lsp_document_symbols, opts)
-vim.keymap.set('n', ';lw', builtin.lsp_dynamic_workspace_symbols, opts)
-vim.keymap.set('n', ';t', builtin.treesitter, opts)
-vim.keymap.set('n', ';;', builtin.builtin, opts)
+-- vim.keymap.set('n', ';f', builtin.find_files, opts)
+-- vim.keymap.set('n', ';g', builtin.live_grep, opts)
+-- vim.keymap.set('n', ';b', builtin.buffers, opts)
+-- vim.keymap.set('n', ';of', builtin.oldfiles, opts)
+-- vim.keymap.set('n', ';wg', builtin.grep_string, opts)
+-- vim.keymap.set('n', ';s', builtin.current_buffer_fuzzy_find, opts)
+-- vim.keymap.set('n', ';ld', builtin.lsp_document_symbols, opts)
+-- vim.keymap.set('n', ';lw', builtin.lsp_dynamic_workspace_symbols, opts)
+-- vim.keymap.set('n', ';t', builtin.treesitter, opts)
+
+-- TODO: Considering going back to FZF but seems to hurt a little. Need a better prefix
+vim.env.FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git -E .undodir'
+-- vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'
+-- Enable per-command history
+-- - History files will be stored in the specified directory
+-- - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+--   'previous-history' instead of 'down' and 'up'.
+vim.g.fzf_history_dir = '~/.local/share/fzf-history'
+-- Place the window in the centre of the screen
+vim.g.fzf_layout = { window = { width = 0.9, height = 0.8 } }
+
+vim.g.fzf_command_prefix = 'Fzf'
+
+-- Below function taken from fzf.vim readme, it will invoke rg on each change
+-- when performing search
+vim.cmd [[
+    function! RipgrepFzf(query, fullscreen)
+      let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s; or true'
+      let initial_command = printf(command_fmt, shellescape(a:query))
+      let reload_command = printf(command_fmt, '{q}')
+      let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+      call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+    endfunction
+    command! -nargs=* -bang FzfRG call RipgrepFzf(<q-args>, <bang>0)
+]]
+
+-- Search for current word under cursor
+vim.api.nvim_create_user_command("FzfWGrep", "call RipgrepFzf(expand('<cword>'), <bang>0)", {})
+
+vim.api.nvim_set_keymap('n', ',f', '<cmd>FzfFiles<cr>', opts)
+vim.api.nvim_set_keymap('n', ',g', '<cmd>FzfRG<cr>', opts)
+vim.api.nvim_set_keymap('n', ',b', '<cmd>FzfBuffers<cr>', opts)
+vim.api.nvim_set_keymap('n', ',wg', '<cmd>FzfWGrep<cr>', opts)
+vim.api.nvim_set_keymap('n', ',s', '<cmd>FzfBLines<cr>', opts)
+vim.api.nvim_set_keymap('n', ',ld', '<cmd>FzfDocumentSymbols<cr>', opts)
+
 -- Open new sessions with find files window
 vim.cmd([[
 augroup ReplaceNetrw
     autocmd VimEnter * silent! autocmd! FileExplorer
     autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | call luaeval("require('telescope.builtin').find_files()", argv()[0]) | endif
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | call fzf#vim#files(argv()[0]) | endif
 augroup END
 ]])
 local actions = require "telescope.actions"
@@ -260,6 +304,7 @@ require('lualine').setup {
         lualine_a = { 'mode' },
         lualine_b = { { 'FugitiveHead', icon = '' }, 'diagnostics' },
         lualine_c = { { '%=', separator = '' }, { 'filename', path = 1, shorting_target = 80 } },
+        lualine_x = { 'filetype' },
     },
     tabline = {
         lualine_a = {},
@@ -299,11 +344,26 @@ cmp.setup({
         end,
     },
     mapping = cmp.mapping.preset.insert({
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.abort(),
         ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+        ['<C-j>'] = {
+            i = function()
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                else
+                    cmp.complete()
+                end
+            end,
+        },
+        ['<C-k>'] = {
+            i = function()
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+                else
+                    cmp.complete()
+                end
+            end,
+        },
         ['<C-l>'] = cmp.mapping(function(fallback)
             if luasnip.jumpable(1) then
                 luasnip.jump(1)
@@ -327,7 +387,6 @@ cmp.setup({
         { name = 'path' },
         {
             name = 'buffer',
-            max_item_count = 5,
             keyword_length = 3,
             option = {
                 get_bufnrs = function()
@@ -342,7 +401,6 @@ cmp.setup({
         },
         {
             name = 'cmp_tabnine',
-            max_item_count = 10
         },
     }),
     formatting = {
@@ -368,11 +426,11 @@ cmp.setup({
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
-    view = {
-        entries = { name = 'custom', selection_order = 'near_cursor' }
-    },
     experimental = {
         ghost_text = true
+    },
+    performance = {
+        max_view_entries = 30
     }
 })
 
@@ -557,6 +615,7 @@ require("todo-comments").setup {
 }
 
 require('leap').add_default_mappings()
+require('flit').setup()
 vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
 
 require("nvim-surround").setup()
