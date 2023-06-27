@@ -13,14 +13,7 @@ function feature-start
     end
 
     if ! set -q _flag_c
-        # Look for the main branch
-        git switch main &>/dev/null; or git switch master &>/dev/null
-        if test $status -ne 0
-            echo "Unknown main branch"
-            git branch
-            return 1
-        end
-        set main_branch (git branch --show-current)
+        set main_branch (_git_main_branch)
         echo "Determined main branch is $main_branch"
     else
         echo "Creating new branch from current"
@@ -28,7 +21,7 @@ function feature-start
 
     # Pull latest changes
     echo "Pulling latest changes..."
-    git pull --ff --quiet
+    git pull --ff --quiet origin $main_branch
 
     # Create the new branch for the feature
     if test -z $argv[1]

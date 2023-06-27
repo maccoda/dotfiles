@@ -113,14 +113,16 @@ function repo
 
     function __repo_main
         set repo_status (git status --porcelain)
-        if test -z "$repo_status"
-            git switch main &>/dev/null || git switch master &>/dev/null
-            gum spin --title "Pulling latest changes on main" -- git pull --prune
-        else
-            git stash --include-untracked >/dev/null
-            git switch main &>/dev/null || git switch master &>/dev/null
-            gum spin --title "Pulling latest changes on main" -- git pull --prune
-            git stash pop >/dev/null
+        if test -n "$repo_status"
+            echo "Detected local changes, stashing all"
+            git stash --include-untracked
+        end
+        set main_branch (_git_main_branch)
+        echo "Determined main branch is $main_branch"
+
+        gum spin --title "Pulling latest changes on $main_branch" -- git pull --prune origin $main_branch
+        if test -n "$repo_status"
+            git stash pop
         end
         __repo_prune_branches --force --no-fetch
         functions -e __repo_main
@@ -197,7 +199,10 @@ function repo
     else if test $command = cd
         __repo_cd $args
     else if test $command = pr
-        gh pr create --draft && sleep 8 && gh pr checks --watch && gh pr ready; alert
+        gh pr create --draft $args && sleep 8 && gh pr checks --watch && gh pr ready
+        alert
+    else if test $command = log
+        commit $args
     else
         echo "Unknown sub-command $command"
         return 127
