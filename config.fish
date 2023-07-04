@@ -1,4 +1,6 @@
 fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin
+# Set a consistent configuration directory (common default but not always friends with MacOS)
+set -gx XDG_CONFIG_HOME "$HOME/.config"
 
 # Used for fzf in vim mainly but default is to only look for files
 set -gx FZF_DEFAULT_COMMAND 'fd --type f'

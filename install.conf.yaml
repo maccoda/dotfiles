@@ -55,6 +55,8 @@
 
     "~/.config/bat/themes/Catppuccin-macchiato.tmTheme": bat-theme.tmTheme
 
+    "~/.config/lazygit/config.yml": lazygit.yaml
+
 - clean:
     ~/:
       force: true

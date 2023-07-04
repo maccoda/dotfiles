@@ -229,7 +229,7 @@ vim.cmd([[
 augroup ReplaceNetrw
     autocmd VimEnter * silent! autocmd! FileExplorer
     autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | call fzf#vim#files(argv()[0]) | endif
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | bd | call fzf#vim#files(argv()[0], fzf#vim#with_preview()) | endif
 augroup END
 ]])
 local actions = require "telescope.actions"
@@ -633,11 +633,6 @@ require("nnn").setup({
     }
 })
 vim.api.nvim_set_keymap('n', '<leader>p', '<cmd>NnnPicker %:p:h<cr>', { noremap = true })
-
--- ======= Session management =========
--- TODO: Session does not auto update, need to do this
-vim.api.nvim_create_user_command('StartSession', 'mksession', {})
-vim.api.nvim_create_user_command('DeleteSession', 'silent !rm Session.vim', {})
 
 local metals_config = require("metals").bare_config()
 metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()

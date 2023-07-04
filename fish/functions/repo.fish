@@ -168,9 +168,11 @@ function repo
             return 1
         end
         set dirs (ls $projects_root)
-        set choice (echo "^ $dirs" | string split -n ' ' | gum filter --limit=1)
+        set choice (echo "^ $dirs" | string split -n ' ' | fzf --no-multi)
         echo $choice
-        if test $choice = "^"
+        if test -z $choice
+            echo "No choice made. Not changing"
+        else if test $choice = "^"
             cd (git rev-parse --show-toplevel)
         else
             cd "$projects_root/$choice"

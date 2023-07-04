@@ -37,17 +37,9 @@
 [interactive]
     diffFilter = delta --color-only --features=interactive
 [delta]
-    features = line-numbers decorations
-	whitespace-error-style = 22 reverse
-	plus-style = "syntax #012800"
-	minus-style = "syntax #340001"
-    syntax-theme = base16
+    whitespace-error-style = 22 reverse
+    syntax-theme = Catppuccin-macchiato
     navigate = true
-[delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
-    file-decoration-style = none
-    hunk-header-decoration-style = yellow box
 
 [init]
 	defaultBranch = main
