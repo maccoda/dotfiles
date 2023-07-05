@@ -52,7 +52,6 @@ function repo
 
     # Delete all branches that have been removed upstream
     function __repo_prune_branches
-        # TODO: Probably also want to clean any branches that are only local and have no upstream
         argparse f/force n/no-fetch -- $argv
 
         if ! set -q _flag_n
@@ -76,6 +75,11 @@ function repo
                     echo "Deleted $branch"
                 end
             end
+        end
+        set local_only_branches (git branch -vv | rg --invert-match "origin" | tr -s ' ' | cut -w -f 2)
+        echo "Attempting to delete local only branches"
+        for branch in $local_only_branches
+            git branch -d $branch
         end
 
         functions -e __repo_prune_branches

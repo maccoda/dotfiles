@@ -13,6 +13,7 @@ alias gd='git diff'
 alias fd-project='fd -t d -d 3'
 
 # rust CLI remaps
+alias l='exa'
 alias ls='exa'
 alias du='dust'
 
