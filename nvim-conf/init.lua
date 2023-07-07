@@ -2,8 +2,6 @@ vim.call('plug#begin', '~/.vim/plugged')
 local Plug = vim.fn['plug#']
 Plug('catppuccin/nvim', { as = 'catppuccin' })
 Plug 'nvim-lualine/lualine.nvim'
-Plug('nvim-telescope/telescope.nvim', { branch = '0.1.x' })
-Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'gfanto/fzf-lsp.nvim'
@@ -167,30 +165,13 @@ require("catppuccin").setup({
         markdown = true,
         cmp = true,
         treesitter = true,
-        telescope = true
     }
 })
 
 vim.cmd.colorscheme "catppuccin"
 
-
--- == Telescope fuzzy finder ==
-
-local builtin = require('telescope.builtin')
-local opts = { noremap = true }
--- vim.keymap.set('n', ';f', builtin.find_files, opts)
--- vim.keymap.set('n', ';g', builtin.live_grep, opts)
--- vim.keymap.set('n', ';b', builtin.buffers, opts)
--- vim.keymap.set('n', ';of', builtin.oldfiles, opts)
--- vim.keymap.set('n', ';wg', builtin.grep_string, opts)
--- vim.keymap.set('n', ';s', builtin.current_buffer_fuzzy_find, opts)
--- vim.keymap.set('n', ';ld', builtin.lsp_document_symbols, opts)
--- vim.keymap.set('n', ';lw', builtin.lsp_dynamic_workspace_symbols, opts)
--- vim.keymap.set('n', ';t', builtin.treesitter, opts)
-
--- TODO: Considering going back to FZF but seems to hurt a little. Need a better prefix
+-- ======== FZF =============
 vim.env.FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git -E .undodir'
--- vim.env.FZF_DEFAULT_OPTS = '--layout=reverse'
 -- Enable per-command history
 -- - History files will be stored in the specified directory
 -- - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
@@ -217,6 +198,7 @@ vim.cmd [[
 -- Search for current word under cursor
 vim.api.nvim_create_user_command("FzfWGrep", "call RipgrepFzf(expand('<cword>'), <bang>0)", {})
 
+local opts = { noremap = true }
 vim.api.nvim_set_keymap('n', ',f', '<cmd>FzfFiles<cr>', opts)
 vim.api.nvim_set_keymap('n', ',g', '<cmd>FzfRG<cr>', opts)
 vim.api.nvim_set_keymap('n', ',b', '<cmd>FzfBuffers<cr>', opts)
@@ -232,40 +214,6 @@ augroup ReplaceNetrw
     autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | bd | call fzf#vim#files(argv()[0], fzf#vim#with_preview()) | endif
 augroup END
 ]])
-local actions = require "telescope.actions"
-
-require("telescope").setup {
-    defaults = {
-        path_display = {
-            truncate = true
-        }
-    },
-    pickers = {
-        live_grep = {
-            additional_args = function(opts)
-                -- Below additional arguments are provided to ripgrep
-                return { "--hidden", "--glob", "!__snapshots__", "--glob", "!.git" }
-            end
-        },
-        find_files = {
-            find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--exclude", ".git" },
-            hidden = true
-        },
-        oldfiles = {
-            only_cwd = true
-        },
-        buffers = {
-            mappings = {
-                i = {
-                    ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
-                }
-            }
-        }
-    }
-}
-
-require('telescope').load_extension('fzf')
-
 
 -- == Git signs ==
 require('gitsigns').setup {
@@ -294,7 +242,7 @@ require('gitsigns').setup {
 require('lualine').setup {
     options = {
         theme = 'catppuccin',
-        component_separators = '|',
+        component_separators = '│',
         section_separators = { left = '', right = '' },
     },
     extensions = {
@@ -334,6 +282,9 @@ local cmp = require 'cmp'
 local lspkind = require('lspkind')
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local luasnip = require('luasnip')
+
+-- Set the number of items shown in the completion window at one time
+vim.opt.pumheight = 30
 
 cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
 
@@ -428,9 +379,6 @@ cmp.setup({
     },
     experimental = {
         ghost_text = true
-    },
-    performance = {
-        max_view_entries = 30
     }
 })
 
