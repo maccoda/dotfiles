@@ -172,7 +172,7 @@ function repo
             return 1
         end
         set dirs (ls $projects_root)
-        set choice (echo "^ $dirs" | string split -n ' ' | fzf --no-multi)
+        set choice (echo "^ $dirs" | string split -n ' ' | fzf --no-multi --height "~10")
         echo $choice
         if test -z $choice
             echo "No choice made. Not changing"

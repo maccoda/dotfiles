@@ -5,10 +5,7 @@ function upgrade
     # Update any links
     ./install -q
     # Update help files
-    nvim --cmd "helptags ~/.config/nvim/doc/" +qall
-
-    # Clean any non-existent directories
-    z --clean
+    gum spin --show-output --title "Updating help tags" -- nvim --cmd "helptags ~/.config/nvim/doc/" +qall
 
     cd -
 
