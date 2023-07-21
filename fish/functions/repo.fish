@@ -124,7 +124,7 @@ function repo
         set main_branch (_git_main_branch)
         echo "Determined main branch is $main_branch"
 
-        gum spin --title "Pulling latest changes on $main_branch" -- git pull --prune origin $main_branch
+        gum spin --title "Pulling latest changes on $main_branch" -- git pull --prune --tags origin $main_branch
         if test -n "$repo_status"
             git stash pop
         end
