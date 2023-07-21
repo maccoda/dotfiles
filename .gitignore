@@ -8,3 +8,4 @@ fish/fish-conf/work-alias.fish
 
 # Do not track generated tags
 nvim-conf/doc/tags
+.luarc.json

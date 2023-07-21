@@ -21,7 +21,7 @@ Plug 'kylechui/nvim-surround'
 Plug 'tpope/vim-repeat'
 -- LSP plugins
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/mason.nvim'
+Plug('williamboman/mason.nvim', { ['do'] = ':MasonUpdate' })
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'onsails/lspkind-nvim'
@@ -49,6 +49,7 @@ Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug 'folke/todo-comments.nvim'
 Plug 'NoahTheDuke/vim-just'
 Plug 'simrat39/rust-tools.nvim'
+Plug 'mfussenegger/nvim-lint'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'stevearc/dressing.nvim'
 vim.call('plug#end')
@@ -153,18 +154,14 @@ require("catppuccin").setup({
     dim_inactive = {
         enabled = true,
     },
-    color_overrides = {
-        all = {
-            -- Make comments a little lighter
-            surface2 = "#676a81"
-        }
-    },
     integrations = {
         gitsigns = true,
         leap = true,
         markdown = true,
         cmp = true,
         treesitter = true,
+        mason = true,
+       treesitter_context = true
     }
 })
 
@@ -197,14 +194,15 @@ vim.cmd [[
 
 -- Search for current word under cursor
 vim.api.nvim_create_user_command("FzfWGrep", "call RipgrepFzf(expand('<cword>'), <bang>0)", {})
+vim.api.nvim_create_user_command("FzfTodo", "call fzf#vim#grep('rg --column --line-number --no-heading --color=always \"(TODO|HACK|WARN|PERF|NOTE|TEST):\"', <bang>0, fzf#vim#with_preview())", {})
 
 local opts = { noremap = true }
-vim.api.nvim_set_keymap('n', ',f', '<cmd>FzfFiles<cr>', opts)
-vim.api.nvim_set_keymap('n', ',g', '<cmd>FzfRG<cr>', opts)
-vim.api.nvim_set_keymap('n', ',b', '<cmd>FzfBuffers<cr>', opts)
-vim.api.nvim_set_keymap('n', ',wg', '<cmd>FzfWGrep<cr>', opts)
-vim.api.nvim_set_keymap('n', ',s', '<cmd>FzfBLines<cr>', opts)
-vim.api.nvim_set_keymap('n', ',ld', '<cmd>FzfDocumentSymbols<cr>', opts)
+vim.api.nvim_set_keymap('n', ';f', '<cmd>FzfFiles<cr>', opts)
+vim.api.nvim_set_keymap('n', ';g', '<cmd>FzfRG<cr>', opts)
+vim.api.nvim_set_keymap('n', ';b', '<cmd>FzfBuffers<cr>', opts)
+vim.api.nvim_set_keymap('n', ';wg', '<cmd>FzfWGrep<cr>', opts)
+vim.api.nvim_set_keymap('n', ';s', '<cmd>FzfBLines<cr>', opts)
+vim.api.nvim_set_keymap('n', ';ld', '<cmd>FzfDocumentSymbols<cr>', opts)
 
 -- Open new sessions with find files window
 vim.cmd([[
@@ -214,6 +212,8 @@ augroup ReplaceNetrw
     autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | bd | call fzf#vim#files(argv()[0], fzf#vim#with_preview()) | endif
 augroup END
 ]])
+
+require 'fzf_lsp'.setup { override_ui_select = false }
 
 -- == Git signs ==
 require('gitsigns').setup {
@@ -426,7 +426,7 @@ vim.api.nvim_create_autocmd(
 )
 -- Set updatetime for CursorHold
 vim.opt.updatetime = 800
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -487,6 +487,8 @@ local function common_on_attach(client, bufnr)
     buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', map_opts)
 end
 
+vim.api.nvim_create_user_command("Fmt", "lua vim.lsp.buf.format{ async = true }", {})
+
 require("mason-lspconfig").setup_handlers {
     -- The first entry (without a key) will be the default handler
     -- and will be called for each installed server that doesn't have
@@ -502,6 +504,31 @@ require("mason-lspconfig").setup_handlers {
     ["rust_analyzer"] = function()
         require("rust-tools").setup {
             on_attach = common_on_attach
+        }
+    end,
+    -- Configure Lua LS just for Neovim configuration
+    ["lua_ls"] = function()
+        require('lspconfig').lua_ls.setup {
+            settings = {
+                Lua = {
+                    runtime = {
+                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                        version = 'LuaJIT',
+                    },
+                    diagnostics = {
+                        -- Get the language server to recognize the `vim` global
+                        globals = { 'vim' },
+                    },
+                    workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        library = vim.api.nvim_get_runtime_file("", true),
+                    },
+                    -- Do not send telemetry data containing a randomized but unique identifier
+                    telemetry = {
+                        enable = false,
+                    },
+                },
+            },
         }
     end
 }
@@ -580,7 +607,18 @@ require("nnn").setup({
         { "<C-e>", builtin.populate_cmdline },  -- populate cmdline (:) with file(s)
     }
 })
-vim.api.nvim_set_keymap('n', '<leader>p', '<cmd>NnnPicker %:p:h<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>p', '<cmd>NnnPicker %:p<cr>', { noremap = true })
+
+-- ===== Linting =====
+require('lint').linters_by_ft = {
+    markdown = { 'vale' },
+    typescript = { 'eslint' }
+}
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    callback = function()
+        require("lint").try_lint()
+    end,
+})
 
 local metals_config = require("metals").bare_config()
 metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
