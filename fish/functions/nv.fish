@@ -2,16 +2,16 @@
 function nv
     if count $argv > /dev/null
         # Just opening a file
-        nvim $argv
+        $EDITOR $argv
     else
         if ! test -f .projections.json
             repo init
         end
 
         if test -e Session.vim
-            nvim -S Session.vim
+            $EDITOR -S Session.vim
         else
-            nvim .
+            $EDITOR .
         end
     end
 end

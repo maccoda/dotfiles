@@ -23,5 +23,7 @@ brew_install watchexec # Utiliy tool to re-run commands on file change
 brew_install just # General purpose command runner
 brew_install gum # Shell script utilities
 brew_install shellcheck # Shell linting
-brew_install dasel # JSON/YAML/TOML tool
+brew_install dasel # JSON/YAML/TOML selection and small adjustment tool
+brew_install miller # Large data manipulation tool
 brew_install nnn # CLI file explorer
+brew_install poppler # PDF utils (enables PDF previews in kitty)

@@ -20,15 +20,6 @@ apt_install fswatch
 apt_install libavcodec-extra # Video codecs
 apt_install tlp # Battery life optimisation
 
-# SDK man for managing JVM sdks
-check_if_binary_installed sdk || curl -s "https://get.sdkman.io" | bash
-
-# TODO: Should ensure that sdk man gets onto the path first
-sdk install java
-sdk install gradle
-
-
-
 #sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 #sudo apt install code
 

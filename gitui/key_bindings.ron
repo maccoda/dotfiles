@@ -47,5 +47,5 @@
 
     abort_merge: Some(( code: Char('M'), modifiers: ( bits: 1,),)),
 
-    stage_unstage_item: Some(( code: Char('-'), modifiers: ( bits: 0,),)),
+    stage_unstage_item: Some(( code: Char(' '), modifiers: ( bits: 0,),)),
 )

@@ -1,4 +1,5 @@
 gui:
+  expandFocusedSidePanel: true
   scrollHeight: 4
   scrollPastBottom: false
   nerdFontsVersion: "3"

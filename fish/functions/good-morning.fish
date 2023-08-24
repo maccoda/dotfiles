@@ -3,6 +3,8 @@
 function good-morning
     set start_dir (pwd)
     upgrade
+    echo "Removing old LSP log"
+    rm $HOME/.local/state/nvim/lsp.log
 
     if test $MACCODA_ENV = "work"
         heading --no-trail "Tasks remaining"

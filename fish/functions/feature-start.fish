@@ -25,7 +25,7 @@ function feature-start
 
     # Create the new branch for the feature
     if test -z $argv[1]
-        read -P "Enter JIRA ticket ID: " jira_id
+        read -P "Enter branch name: " jira_id
     else
         set jira_id $argv
     end

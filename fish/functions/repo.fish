@@ -38,7 +38,6 @@ function repo
         exa $projections_dir/ --icons --oneline
         # TODO: This should specify the source folder also because the file can be nested and this would work for the monorepo style
         read -P "Which projection do you want? (Only type the part before -projections.json) " chosen
-        # TODO: Should validate there is at least input or capture the copy failure
         if test -z $chosen
             echo "No input given. Not copying"
         else
@@ -62,7 +61,7 @@ function repo
             if set -q _flag_f
                 git branch -D $branch
             else
-                git branch -d $branch
+                git branch -d $branch &> /dev/null
                 if test $status -ne 0
                     echo "Failed to soft delete $branch, perhaps you use squash and merge".
                     read -P "Would you like to force delete? (y/n) " response
@@ -76,7 +75,7 @@ function repo
                 end
             end
         end
-        set local_only_branches (git branch -vv | rg --invert-match "origin" | tr -s ' ' | cut -w -f 2)
+        set local_only_branches (git branch -vv | rg --invert-match "(origin|\*)" | tr -s ' ' | cut -w -f 2)
         echo "Attempting to delete local only branches"
         for branch in $local_only_branches
             git branch -d $branch
@@ -122,7 +121,7 @@ function repo
             git stash --include-untracked
         end
         set main_branch (_git_main_branch)
-        echo "Determined main branch is $main_branch"
+        echo "Determined primary branch is $main_branch"
 
         gum spin --title "Pulling latest changes on $main_branch" -- git pull --prune --tags origin $main_branch
         if test -n "$repo_status"
@@ -157,7 +156,18 @@ function repo
     end
 
     function __repo_switch
-        git branch --format='%(refname:short)' | gum choose | xargs git switch
+        set git_branch_cmd "git branch --all --format='%(refname:short)'"
+        set selection (eval $git_branch_cmd | fzf --height "~20" --bind "ctrl-r:reload(git fetch --all && $git_branch_cmd)" --header "C-r to refresh")
+        echo $selection
+        if test -z $selection
+            return
+        end
+        if test -n (echo $selection | rg --only-matching origin)
+            echo "Checking out remote branch $selection locally"
+            git co (echo $selection | cut -d '/' -f 2)
+        else
+            git switch $selection
+        end
         functions -e __repo_switch
     end
 

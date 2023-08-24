@@ -18,20 +18,17 @@ set -gx FZF_DEFAULT_OPTS "\
 
 set -gx EDITOR "nvim"
 
-# For linux /home/linuxbrew/.linuxbrew/bin
-if test (uname) = 'Linux'
-  fish_add_path /home/linuxbrew/.linuxbrew/bin /home/linuxbrew/.linuxbrew/opt/node@12/bin /home/linuxbrew/.linuxbrew/opt/openjdk@11/bin
-end
-
 # Remove the welcome message
 set fish_greeting
 
-# Prefix jrnl command with space so none of the commands are kept in history
-abbr --add --global jrnl " jrnl"
+# Prefix task command with space so none of the commands are kept in history
 abbr --add --global t " task"
 abbr --add --global task " task"
 
 
+if test (uname) = 'Linux'
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+end
 if test (uname) = "Darwin"
     eval (/opt/homebrew/bin/brew shellenv)
 end

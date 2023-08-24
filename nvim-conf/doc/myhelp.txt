@@ -87,4 +87,10 @@ MAPPINGS                                                      *myhelp-mappings*
 
 To view the current mappings, for example to determine if that combination is
 already used use `:map`. You can use mode specific ones like `:nmap` also.
+
+=============================================================================
+EX_COMMANDS                                                 *myhelp-ex-command*
+
+Repeat last EX-mode command with `@:`
+
 vim:tw=78:ts=8:ft=help:norl:
