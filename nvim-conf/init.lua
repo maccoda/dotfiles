@@ -80,16 +80,17 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 -- Open all folds by default
 vim.opt.foldenable = false
-vim.opt.autowriteall = true
 vim.api.nvim_create_autocmd(
     { "InsertLeave", "BufLeave", "FocusLost" },
     {
         callback = function(args)
-            if args.file ~= nil and args.file ~= '' and vim.o.buftype == '' then
-                vim.cmd("wall")
+            if args.file ~= nil and args.file ~= '' and vim.o.buftype ~= 'nowrite' and vim.o.buftype == '' then
+                vim.cmd("silent wall")
             end
         end,
-        desc = "Save all buffers on various events when it is a known file"
+        desc = "Save all buffers on insert leave when it is a known file",
+        -- See :h autocmd-nested, need this set so that linters, etc run after save
+        nested = true
     }
 )
 -- have a fixed column for the diagnostics to appear in
@@ -497,6 +498,10 @@ require 'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
+        -- Disable treesitter for large files
+        disable = function(_, bufnr)
+            return vim.api.nvim_buf_line_count(bufnr) > 50000
+        end
     },
     autotag = {
         enable = true
