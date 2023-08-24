@@ -2,9 +2,7 @@ vim.call('plug#begin', '~/.vim/plugged')
 local Plug = vim.fn['plug#']
 Plug('catppuccin/nvim', { as = 'catppuccin' })
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'gfanto/fzf-lsp.nvim'
+Plug("ibhagwan/fzf-lua", { branch = "main" })
 Plug 'numToStr/Comment.nvim'
 Plug 'ggandor/leap.nvim'
 Plug 'ggandor/flit.nvim'
@@ -31,8 +29,8 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-Plug('L3MON4D3/LuaSnip', { tag = 'v1.*' })
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug('L3MON4D3/LuaSnip', { tag = 'v2.*' })
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug('tzachar/cmp-tabnine', { ['do'] = './install.sh' })
 ----------
@@ -44,7 +42,6 @@ Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug 'windwp/nvim-ts-autotag'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 ----------
-Plug 'blankname/vim-fish'
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug 'folke/todo-comments.nvim'
 Plug 'NoahTheDuke/vim-just'
@@ -57,6 +54,9 @@ vim.call('plug#end')
 -- Unmap some actions/commands
 -- Remove x as there are too many ways to change/delete things
 vim.api.nvim_set_keymap('n', 'x', '<Nop>', { noremap = true })
+-- Remove r as again too many ways to change a letter, use cl instead
+vim.api.nvim_set_keymap('n', 'r', '<Nop>', { noremap = true })
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4
@@ -117,8 +117,6 @@ vim.g.mapleader = " "
 vim.api.nvim_set_keymap('v', 'y', 'y`]', {})
 -- Close current buffer without closing vim
 vim.api.nvim_set_keymap('n', 'QQ', '<cmd>bprevious | bdelete #<cr>', { noremap = true })
--- Close current buffer and window
-vim.api.nvim_set_keymap('n', 'QZ', '<cmd>bdelete<cr><c-w>c', { noremap = true })
 -- Set spell check on certain files
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
@@ -142,6 +140,9 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_set_keymap('n', '<leader>rr',
     '<cmd>luafile ~/.dotfiles/nvim-conf/init.lua<cr><cmd>echo "Config reloaded"<cr>', { noremap = true })
 
+-- Yank current file path
+vim.api.nvim_set_keymap('n', '<leader>yf', '<cmd>let @+ = expand("%")<cr>', { noremap = true })
+
 -- Show some whitespace
 vim.opt.listchars = { eol = '¬', tab = '>·', trail = '~', extends = '>', precedes = '<' }
 vim.opt.list = true
@@ -161,59 +162,32 @@ require("catppuccin").setup({
         cmp = true,
         treesitter = true,
         mason = true,
-       treesitter_context = true
+        treesitter_context = true
     }
 })
 
 vim.cmd.colorscheme "catppuccin"
 
 -- ======== FZF =============
-vim.env.FZF_DEFAULT_COMMAND = 'fd --type f --hidden -E .git -E .undodir'
--- Enable per-command history
--- - History files will be stored in the specified directory
--- - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
---   'previous-history' instead of 'down' and 'up'.
-vim.g.fzf_history_dir = '~/.local/share/fzf-history'
--- Place the window in the centre of the screen
-vim.g.fzf_layout = { window = { width = 0.9, height = 0.8 } }
 
-vim.g.fzf_command_prefix = 'Fzf'
-
--- Below function taken from fzf.vim readme, it will invoke rg on each change
--- when performing search
-vim.cmd [[
-    function! RipgrepFzf(query, fullscreen)
-      let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s; or true'
-      let initial_command = printf(command_fmt, shellescape(a:query))
-      let reload_command = printf(command_fmt, '{q}')
-      let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-      call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-    endfunction
-    command! -nargs=* -bang FzfRG call RipgrepFzf(<q-args>, <bang>0)
-]]
-
--- Search for current word under cursor
-vim.api.nvim_create_user_command("FzfWGrep", "call RipgrepFzf(expand('<cword>'), <bang>0)", {})
-vim.api.nvim_create_user_command("FzfTodo", "call fzf#vim#grep('rg --column --line-number --no-heading --color=always \"(TODO|HACK|WARN|PERF|NOTE|TEST):\"', <bang>0, fzf#vim#with_preview())", {})
 
 local opts = { noremap = true }
-vim.api.nvim_set_keymap('n', ';f', '<cmd>FzfFiles<cr>', opts)
-vim.api.nvim_set_keymap('n', ';g', '<cmd>FzfRG<cr>', opts)
-vim.api.nvim_set_keymap('n', ';b', '<cmd>FzfBuffers<cr>', opts)
-vim.api.nvim_set_keymap('n', ';wg', '<cmd>FzfWGrep<cr>', opts)
-vim.api.nvim_set_keymap('n', ';s', '<cmd>FzfBLines<cr>', opts)
-vim.api.nvim_set_keymap('n', ';ld', '<cmd>FzfDocumentSymbols<cr>', opts)
+vim.api.nvim_set_keymap('n', ';<space>', ':FzfLua ', opts)
+vim.api.nvim_set_keymap('n', ';f', '<cmd>FzfLua files<cr>', opts)
+vim.api.nvim_set_keymap('n', ';g', '<cmd>FzfLua live_grep_glob<cr>', opts)
+vim.api.nvim_set_keymap('n', ';b', '<cmd>FzfLua buffers<cr>', opts)
+vim.api.nvim_set_keymap('n', ';wg', '<cmd>FzfLua grep_cword<cr>', opts)
+vim.api.nvim_set_keymap('n', ';s', '<cmd>FzfLua blines<cr>', opts)
+vim.api.nvim_set_keymap('n', ';ld', '<cmd>FzfLua lsp_document_symbols<cr>', opts)
 
 -- Open new sessions with find files window
 vim.cmd([[
 augroup ReplaceNetrw
     autocmd VimEnter * silent! autocmd! FileExplorer
     autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | bd | call fzf#vim#files(argv()[0], fzf#vim#with_preview()) | endif
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | bd | call luaeval("require('fzf-lua').files()") | endif
 augroup END
 ]])
-
-require 'fzf_lsp'.setup { override_ui_select = false }
 
 -- == Git signs ==
 require('gitsigns').setup {
@@ -297,24 +271,6 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
-        ['<C-j>'] = {
-            i = function()
-                if cmp.visible() then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                else
-                    cmp.complete()
-                end
-            end,
-        },
-        ['<C-k>'] = {
-            i = function()
-                if cmp.visible() then
-                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-                else
-                    cmp.complete()
-                end
-            end,
-        },
         ['<C-l>'] = cmp.mapping(function(fallback)
             if luasnip.jumpable(1) then
                 luasnip.jump(1)
@@ -406,7 +362,7 @@ local tabnine = require('cmp_tabnine.config')
 
 tabnine:setup({
     max_lines = 1000,
-    max_num_results = 20,
+    max_num_results = 10,
     sort = true,
     run_on_every_keystroke = true,
     snippet_placeholder = '..',
@@ -474,16 +430,16 @@ local function common_on_attach(client, bufnr)
     -- Mappings.
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', map_opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', map_opts)
+    buf_set_keymap('n', 'gD', '<Cmd>FzfLua lsp_declarations<CR>', map_opts)
+    buf_set_keymap('n', 'gd', "<cmd>lua require('fzf-lua').lsp_definitions({jump_to_single_result = true})<CR>", map_opts)
     buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', map_opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', map_opts)
+    buf_set_keymap('n', 'gi', '<cmd>FzfLua lsp_implementations<CR>', map_opts)
     buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', map_opts)
     buf_set_keymap('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', map_opts)
-    buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', map_opts)
+    buf_set_keymap('n', '<leader>D', '<cmd>FzfLua lsp_typedefs<CR>', map_opts)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', map_opts)
-    buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', map_opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', map_opts)
+    buf_set_keymap('n', '<leader>ca', '<cmd>FzfLua lsp_code_actions<CR>', map_opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>', map_opts)
     buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', map_opts)
 end
 
@@ -582,12 +538,20 @@ vim.keymap.set({ "i", "s" }, "<c-j>", function()
     end
 end, { silent = true })
 
+-- Comment snippets have now been separated
+-- https://github.com/rafamadriz/friendly-snippets/issues/327
+ls.filetype_extend("sh", { "shelldoc" })
+
 -- == Auto Pairs ==
 require('nvim-autopairs').setup()
 
+-- ==== TODO ====
 require("todo-comments").setup {
     signs = false
 }
+vim.api.nvim_create_user_command("TodoFzf",
+    "lua require('fzf-lua').grep({ search = '(TODO|FIXME|NOTE|HACK):', no_esc = true })",
+    {})
 
 require('leap').add_default_mappings()
 require('flit').setup()
@@ -600,7 +564,7 @@ local builtin = require("nnn").builtin
 require("nnn").setup({
     mappings = {
         { "<C-t>", builtin.open_in_tab },       -- open file(s) in tab
-        { "<C-x>", builtin.open_in_split },     -- open file(s) in split
+        { "<C-s>", builtin.open_in_split },     -- open file(s) in split
         { "<C-v>", builtin.open_in_vsplit },    -- open file(s) in vertical split
         { "<C-p>", builtin.open_in_preview },   -- open file in preview split keeping nnn focused
         { "<C-y>", builtin.copy_to_clipboard }, -- copy file(s) to clipboard
@@ -612,14 +576,21 @@ vim.api.nvim_set_keymap('n', '<leader>p', '<cmd>NnnPicker %:p<cr>', { noremap = 
 -- ===== Linting =====
 require('lint').linters_by_ft = {
     markdown = { 'vale' },
-    typescript = { 'eslint' }
+    typescript = { 'eslint_d' },
+    sh = { 'shellcheck'}
 }
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+
+vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
     callback = function()
         require("lint").try_lint()
     end,
 })
 
+require('dressing').setup({
+    select = {
+        backend = { "builtin" }
+    }
+})
 local metals_config = require("metals").bare_config()
 metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Autocmd that will actually be in charging of starting the whole thing
