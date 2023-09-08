@@ -445,6 +445,7 @@ local function common_on_attach(client, bufnr)
 end
 
 vim.api.nvim_create_user_command("Fmt", "lua vim.lsp.buf.format{ async = true }", {})
+vim.api.nvim_create_user_command("FishFmt", "Start fish_indent --write % | e", {})
 
 require("mason-lspconfig").setup_handlers {
     -- The first entry (without a key) will be the default handler

@@ -1,6 +1,6 @@
 function upgrade
     cd $HOME/.dotfiles
-    gum spin --show-output --title "Pulling updates for dotfiles" -- fish -c "gpr"
+    gum spin --show-output --title "Pulling updates for dotfiles" -- fish -c gpr
 
     # Update any links
     ./install -q
@@ -8,11 +8,17 @@ function upgrade
     gum spin --show-output --title "Updating help tags" -- nvim --cmd "helptags ~/.config/nvim/doc/" +qall
 
     cd -
+    set day (date | cut -f 1 -d ' ')
+    if test $day != Mon -a (_is_work)
+        echo "No upgrade today"
+        return
+    end
 
     switch (uname -s)
 
         case Darwin
             echo "Detected MacOS. Running MacOS specific managers..."
+            brew upgrade --casks
 
         case Linux
             echo "Detected Linux. Running Linux specific managers..."
@@ -37,15 +43,12 @@ function upgrade
 
         echo "Updating vim..."
         nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
+        fish_update_completions
         functions -e __general_update
     end
 
     if _is_work
-        if test (date | cut -f 1 -d ' ') = Mon
-            # Just do one big upgrade at the start of the week
-            __general_update
-            fish_update_completions
-        end
+        __general_update
         work-upgrade
     else
         __general_update
