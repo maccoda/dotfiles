@@ -1,11 +1,10 @@
+# yaml-language-server: $schema=https://json.schemastore.org/lazygit.json
 gui:
-  expandFocusedSidePanel: true
   scrollHeight: 4
   scrollPastBottom: false
   nerdFontsVersion: "3"
   showFileTree: false
   theme:
-    lightTheme: false
     activeBorderColor:
       - "#a6da95" # Green
       - bold
@@ -28,5 +27,4 @@ git:
   paging:
     colorArg: always
     pager: delta --paging=never --syntax-theme Catppuccin-macchiato
-    autoFetch: false
-    autoRefresh: false
+  autoFetch: false

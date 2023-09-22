@@ -5,7 +5,7 @@ function nv
         $EDITOR $argv
     else
         if ! test -f .projections.json
-            repo init
+            repo init --from-curent
         end
 
         if test -e Session.vim
