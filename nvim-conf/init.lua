@@ -45,10 +45,10 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 Plug 'folke/todo-comments.nvim'
 Plug 'NoahTheDuke/vim-just'
-Plug 'simrat39/rust-tools.nvim'
 Plug 'mfussenegger/nvim-lint'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'stevearc/dressing.nvim'
+Plug 'stevearc/conform.nvim'
 vim.call('plug#end')
 
 -- Unmap some actions/commands
@@ -164,12 +164,24 @@ require("catppuccin").setup({
         treesitter = true,
         mason = true,
         treesitter_context = true
-    }
+    },
+    custom_highlights = function(colors)
+        return {
+            CmpItemKindTabNine = { fg = colors.yellow }
+        }
+    end
 })
 
 vim.cmd.colorscheme "catppuccin"
 
 -- ======== FZF =============
+
+require("fzf-lua").setup({
+    grep = {
+        -- Default command does not search across hidden files so had to add this
+        rg_opts = "--column --line-number --hidden --no-heading --color=always --smart-case --max-columns=4096 -e"
+    }
+})
 
 
 local opts = { noremap = true }
@@ -312,23 +324,11 @@ cmp.setup({
         },
     }),
     formatting = {
-        format = function(entry, vim_item)
-            vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol_text" })
-            if entry.source.name == "cmp_tabnine" then
-                local detail = (entry.completion_item.data or {}).detail
-                vim_item.kind = " T9"
-                if detail and detail:find('.*%%.*') then
-                    vim_item.kind = vim_item.kind .. ' ' .. detail
-                end
-
-                if (entry.completion_item.data or {}).multiline then
-                    vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
-                end
-            end
-            local maxwidth = 80
-            vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-            return vim_item
-        end,
+        format = lspkind.cmp_format({
+            mode = "symbol_text",
+            max_width = 80,
+            symbol_map = { TabNine = "" }
+        })
     },
     window = {
         completion = cmp.config.window.bordered(),
@@ -336,6 +336,24 @@ cmp.setup({
     },
     experimental = {
         ghost_text = true
+    },
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            -- Taken from https://www.reddit.com/r/neovim/comments/14k7pbc/what_is_the_nvimcmp_comparatorsorting_you_are/
+            -- This has now been quite modified to my preference
+            -- Default https://github.com/hrsh7th/nvim-cmp/blob/main/lua/cmp/config/default.lua#L62
+            cmp.config.compare.score,
+            cmp.config.compare.exact,
+            cmp.config.compare.locality,
+            cmp.config.compare.recently_used,
+            require('cmp_tabnine.compare'),
+            cmp.config.compare.offset,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        }
     }
 })
 
@@ -381,6 +399,22 @@ vim.api.nvim_create_autocmd(
         end
     }
 )
+
+-- Close all popup windows when focus is lost (like the above diagnostic window).
+-- This is really useful because I typically run linters or others in another terminal
+-- so I want it closed and start fresh
+vim.api.nvim_create_autocmd(
+    { "FocusLost" },
+    {
+        callback = function()
+            for _, win in ipairs(vim.api.nvim_list_wins()) do
+                if vim.api.nvim_win_get_config(win).relative == "win" then
+                    vim.api.nvim_win_close(win, false)
+                end
+            end
+        end
+    }
+)
 -- Set updatetime for CursorHold
 vim.opt.updatetime = 800
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -412,7 +446,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "prosemd_lsp", "tsserver" }
+    ensure_installed = { "tsserver" }
 })
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -423,6 +457,7 @@ vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', ma
 vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', map_opts)
 vim.api.nvim_set_keymap('n', '<leader>l', '<cmd>lua vim.diagnostic.setloclist()<CR>', map_opts)
 vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setqflist()<CR>', map_opts)
+vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>Fmt<CR>', map_opts)
 
 -- Function to run when the LSP is attached to a buffer
 local function common_on_attach(client, bufnr)
@@ -441,27 +476,15 @@ local function common_on_attach(client, bufnr)
     buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', map_opts)
     buf_set_keymap('n', '<leader>ca', '<cmd>FzfLua lsp_code_actions<CR>', map_opts)
     buf_set_keymap('n', 'gr', '<cmd>lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>', map_opts)
-    buf_set_keymap('n', '<leader>f', '<cmd>lua vim.lsp.buf.format{ async = true }<CR>', map_opts)
 end
 
-vim.api.nvim_create_user_command("Fmt", "lua vim.lsp.buf.format{ async = true }", {})
-vim.api.nvim_create_user_command("FishFmt", "Start fish_indent --write % | e", {})
+vim.api.nvim_create_user_command("Fmt", "lua require('conform').format({ lsp_fallback = true, async = true })", {})
 
 require("mason-lspconfig").setup_handlers {
-    -- The first entry (without a key) will be the default handler
-    -- and will be called for each installed server that doesn't have
-    -- a dedicated handler.
     function(server_name) -- default handler (optional)
         require("lspconfig")[server_name].setup {
             on_attach = common_on_attach,
             capabilities = capabilities
-        }
-    end,
-    -- Next, you can provide a dedicated handler for specific servers.
-    -- For example, a handler override for the `rust_analyzer`:
-    ["rust_analyzer"] = function()
-        require("rust-tools").setup {
-            on_attach = common_on_attach
         }
     end,
     -- Configure Lua LS just for Neovim configuration
@@ -583,7 +606,7 @@ vim.api.nvim_set_keymap('n', '<leader>p', '<cmd>NnnPicker %:p<cr>', { noremap = 
 require('lint').linters_by_ft = {
     markdown = { 'vale' },
     typescript = { 'eslint_d' },
-    sh = { 'shellcheck'}
+    sh = { 'shellcheck' }
 }
 
 vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
@@ -597,6 +620,18 @@ require('dressing').setup({
         backend = { "builtin" }
     }
 })
+
+require("conform").setup({
+    formatters_by_ft = {
+        fish = { "fish_indent" },
+        json = { "jq" },
+        -- Use a sub-list to run only the first available formatter
+        typescript = { { "prettierd", "prettier" } },
+        sh = { "shfmt" },
+        markdown = { { "prettierd", "prettier" } }
+    },
+})
+
 local metals_config = require("metals").bare_config()
 metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- Autocmd that will actually be in charging of starting the whole thing
