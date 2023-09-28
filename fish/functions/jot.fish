@@ -5,11 +5,7 @@ function jot
     argparse --ignore-unknown t/tmp -- $argv
     if count $argv > /dev/null
         set search_term $argv
-        set selected_file (rg --files-with-matches --ignore-case $search_term $HOME/jot | fzbat )
-        if test -z $selected_file
-            return
-        end
-        bat $selected_file
+        rg --files-with-matches --ignore-case $search_term $HOME/jot | fzbat
     else
         set stamp (date '+%Y-%m-%dT%H-%M-%S')
         if set -q _flag_t

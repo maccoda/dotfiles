@@ -144,9 +144,9 @@ function repo
             else
                 set main_branch main
             end
-            git diff $main_branch
+            git diff $main_branch HEAD
         else if test $choice = tag
-            git diff (git last-tag)..HEAD
+            git diff (git last-tag) HEAD
         else
             echo "Unknown diff choice $choice"
             return 1
@@ -215,7 +215,7 @@ function repo
     else if test $command = cd
         __repo_cd $args
     else if test $command = pr
-        gh pr create --draft $args && sleep 8 && gh pr checks --watch && gh pr ready
+        gh pr create --draft $args && sleep 5 && gh pr checks --watch && gh pr ready
         alert
     else if test $command = log
         commit $args
