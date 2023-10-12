@@ -32,7 +32,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug('L3MON4D3/LuaSnip', { tag = 'v2.*' })
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug('tzachar/cmp-tabnine', { ['do'] = './install.sh' })
+Plug('Exafunction/codeium.nvim')
 ----------
 Plug 'rafamadriz/friendly-snippets'
 Plug 'nvim-lua/plenary.nvim'
@@ -167,7 +167,7 @@ require("catppuccin").setup({
     },
     custom_highlights = function(colors)
         return {
-            CmpItemKindTabNine = { fg = colors.yellow }
+            CmpItemKindCodeium = { fg = colors.yellow }
         }
     end
 })
@@ -319,15 +319,14 @@ cmp.setup({
                 end
             }
         },
-        {
-            name = 'cmp_tabnine',
-        },
+        { name = "codeium" }
     }),
     formatting = {
         format = lspkind.cmp_format({
             mode = "symbol_text",
             max_width = 80,
-            symbol_map = { TabNine = "" }
+            ellipsis_char = '...',
+            symbol_map = { Codeium = "" }
         })
     },
     window = {
@@ -347,7 +346,6 @@ cmp.setup({
             cmp.config.compare.exact,
             cmp.config.compare.locality,
             cmp.config.compare.recently_used,
-            require('cmp_tabnine.compare'),
             cmp.config.compare.offset,
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
@@ -357,7 +355,6 @@ cmp.setup({
     }
 })
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
@@ -365,7 +362,6 @@ cmp.setup.cmdline('/', {
     }
 })
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
@@ -375,18 +371,7 @@ cmp.setup.cmdline(':', {
     })
 })
 
--- == TabNine ==
--- To view local config type -> tabnine::config
-local tabnine = require('cmp_tabnine.config')
-
-tabnine:setup({
-    max_lines = 1000,
-    max_num_results = 10,
-    sort = true,
-    run_on_every_keystroke = true,
-    snippet_placeholder = '..',
-    show_prediction_strength = false
-})
+require("codeium").setup({})
 
 -- == LSP ==
 
