@@ -81,7 +81,7 @@ vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 -- Open all folds by default
 vim.opt.foldenable = false
 vim.api.nvim_create_autocmd(
-    { "InsertLeave", "BufLeave", "FocusLost" },
+    { "BufLeave", "FocusLost" },
     {
         callback = function(args)
             if args.file ~= nil and args.file ~= '' and vim.o.buftype ~= 'nowrite' and vim.o.buftype == '' then
@@ -178,8 +178,9 @@ vim.cmd.colorscheme "catppuccin"
 
 require("fzf-lua").setup({
     grep = {
-        -- Default command does not search across hidden files so had to add this
-        rg_opts = "--column --line-number --hidden --no-heading --color=always --smart-case --max-columns=4096 -e"
+        -- Default command does not search across hidden files so had to add this and remove git directory
+        rg_opts =
+        "--column --line-number --hidden --glob=!.git --no-heading --color=always --smart-case --max-columns=4096 -e"
     }
 })
 
@@ -187,9 +188,11 @@ require("fzf-lua").setup({
 local opts = { noremap = true }
 vim.api.nvim_set_keymap('n', ';<space>', ':FzfLua ', opts)
 vim.api.nvim_set_keymap('n', ';f', '<cmd>FzfLua files<cr>', opts)
-vim.api.nvim_set_keymap('n', ';g', '<cmd>FzfLua live_grep_glob<cr>', opts)
+vim.api.nvim_set_keymap('n', ';lg', '<cmd>FzfLua live_grep_glob<cr>', opts)
+vim.api.nvim_set_keymap('n', ';g', '<cmd>FzfLua grep<cr>', opts)
 vim.api.nvim_set_keymap('n', ';b', '<cmd>FzfLua buffers<cr>', opts)
 vim.api.nvim_set_keymap('n', ';wg', '<cmd>FzfLua grep_cword<cr>', opts)
+vim.api.nvim_set_keymap('v', ';wg', '<cmd>FzfLua grep_visual<cr>', opts)
 vim.api.nvim_set_keymap('n', ';s', '<cmd>FzfLua blines<cr>', opts)
 vim.api.nvim_set_keymap('n', ';ld', '<cmd>FzfLua lsp_document_symbols<cr>', opts)
 
@@ -259,12 +262,6 @@ vim.api.nvim_set_keymap('n', 'gdh', '<cmd>diffget //2<cr>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'gdl', '<cmd>diffget //3<cr>', { noremap = true })
 
 -- == Cmp ==
--- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not select, force user to select one from the menu
-vim.opt.completeopt = "menuone,noinsert,noselect"
--- Avoid showing extra messages when using completion
-vim.opt.shortmess:append({ c = true })
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
@@ -281,7 +278,10 @@ cmp.setup({
             luasnip.lsp_expand(args.body)
         end,
     },
+    preselect = cmp.PreselectMode.None,
     mapping = cmp.mapping.preset.insert({
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
         ['<C-l>'] = cmp.mapping(function(fallback)
@@ -601,8 +601,8 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
 })
 
 require('dressing').setup({
-    select = {
-        backend = { "builtin" }
+    input = {
+        insert_only = false
     }
 })
 
@@ -615,16 +615,4 @@ require("conform").setup({
         sh = { "shfmt" },
         markdown = { { "prettierd", "prettier" } }
     },
-})
-
-local metals_config = require("metals").bare_config()
-metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
--- Autocmd that will actually be in charging of starting the whole thing
-local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "scala", "sbt" },
-    callback = function()
-        require("metals").initialize_or_attach(metals_config)
-    end,
-    group = nvim_metals_group,
 })
