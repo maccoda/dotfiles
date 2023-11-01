@@ -13,7 +13,7 @@ function upgrade
     set day (date | cut -f 1 -d ' ')
     if set -q _flag_f
         gum log --level info "Forcing an update"
-    else if test $day != Mon -a (_is_work)
+    else if test \($day != Mon\) -a \((_is_work) = 1\)
         gum log --level info "No upgrade today"
         return
     end

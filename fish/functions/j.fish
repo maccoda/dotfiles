@@ -6,7 +6,7 @@ function j
         kitty @set-tab-title $title
         return
     end
-    set choice (zoxide query --interactive --score $argv | string trim | cut -w -f 2)
+    set choice (zoxide query --interactive --score $argv | string trim | cut -f 2)
     if test -z $choice
         return
     end

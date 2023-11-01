@@ -1,5 +1,5 @@
 function new-tab
-    set choice (zoxide query --interactive --score | string trim | cut -w -f 2)
+    set choice (zoxide query --interactive --score | cut -f 2)
     if test -z $choice
         return
     end
