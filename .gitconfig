@@ -34,6 +34,7 @@
     amend = commit --amend --no-edit
     stash = stash --include-untracked
     last-tag = describe --abbrev=0 --tags
+    tags = tag --list --sort -creatordate
 [interactive]
     diffFilter = delta --color-only --features=interactive
 [delta]

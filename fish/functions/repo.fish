@@ -36,13 +36,12 @@ function repo
         set -l projections_dir ~/.dotfiles/nvim-conf/projections
         echo "Below are existing projections:"
         exa $projections_dir/ --icons --oneline
-        # TODO: This should specify the source folder also because the file can be nested and this would work for the monorepo style
         read -P "Which projection do you want? (Only type the part before -projections.json) " chosen
         if test -z $chosen
             echo "No input given. Not copying"
         else
             echo "Copying across $chosen projection"
-            cp $projections_dir/$chosen-projections.json .projections.json
+            cp "$projections_dir/$chosen-projections.json" .projections.json
         end
 
         cd $start_dir
@@ -157,14 +156,13 @@ function repo
 
     function __repo_switch
         set git_branch_cmd "git branch --all --format='%(refname:short)'"
-        set selection (eval $git_branch_cmd | fzf --height "~20" --bind "ctrl-r:reload(git fetch --all && $git_branch_cmd)" --header "C-r to refresh")
-        echo $selection
+        set selection (eval $git_branch_cmd | fzf --height "~20" --bind "ctrl-r:reload(git fetch --all --prune && $git_branch_cmd)" --header "C-r to refresh")
         if test -z $selection
             return
         end
         if test -n (echo $selection | rg --only-matching origin)
             echo "Checking out remote branch $selection locally"
-            git co (echo $selection | cut -d '/' -f 2)
+            git co (echo $selection | sed s#origin/##)
         else
             git switch $selection
         end
