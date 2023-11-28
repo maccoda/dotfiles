@@ -4,6 +4,7 @@ gui:
   scrollPastBottom: false
   nerdFontsVersion: "3"
   showFileTree: false
+  sidePanelWidth: 0.28
   theme:
     activeBorderColor:
       - "#a6da95" # Green
@@ -28,3 +29,7 @@ git:
     colorArg: always
     pager: delta --paging=never --syntax-theme Catppuccin-macchiato
   autoFetch: false
+promptToReturnFromSubprocess: false
+keybinding:
+  branches:
+    renameBranch: m
