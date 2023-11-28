@@ -16,7 +16,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-sleuth'
 Plug 'kylechui/nvim-surround'
-Plug 'tpope/vim-repeat'
 -- LSP plugins
 Plug 'neovim/nvim-lspconfig'
 Plug('williamboman/mason.nvim', { ['do'] = ':MasonUpdate' })
@@ -177,6 +176,10 @@ vim.cmd.colorscheme "catppuccin"
 -- ======== FZF =============
 
 require("fzf-lua").setup({
+    winopts = {
+        height = 0.9,
+        width = 0.9,
+    },
     grep = {
         -- Default command does not search across hidden files so had to add this and remove git directory
         rg_opts =
@@ -194,7 +197,10 @@ vim.api.nvim_set_keymap('n', ';b', '<cmd>FzfLua buffers<cr>', opts)
 vim.api.nvim_set_keymap('n', ';wg', '<cmd>FzfLua grep_cword<cr>', opts)
 vim.api.nvim_set_keymap('v', ';wg', '<cmd>FzfLua grep_visual<cr>', opts)
 vim.api.nvim_set_keymap('n', ';s', '<cmd>FzfLua blines<cr>', opts)
-vim.api.nvim_set_keymap('n', ';ld', '<cmd>FzfLua lsp_document_symbols<cr>', opts)
+vim.api.nvim_set_keymap('n', ';ds', '<cmd>FzfLua lsp_document_symbols<cr>', opts)
+vim.api.nvim_set_keymap('n', ';ws', '<cmd>FzfLua lsp_live_workspace_symbols<cr>', opts)
+vim.api.nvim_set_keymap('n', ';wd', '<cmd>FzfLua lsp_workspace_diagnostics<cr>', opts)
+
 
 -- Open new sessions with find files window
 vim.cmd([[
@@ -247,7 +253,7 @@ require('lualine').setup {
     tabline = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = { { 'buffers', mode = 2 } },
+        lualine_c = { { 'buffers', mode = 2, max_length = vim.o.columns } },
         lualine_x = {},
         lualine_y = {},
         lualine_z = { 'tabs' }
