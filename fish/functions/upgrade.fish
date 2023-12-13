@@ -1,4 +1,6 @@
 function upgrade
+    argparse 'f/force' -- $argv
+    or return
     cd $HOME/.dotfiles
     gum spin --show-output --title "Pulling updates for dotfiles" -- fish -c gpr
 
@@ -9,8 +11,10 @@ function upgrade
 
     cd -
     set day (date | cut -f 1 -d ' ')
-    if test $day != Mon -a (_is_work)
-        echo "No upgrade today"
+    if set -q _flag_f
+        gum log --level info "Forcing an update"
+    else if test $day != Mon -a (_is_work)
+        gum log --level info "No upgrade today"
         return
     end
 

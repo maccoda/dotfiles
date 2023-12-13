@@ -60,7 +60,7 @@ function repo
             if set -q _flag_f
                 git branch -D $branch
             else
-                git branch -d $branch &> /dev/null
+                git branch -d $branch &>/dev/null
                 if test $status -ne 0
                     echo "Failed to soft delete $branch, perhaps you use squash and merge".
                     read -P "Would you like to force delete? (y/n) " response
@@ -143,6 +143,7 @@ function repo
             else
                 set main_branch main
             end
+            gum spin --title "Fetching latest changes from $main_branch" -- git fetch origin "$main_branch:$main_branch"
             git diff $main_branch HEAD
         else if test $choice = tag
             git diff (git last-tag) HEAD
@@ -155,12 +156,17 @@ function repo
     end
 
     function __repo_switch
+        set repo_status (git status --porcelain --untracked-files=no)
+        if test -n "$repo_status"
+            set message (gum input --prompt "Uncomitted changes found, stashing. Stash message: ")
+            git stash --message "$message"
+        end
         set git_branch_cmd "git branch --all --format='%(refname:short)'"
-        set selection (eval $git_branch_cmd | fzf --height "~20" --bind "ctrl-r:reload(git fetch --all --prune && $git_branch_cmd)" --header "C-r to refresh")
+        set selection (eval $git_branch_cmd | fzf --height "~20" --bind "ctrl-r:reload(git fetch --all --prune && $git_branch_cmd)" --header "C-r to refresh" --preview "git logp --color=always {} | delta")
         if test -z $selection
             return
         end
-        if test -n (echo $selection | rg --only-matching origin)
+        if echo $selection | rg --only-matching origin
             echo "Checking out remote branch $selection locally"
             git co (echo $selection | sed s#origin/##)
         else
