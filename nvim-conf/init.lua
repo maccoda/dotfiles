@@ -179,11 +179,24 @@ require("fzf-lua").setup({
     winopts = {
         height = 0.9,
         width = 0.9,
+        preview = {
+            vertical = "up:70%",
+            layout = "vertical"
+        }
+    },
+    fzf_opts = {
+        ["--layout"] = "default",
     },
     grep = {
         -- Default command does not search across hidden files so had to add this and remove git directory
         rg_opts =
         "--column --line-number --hidden --glob=!.git --no-heading --color=always --smart-case --max-columns=4096 -e"
+    },
+    lsp = {
+        code_actions = {
+            previewer = "codeaction_native",
+            preview_pager = "delta --side-by-side --width=$FZF_PREVIEW_COLUMNS",
+        },
     }
 })
 

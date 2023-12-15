@@ -45,7 +45,6 @@ function repo
         end
 
         cd $start_dir
-        functions -e __repo_setup
     end
 
     # Delete all branches that have been removed upstream
@@ -79,8 +78,6 @@ function repo
         for branch in $local_only_branches
             git branch -d $branch
         end
-
-        functions -e __repo_prune_branches
     end
 
     # Stores the repo to be used for other scripts that track it for PRs, etc
@@ -92,8 +89,6 @@ function repo
             echo "Following $repo_path"
             dasel put object --write toml -f $MACCODA_CONFIG --type string "repos.[]" path="$repo_path"
         end
-
-        functions -e __repo_follow
     end
 
     function __repo_rebase
@@ -110,7 +105,6 @@ function repo
             git rebase $rebase_branch
             git stash pop >/dev/null
         end
-        functions -e __repo_rebase
     end
 
     function __repo_main
@@ -127,7 +121,6 @@ function repo
             git stash pop
         end
         __repo_prune_branches --force --no-fetch
-        functions -e __repo_main
     end
 
     function __repo_diff
@@ -151,8 +144,6 @@ function repo
             echo "Unknown diff choice $choice"
             return 1
         end
-
-        functions -e __repo_diff
     end
 
     function __repo_switch
@@ -172,7 +163,6 @@ function repo
         else
             git switch $selection
         end
-        functions -e __repo_switch
     end
 
     function __repo_cd
@@ -195,7 +185,6 @@ function repo
         else
             cd "$projects_root/$choice"
         end
-        functions -e __repo_cd
     end
 
     set command $argv[1]
