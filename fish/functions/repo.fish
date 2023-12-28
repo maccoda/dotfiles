@@ -4,6 +4,7 @@
 # so that I do not need to remember each script name when it is regarding
 # dev work with a repository
 function repo
+    # TODO: Move these out to their own functions using the __repo prefix convention
     set -g config_dir ~/.config/dev-tools
 
     git rev-parse --show-toplevel &>/dev/null
@@ -177,7 +178,6 @@ function repo
         end
         set dirs (ls $projects_root)
         set choice (echo "^ $dirs" | string split -n ' ' | fzf --no-multi --height "~10")
-        echo $choice
         if test -z $choice
             echo "No choice made. Not changing"
         else if test $choice = "^"

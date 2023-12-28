@@ -545,7 +545,6 @@ require 'nvim-treesitter.configs'.setup {
     },
 }
 
-
 -- == Comment ==
 require('Comment').setup()
 
@@ -631,6 +630,7 @@ require("conform").setup({
         json = { "jq" },
         -- Use a sub-list to run only the first available formatter
         typescript = { { "prettierd", "prettier" } },
+        typescriptreact = { { "prettierd", "prettier" } },
         sh = { "shfmt" },
         markdown = { { "prettierd", "prettier" } }
     },
