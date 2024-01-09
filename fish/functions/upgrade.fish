@@ -1,21 +1,23 @@
 function upgrade
-    argparse 'f/force' -- $argv
+    argparse f/force -- $argv
     or return
     cd $HOME/.dotfiles
-    gum spin --show-output --title "Pulling updates for dotfiles" -- fish -c gpr
+    gum spin --title "Pulling updates for dotfiles" -- fish -c gpr && gum log "Finished updating dotfiles"
 
     # Update any links
     ./install -q
     # Update help files
-    gum spin --show-output --title "Updating help tags" -- nvim --cmd "helptags ~/.config/nvim/doc/" +qall
+    gum spin --title "Updating help tags" -- nvim --cmd "helptags ~/.config/nvim/doc/" +qall && gum log "Updated help tags"
 
     cd -
     set day (date | cut -f 1 -d ' ')
     if set -q _flag_f
         gum log --level info "Forcing an update"
-    else if test \($day != Mon\) -a \((_is_work) = 1\)
-        gum log --level info "No upgrade today"
-        return
+    else if test $day != Mon
+        if _is_work
+            gum log "No upgrade today"
+            return
+        end
     end
 
     switch (uname -s)
@@ -31,12 +33,12 @@ function upgrade
             snap refresh
 
         case '*'
-            echo 'Unknown OS'
+            gum log --level error 'Unknown OS'
             exit 1
     end
 
     function __general_update
-        echo "Updating brew taps..."
+        gum log "Updating brew taps..."
         brew upgrade
         brew cleanup
         brew autoremove
@@ -45,7 +47,7 @@ function upgrade
 
         gum spin --title "Updating nnn plugins" -- sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
 
-        echo "Updating vim..."
+        gum log "Updating vim..."
         nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
         fish_update_completions
         functions -e __general_update
