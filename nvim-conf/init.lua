@@ -213,6 +213,7 @@ vim.api.nvim_set_keymap('n', ';s', '<cmd>FzfLua blines<cr>', opts)
 vim.api.nvim_set_keymap('n', ';ds', '<cmd>FzfLua lsp_document_symbols<cr>', opts)
 vim.api.nvim_set_keymap('n', ';ws', '<cmd>FzfLua lsp_live_workspace_symbols<cr>', opts)
 vim.api.nvim_set_keymap('n', ';wd', '<cmd>FzfLua lsp_workspace_diagnostics<cr>', opts)
+vim.api.nvim_set_keymap('n', ';r', '<cmd>FzfLua resume<cr>', opts)
 
 
 -- Open new sessions with find files window
@@ -632,6 +633,10 @@ require("conform").setup({
         typescript = { { "prettierd", "prettier" } },
         typescriptreact = { { "prettierd", "prettier" } },
         sh = { "shfmt" },
-        markdown = { { "prettierd", "prettier" } }
+        markdown = { { "prettierd", "prettier" } },
+        yaml = { { "prettierd", "prettier" } },
     },
+    format_after_save = {
+        lsp_fallback = true
+    }
 })
