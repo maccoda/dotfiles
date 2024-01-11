@@ -1,6 +1,6 @@
 # Function for the repetitive stuff for starting new feature work with Github model
-function feature-start
-    argparse 'c/from-current' -- $argv
+function _repo_feature
+    argparse c/from-current -- $argv
     git rev-parse 2&>/dev/null
     if test $status -ne 0
         echo "Not a git directory"
@@ -25,7 +25,7 @@ function feature-start
 
     # Create the new branch for the feature
     if test -z $argv[1]
-        read -P "Enter branch name: " jira_id
+        set jira_id (gum input --prompt="Enter branch name: ")
     else
         set jira_id $argv
     end
@@ -37,6 +37,5 @@ function feature-start
     if test -n "$repo_status"
         git stash pop
     end
-
 
 end
