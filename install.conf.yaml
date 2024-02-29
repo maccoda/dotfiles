@@ -57,6 +57,14 @@
 
     "~/.config/lazygit/config.yml": lazygit.yaml
 
+    "~/.config/helix/":
+      glob: true
+      path: helix/*
+
+    "~/.config/yazi":
+      glob: true
+      path: yazi/*
+
 - clean:
     ~/:
       force: true

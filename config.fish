@@ -1,9 +1,14 @@
 fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin
+# Workaround to use Mason.nvim as the manager of LSPs for Helix
+fish_add_path $HOME/.local/share/nvim/mason/bin
 # Set a consistent configuration directory (common default but not always friends with MacOS)
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 
+set -gx EDITOR hx
+set -gx FILE_PICKER yazi
+
 # Used for fzf in vim mainly but default is to only look for files
-set -gx FZF_DEFAULT_COMMAND 'fd --type f'
+set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden'
 # Allow the ctrl-T and alt-c integration to respect gitignore
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_ALT_C_COMMAND "fd --type directory"

@@ -1,0 +1,80 @@
+theme = "catppuccin_macchiato"
+
+[editor]
+line-number = "relative"
+auto-save = true
+bufferline = "multiple"
+color-modes = true
+cursorline = true
+# shell = ["fish", "-c"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+# [editor.lsp]
+# display-inlay-hints = true
+
+[editor.statusline]
+left = ["mode", "spinner", "spacer", "version-control"]
+center = ["file-name", "file-modification-indicator"]
+right = ["diagnostics", "selections", "register", "position", "file-encoding"]
+
+[editor.whitespace.render]
+newline = "all"
+
+[editor.file-picker]
+hidden = false
+
+[keys.normal]
+Q = { Q = ":write-buffer-close" }
+Z = { Z = ":write-quit"}
+# Shrink a line up
+A-x = ["extend_line_up", "extend_to_line_bounds"]
+x = "extend_line"
+# When going in to edit jump at the cursor point not the selection point
+i = ["collapse_selection", "insert_mode"]
+a = ["collapse_selection", "append_mode"]
+
+H = ["select_mode", "goto_line_start", "normal_mode"]
+L = ["select_mode", "goto_line_end", "normal_mode"]
+
+[keys.normal."["]
+b = "goto_previous_buffer"
+
+[keys.normal."]"]
+b = "goto_next_buffer"
+
+# TODO: Add way to pop out to nnn for file picker
+# TODO: Select first option when insert is shown
+# TODO: Auto insert closing tags for HTML etc
+# TODO: Auto reload of a file if altered in another process (e.g. formatting or git)
+# TODO: Would be nice to have the AI assistants but not a deal breaker
+# TODO: Git blame of any sort: https://github.com/helix-editor/helix/pull/3393#issuecomment-1506091918
+# TODO: Learn some more navigation replacements for things like {,}, and leap
+# TODO: Understand how to extend a selection. For example, select next text object then do a next word jump or something
+# TODO: Set up external formatter (not LSP) such as prettier
+# TODO: Minor one but the tree sitter context is pretty handy
+# TODO: Snippet support seems to only come from the LSP so is a little lacking
+# TODO: Line wrap (hard) per file type: This one looks like it won't be addressed
+# TODO: Path and buffer completion
+# TODO: Github jump out of current file
+# TODO: Exchange lines
+# TODO: Open the alternate file (test file for example)
+# TODO: Add some muscle memory bindings (G, whole line interactions like yy, D, dd, etc)
+# TODO: Integrate the-way snippets in some way (the interactive serach has issues for reloading could look at how they do the file picker with lf for ideas)
+# TODO: Working with hunks and operating on git hunks like resetting is something I miss
+
+# TODO: Learn some interesting use cases where we pipe the output of shell commands to achieve useful flows (git browse and blame can essentially be achieved by this)
+
+### Missing ###
+# Git blame
+# Git browse
+# Leap for navigation
+
+### Things I like ###
+# Little configuration
+# Makes me use other better stand alone tools
+# Which key navigation pop ups are a great reminder of key bindings since all have the same few leading keys
+# Treesitter navigation options built in is great
