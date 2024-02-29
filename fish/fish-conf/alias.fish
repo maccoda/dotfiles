@@ -9,5 +9,5 @@ abbr --add tf terraform
 abbr --add r repo
 
 # rust CLI remaps
-abbr --add l exa
-abbr --add ls exa
+abbr --add l eza
+abbr --add ls eza

@@ -16,7 +16,7 @@ function _repo_setup
 
     set -l projections_dir ~/.dotfiles/nvim-conf/projections
     echo "Below are existing projections:"
-    exa $projections_dir/ --icons --oneline
+    eza $projections_dir/ --icons --oneline
     read -P "Which projection do you want? (Only type the part before -projections.json) " chosen
     if test -z $chosen
         echo "No input given. Not copying"

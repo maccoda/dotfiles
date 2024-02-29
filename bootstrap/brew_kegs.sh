@@ -6,7 +6,7 @@ brew_install coreutils # Core GNU utils
 brew_install fd # Rust implementation of find
 brew_install ripgrep rg # Rust implementation of grep
 brew_install bat # cat alternative
-brew_install exa # Rust implementation of exa
+brew_install eza # Rust implementation of exa
 brew_install dust # Rust implementation of du
 brew_install git-delta delta # Diff syntax highlighting pager
 

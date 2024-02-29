@@ -11,7 +11,7 @@ function dev
         else
             cd "$HOME/dev"
         end
-        exa
+        eza
     else if test $command = pr
         set repo_search
         for repo in (__dev_config_folowing)
@@ -32,7 +32,7 @@ function dev
         gh search prs --author=@me --state=open --owner=$github_org --draft=false --review=approved --json number,title,url,author,createdAt,updatedAt --template $template -- NOT "[Snyk]"
 
         cd $start_dir
-    else if test $command = "following"
+    else if test $command = following
         echo "Currently following these repositories:"
         for repo in (__dev_config_folowing)
             echo -e "$(basename $repo | string pad --width 40 --right) $repo"
