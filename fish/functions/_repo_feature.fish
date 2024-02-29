@@ -9,7 +9,7 @@ function _repo_feature
     set -l repo_status (git status --porcelain)
     if test -n "$repo_status"
         echo "Detected local changes, stashing all"
-        git stash --include-untracked
+        git stash --include-untracked 2&>/dev/null
     end
 
     if ! set -q _flag_c
@@ -20,8 +20,7 @@ function _repo_feature
     end
 
     # Pull latest changes
-    echo "Pulling latest changes..."
-    git pull --ff --quiet origin $main_branch
+    gum spin --title "Pulling latest changes..." -- git pull --ff --quiet origin $main_branch
 
     # Create the new branch for the feature
     if test -z $argv[1]
@@ -35,7 +34,7 @@ function _repo_feature
         return 1
     end
     if test -n "$repo_status"
-        git stash pop
+        git stash pop 2&>/dev/null
     end
 
 end

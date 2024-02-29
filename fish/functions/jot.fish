@@ -9,6 +9,9 @@ function jot
     else
         set stamp (date '+%Y-%m-%dT%H-%M-%S')
         set title (gum input --prompt "Title: ")
+        if test -z $title
+            return
+        end
         set file_title (echo $title | sed 's/ /-/g' | tr "[:upper:]" "[:lower:]")
         if set -q _flag_t
             set file_path "/tmp/jot-$file_title-$stamp.md"
