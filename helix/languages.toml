@@ -14,20 +14,38 @@ auto-format = true
 # formatter = { command = 'prettier', args = ["--parser", "typescript"] }
 # auto-format = true
 
+[language-server.eslint]
+args = ["--stdio"]
+command = "vscode-eslint-language-server"
+
+[language-server.eslint.config]
+format = true
+nodePath = ""
+onIgnoredFiles = "off"
+packageManager = "yarn"
+quiet = false
+rulesCustomizations = []
+run = "onType"
+useESLintClass = false
+validate = "on"
+codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
+codeActionOnSave = { mode = "all" }
+experimental = { }
+problems = { shortenToSingleLine = false }
+workingDirectory = { mode = "auto" }
+
 [language-server.efm]
 command = "efm-langserver"
 config.documentFormatting = true
 
-[language-server.typescript-language-server]
-command = "typescript-language-server"
-args = ["--stdio"]
-config.hostInfo = "helix"
-
-# TODO: Work out how linters integrate best into this
 [[language]]
 name = "typescript"
 auto-format = true
 language-servers = [
-  { name = "efm", only-features = ["format", "diagnostics"] },
+  { name = "eslint", only-features = ["format", "diagnostics"] },
   { name = "typescript-language-server", except-features = ["format"] },
 ]
+
+[language-server.rust-analyzer.config]
+cargo.features = "all"
+rust-analyzer.check.command = "clippy"
