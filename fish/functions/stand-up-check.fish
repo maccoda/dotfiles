@@ -13,7 +13,7 @@ function stand-up-check
         echo "Is Monday"
         set git_after "last friday"
     else
-        set git_after "yesterday"
+        set git_after yesterday
     end
 
     heading "Looking for repositories under $startDir"
@@ -36,9 +36,9 @@ function stand-up-check
 
     heading "Checking for tasks completed"
     if test $day = Mon
-        set days_back "3day"
+        set days_back 3day
     else
-        set days_back "1day"
+        set days_back 1day
     end
 
     task end.after:today-$days_back completed

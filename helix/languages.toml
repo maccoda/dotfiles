@@ -9,30 +9,27 @@ indent = { tab-width = 4, unit = "\t" }
 formatter = { command = "shfmt" }
 auto-format = true
 
+[[language]]
+name = "html"
+auto-format = false
 # [[language]]
 # name = "typescript"
 # formatter = { command = 'prettier', args = ["--parser", "typescript"] }
 # auto-format = true
+
+[language-server.typos]
+command = "typos-lsp"
 
 [language-server.eslint]
 args = ["--stdio"]
 command = "vscode-eslint-language-server"
 
 [language-server.eslint.config]
-format = true
-nodePath = ""
-onIgnoredFiles = "off"
-packageManager = "yarn"
-quiet = false
-rulesCustomizations = []
-run = "onType"
-useESLintClass = false
-validate = "on"
-codeAction = { disableRuleComment = { enable = true, location = "separateLine" }, showDocumentation = { enable = true } }
-codeActionOnSave = { mode = "all" }
-experimental = { }
-problems = { shortenToSingleLine = false }
-workingDirectory = { mode = "auto" }
+format = { enable = true }
+
+[language-server.eslint.config.codeAction]
+disableRuleComment = { enable = true, location = "separateLine" }
+showDocumentation = { enable = false }
 
 [language-server.efm]
 command = "efm-langserver"
@@ -43,6 +40,7 @@ name = "typescript"
 auto-format = true
 language-servers = [
   { name = "eslint", only-features = ["format", "diagnostics"] },
+  { name = "typos"},
   { name = "typescript-language-server", except-features = ["format"] },
 ]
 

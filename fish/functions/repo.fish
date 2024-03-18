@@ -43,6 +43,8 @@ function repo
         alert
     else if test $command = log
         _repo_log $args
+    else if test $command = pr-co
+        gh pr list | cut -f1,2 | gum choose | cut -f1 | xargs gh pr checkout
     else
         echo "Unknown sub-command $command"
         return 127

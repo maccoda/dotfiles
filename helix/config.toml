@@ -37,14 +37,28 @@ x = "extend_line"
 i = ["collapse_selection", "insert_mode"]
 a = ["collapse_selection", "append_mode"]
 
+# vim muscle memory
 H = ["select_mode", "goto_line_start", "normal_mode"]
 L = ["select_mode", "goto_line_end", "normal_mode"]
+C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
+G = "goto_file_end"
+"*" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "search_next"]
+
+C-r = [":reload-all"]
+
+# Some nice Helix navigations
+C-h = "select_prev_sibling"
+C-j = "shrink_selection"
+C-k = "expand_selection"
+C-l = "select_next_sibling"
 
 [keys.normal."["]
 b = "goto_previous_buffer"
+e = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 
 [keys.normal."]"]
 b = "goto_next_buffer"
+e = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 
 # TODO: Add way to pop out to nnn for file picker
 # TODO: Select first option when insert is shown
@@ -57,12 +71,9 @@ b = "goto_next_buffer"
 # TODO: Set up external formatter (not LSP) such as prettier
 # TODO: Minor one but the tree sitter context is pretty handy
 # TODO: Snippet support seems to only come from the LSP so is a little lacking
-# TODO: Line wrap (hard) per file type: This one looks like it won't be addressed
 # TODO: Path and buffer completion
 # TODO: Github jump out of current file
-# TODO: Exchange lines
 # TODO: Open the alternate file (test file for example)
-# TODO: Add some muscle memory bindings (G, whole line interactions like yy, D, dd, etc)
 # TODO: Integrate the-way snippets in some way (the interactive serach has issues for reloading could look at how they do the file picker with lf for ideas)
 # TODO: Working with hunks and operating on git hunks like resetting is something I miss
 

@@ -11,8 +11,7 @@ function nv
         if test -e Session.vim
             $EDITOR -S Session.vim
         else
-            # Whilst using Helix open a file viewer that can open helix
-            $FILE_PICKER
+            $EDITOR .
         end
     end
 end
