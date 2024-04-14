@@ -8,7 +8,7 @@ function good-morning
 
     if _is_work
         heading --no-trail "Tasks remaining"
-        task due.before:eoww
+        task due.before:eoww+1h
         if test (date | cut -f 1 -d ' ') = Mon
             heading --no-trail "Journal entries from last week"
             jrnl -from "last week"

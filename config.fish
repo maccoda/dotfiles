@@ -54,6 +54,7 @@ if test (uname) = Darwin
 end
 
 zoxide init fish --no-cmd | source
+the-way complete fish | source
 
 if status --is-interactive
     starship init fish | source
