@@ -15,12 +15,11 @@ function _repo_feature
     if ! set -q _flag_c
         set main_branch (_git_main_branch)
         echo "Determined main branch is $main_branch"
+        # Pull latest changes
+        gum spin --title "Pulling latest changes..." -- git pull --ff --quiet origin $main_branch
     else
         echo "Creating new branch from current"
     end
-
-    # Pull latest changes
-    gum spin --title "Pulling latest changes..." -- git pull --ff --quiet origin $main_branch
 
     # Create the new branch for the feature
     if test -z $argv[1]

@@ -12,10 +12,7 @@ auto-format = true
 [[language]]
 name = "html"
 auto-format = false
-# [[language]]
-# name = "typescript"
-# formatter = { command = 'prettier', args = ["--parser", "typescript"] }
-# auto-format = true
+formatter = { command = 'prettier', args = ["--parser", "html"] }
 
 [language-server.typos]
 command = "typos-lsp"
@@ -31,13 +28,10 @@ format = { enable = true }
 disableRuleComment = { enable = true, location = "separateLine" }
 showDocumentation = { enable = false }
 
-[language-server.efm]
-command = "efm-langserver"
-config.documentFormatting = true
-
 [[language]]
 name = "typescript"
 auto-format = true
+formatter = { command = 'prettier', args = ["--parser", "typescript"] }
 language-servers = [
   { name = "eslint", only-features = ["format", "diagnostics"] },
   { name = "typos"},
