@@ -30,7 +30,7 @@
     open_help: Some(( code: Char('?'), modifiers: "")),
     stage_unstage_item: Some(( code: Char(' '), modifiers: "")),
     edit_file: Some(( code: Char('e'), modifiers: "")),
-    commit: Some((code: Char('d'), modifiers: "CONTROL")),
+    commit: Some((code: Char('w'), modifiers: "CONTROL")),
     status_reset_item: Some((code: Char('d'), modifiers: "")),
     diff_reset_lines: Some((code: Char('x'), modifiers: ""))
 )

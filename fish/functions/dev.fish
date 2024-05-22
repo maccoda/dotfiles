@@ -37,6 +37,8 @@ function dev
         for repo in (__dev_config_folowing)
             echo -e "$(basename $repo | string pad --width 40 --right) $repo"
         end
+    else if test $command = config
+        $EDITOR $MACCODA_CONFIG
     else
         echo "Unknown command $command"
         return 1
