@@ -5,7 +5,7 @@ function _repo_switch
         git stash --message "$message"
     end
     set git_branch_cmd "git branch --all --format='%(refname:short)'"
-    set selection (eval $git_branch_cmd | fzf --height "~20" --bind "ctrl-r:reload(git fetch --all --prune && $git_branch_cmd)" --header "C-r to refresh" --preview "git logp --color=always {} | delta")
+    set selection (eval $git_branch_cmd | fzf --height "~20" --preview-window="75%" --bind "ctrl-r:reload(git fetch --all --prune && $git_branch_cmd)" --header "C-r to refresh" --preview "git logp --color=always {} | delta")
     if test -z $selection
         return
     end
