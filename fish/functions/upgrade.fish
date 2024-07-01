@@ -49,6 +49,12 @@ function upgrade
 
         echo "Updating vim..."
         nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
+
+        echo "Generating completions"
+        # Some tools do not get the completions added as part of the instalation process so do them manually
+        the-way complete fish >$__fish_config_dir/completions/the-way.fish
+        zellij setup --generate-completion fish >$__fish_config_dir/completions/zellij.fish
+
         fish_update_completions
         functions -e __general_update
     end

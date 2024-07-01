@@ -33,10 +33,20 @@ name = "typescript"
 auto-format = true
 formatter = { command = 'prettier', args = ["--parser", "typescript"] }
 language-servers = [
-  { name = "eslint", only-features = ["format", "diagnostics"] },
-  { name = "typos"},
-  { name = "typescript-language-server", except-features = ["format"] },
+  { name = "eslint", only-features = [
+    "format",
+    "diagnostics",
+  ] },
+  { name = "typos" },
+  { name = "typescript-language-server", except-features = [
+    "format",
+  ] },
 ]
+
+[[language]]
+name = "markdown"
+language-servers = [{ name = "marksman" }, { name = "typos" }]
+formatter = { command = 'prettier', args = ["--parser", "markdown"] }
 
 [language-server.rust-analyzer.config]
 cargo.features = "all"

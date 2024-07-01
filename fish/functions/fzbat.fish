@@ -4,6 +4,6 @@ function fzbat
     # Change default pager of bat so it does not auto close on short files
     fzf -m --ansi --preview $preview \
         --bind "ctrl-v:execute(bat {} --pager 'less -R')" \
-        --bind "ctrl-e:execute(nvim {})" \
+        --bind "ctrl-e:execute($EDITOR {})" \
         --header 'CTRL-v to preview | CTRL-e to edit'
 end
