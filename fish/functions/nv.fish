@@ -11,7 +11,7 @@ function nv
         if test -e Session.vim
             $EDITOR -S Session.vim
         else
-            $EDITOR .
+            $FILE_PICKER
         end
     end
 end

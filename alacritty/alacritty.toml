@@ -1,0 +1,21 @@
+import = [
+  # https://github.com/catppuccin/alacritty/
+  "~/.config/alacritty/catppuccin-macchiato.toml"
+]
+
+[font]
+normal.family = "JetBrainsMono Nerd Font Mono"
+normal.style = "Regular"
+size = 13.0
+
+[window]
+option_as_alt = "Both"
+
+[bell]
+duration = 500
+animation = "Ease"
+# MacOS
+command = {program = "osascript",args = ["-e", "beep"] }
+# Linux 
+# xkbbell
+

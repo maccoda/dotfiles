@@ -65,6 +65,14 @@
       glob: true
       path: yazi/*
 
+    "~/.config/alacritty":
+      glob: true
+      path: alacritty/*
+
+    "~/.config/zellij":
+      glob: true
+      path: zellij/*
+
 - clean:
     ~/:
       force: true

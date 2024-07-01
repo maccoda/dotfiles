@@ -1,4 +1,8 @@
 [[manager.prepend_keymap]]
 on   = [ "`" ]
-exec = 'shell "$SHELL" --block --confirm'
+run = 'shell "$SHELL" --block --confirm'
 desc = "Open shell here"
+
+[[manager.prepend_keymap]]
+on = ["e"]
+run = 'shell "$EDITOR ." --block --confirm'
