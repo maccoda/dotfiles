@@ -6,7 +6,7 @@ auto-save = true
 bufferline = "multiple"
 color-modes = true
 cursorline = true
-# shell = ["fish", "-c"]
+shell = ["fish", "-c"]
 
 [editor.cursor-shape]
 insert = "bar"

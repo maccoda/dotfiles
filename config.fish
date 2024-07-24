@@ -57,8 +57,14 @@ end
 
 
 if status --is-interactive
-    zoxide init fish --no-cmd | source
-    navi widget fish | source
-    fzf --fish | source
-    starship init fish | source
+    if set -q ZELLIJ
+        # TODO: Can I put these into files so that I don't need these immediately and can utilise fish's lazy loading of these?
+        # Looks like I can dump it in $__fish_config_dir/conf.d/completions and generate it on update for example
+        zoxide init fish --no-cmd | source
+        navi widget fish | source
+        fzf --fish | source
+        starship init fish | source
+    else
+        zellij attach main
+    end
 end

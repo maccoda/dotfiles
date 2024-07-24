@@ -47,6 +47,7 @@ language-servers = [
 name = "markdown"
 language-servers = [{ name = "marksman" }, { name = "typos" }]
 formatter = { command = 'prettier', args = ["--parser", "markdown"] }
+auto-format = true
 
 [language-server.rust-analyzer.config]
 cargo.features = "all"
