@@ -1,6 +1,7 @@
 fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin
 # Workaround to use Mason.nvim as the manager of LSPs for Helix
 fish_add_path $HOME/.local/share/nvim/mason/bin
+fish_add_path (go env GOPATH)/bin
 # Set a consistent configuration directory (common default but not always friends with MacOS)
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 
