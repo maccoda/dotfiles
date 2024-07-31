@@ -6,6 +6,7 @@ abbr --add gd 'git diff'
 
 abbr --add tf terraform
 abbr --add r repo
+abbr --add tc task-complete
 abbr --add tw 'the-way search'
 
 # rust CLI remaps
