@@ -45,6 +45,8 @@ function repo
         _repo_log $args
     else if test $command = pr-co
         gh pr list | cut -f1,2 | gum choose | cut -f1 | xargs gh pr checkout
+    else if test $command = merge
+        _repo_merge $args
     else
         echo "Unknown sub-command $command"
         return 127
