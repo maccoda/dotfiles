@@ -65,6 +65,6 @@ if status --is-interactive
         fzf --fish | source
         starship init fish | source
     else
-        zellij attach main
+        zellij attach --create main
     end
 end

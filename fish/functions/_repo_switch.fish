@@ -9,7 +9,7 @@ function _repo_switch
     if test -z $selection
         return
     end
-    if echo $selection | rg --only-matching origin
+    if echo $selection | rg --only-matching origin >/dev/null
         echo "Checking out remote branch $selection locally"
         git co (echo $selection | sed s#origin/##)
     else
