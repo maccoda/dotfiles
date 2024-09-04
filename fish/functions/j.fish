@@ -1,5 +1,5 @@
 function j
-    if test $argv[1] = -
+    if test \( -n $argv[1] \) -a \( $argv[1] = - \)
         cd -
         set home_path "$HOME/dev/"
         set title (pwd | sed s#$home_path## | cut -d '/' -f 1)

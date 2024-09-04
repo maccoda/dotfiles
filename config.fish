@@ -1,14 +1,21 @@
-fish_add_path $HOME/bin $HOME/.cargo/bin /usr/local/bin
+# TODO: Check if cargo is installed before adding it
+if which cargo
+    fish_add_path $HOME/bin $HOME/.cargo/bin
+end
+fish_add_path /usr/local/bin
 # Workaround to use Mason.nvim as the manager of LSPs for Helix
 fish_add_path $HOME/.local/share/nvim/mason/bin
-fish_add_path (go env GOPATH)/bin
+if which go
+    fish_add_path (go env GOPATH)/bin
+end
+
 # Set a consistent configuration directory (common default but not always friends with MacOS)
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 
 set -gx EDITOR hx
 set -gx FILE_PICKER yazi
 
-# Used for fzf in vim mainly but default is to only look for files
+# FZF settings
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden'
 # Allow the ctrl-T and alt-c integration to respect gitignore
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
@@ -20,10 +27,6 @@ set -gx FZF_CTRL_T_OPTS "
   --bind 'ctrl-e:execute($EDITOR {} &> /dev/tty)+abort'"
 # Print tree structure in the preview window
 set -gx FZF_ALT_C_OPTS "--preview 'eza --tree {}'"
-
-# Set default theme for bat
-set -gx BAT_THEME Catppuccin-macchiato
-
 set -gx FZF_DEFAULT_OPTS "\
 --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 \
 --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 \
@@ -37,6 +40,9 @@ set -gx FZF_CTRL_R_OPTS "
   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
+
+# Set default theme for bat
+set -gx BAT_THEME Catppuccin-macchiato
 
 # Sponge settings (clean up failed commands)
 set sponge_purge_only_on_exit true

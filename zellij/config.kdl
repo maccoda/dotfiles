@@ -13,6 +13,7 @@ keybinds {
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt n" { NewPane; }
+        bind "Alt w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         // TODO: Just add something that triggers session window maybe
     }
     tmux clear-defaults=true {
