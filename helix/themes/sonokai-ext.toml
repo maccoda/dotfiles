@@ -1,0 +1,6 @@
+inherits = "sonokai"
+
+# Fix go to word hints
+"ui.virtual.jump-label" = { fg = "purple", modifiers = ["bold", "italic"] }
+# Fix background on hover
+"ui.cursor" = { bg = "grey_dim"}

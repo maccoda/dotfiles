@@ -120,11 +120,26 @@ plugins {
 //         white 255 255 255
 //     }
 // }
+themes {
+    sonokai {
+        fg "#E2E2E3"
+        bg "#414550"
+        red "#FC5D7C"
+        green "#9ED072"
+        yellow "#E7C664"
+        blue "#76CCE0"
+        magenta "#B39DF3"
+        orange "#F39660"
+        cyan "#85D3F2"
+        black "#222327"
+        white "#E2E2E3"
+    }
+}
 
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "catppuccin-macchiato"
+theme "sonokai"
 
 // The name of the default layout to load on startup
 // Default: "default"

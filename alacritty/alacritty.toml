@@ -1,6 +1,7 @@
 import = [
   # https://github.com/catppuccin/alacritty/
-  "~/.config/alacritty/catppuccin-macchiato.toml"
+  "~/.config/alacritty/catppuccin-macchiato.toml",
+  "~/.config/alacritty/sonokai.toml",
 ]
 
 [font]
@@ -17,7 +18,6 @@ startup_mode = "Maximized"
 duration = 500
 animation = "Ease"
 # MacOS
-command = {program = "osascript",args = ["-e", "beep"] }
+command = { program = "osascript", args = ["-e", "beep"] }
 # Linux 
 # xkbbell
-

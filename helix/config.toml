@@ -1,4 +1,5 @@
-theme = "catppuccin_macchiato"
+# theme = "catppuccin_macchiato"
+theme = "sonokai-ext"
 
 [editor]
 line-number = "relative"
