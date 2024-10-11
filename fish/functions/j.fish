@@ -17,5 +17,4 @@ function j
     end
     zellij action rename-tab $title
     cd $choice
-    $FILE_PICKER
 end

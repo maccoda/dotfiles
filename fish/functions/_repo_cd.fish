@@ -9,10 +9,10 @@ function _repo_cd
         return 1
     end
     set dirs (ls $projects_root)
-    set choice (echo "^ $dirs" | string split -n ' ' | fzf --no-multi --height "~10")
+    set choice (echo ".. $dirs" | string split -n ' ' | fzf --no-multi --height "~10")
     if test -z $choice
         echo "No choice made. Not changing"
-    else if test $choice = "^"
+    else if test $choice = ".."
         cd (git rev-parse --show-toplevel)
     else
         cd "$projects_root/$choice"

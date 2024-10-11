@@ -15,5 +15,5 @@ disabled = false
 format = '[$symbol]($style) '
 repeat = true
 symbol = '❯'
-repeat_offset = 1
+repeat_offset = 2
 threshold = 0
