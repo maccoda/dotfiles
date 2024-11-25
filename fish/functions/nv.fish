@@ -9,9 +9,9 @@ function nv
         end
 
         if test -e Session.vim
-            $EDITOR -S Session.vim
+            nvim -S Session.vim
         else
-            $FILE_PICKER
+            $EDITOR .
         end
     end
 end

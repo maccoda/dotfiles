@@ -43,7 +43,7 @@ function repo
         alert
     else if test $command = log
         _repo_log $args
-    else if test $command = pr-co
+    else if test $command = co-pr
         gh pr list | cut -f1,2 | gum choose | cut -f1 | xargs gh pr checkout
     else if test $command = merge
         _repo_merge $args

@@ -41,8 +41,8 @@ L = ["select_mode", "goto_line_end", "normal_mode"]
 C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 "*" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "search_next"]
 
-C-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/bin/yazi-picker.sh"
-C-g = ":sh zellij run -f -c -x 5% -y 5% --width 90% --height 90% -- gitui"
+A-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/bin/yazi-picker.sh"
+A-g = ":sh zellij run -f -c -x 5% -y 5% --width 90% --height 90% -- gitui"
 
 
 C-r = [":reload-all"]

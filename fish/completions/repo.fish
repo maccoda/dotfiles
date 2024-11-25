@@ -1,5 +1,5 @@
 # Completions for repo command
-set -l commands feature init prune-branches follow rebase main diff switch cd pr log pr-co merge
+set -l commands feature init prune-branches follow rebase main diff switch cd pr log co-pr merge
 set -l branch_commands rebase merge
 complete --command repo --arguments "$commands" --condition "not __fish_seen_subcommand_from $commands"
 complete --command repo --long-option from-current --condition "__fish_seen_subcommand_from feature"

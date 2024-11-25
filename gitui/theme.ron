@@ -1,0 +1,4 @@
+(
+    cmdbar_bg: Some("#2C2E34"),
+    cmdbar_extra_lines_bg: Some("#2C2E34"),
+)
