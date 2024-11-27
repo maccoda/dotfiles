@@ -14,6 +14,7 @@ set -gx XDG_CONFIG_HOME "$HOME/.config"
 
 set -gx EDITOR hx
 set -gx FILE_PICKER yazi
+set -gx BAT_THEME gruvbox-dark
 
 # FZF settings
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden'

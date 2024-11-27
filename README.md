@@ -34,3 +34,9 @@ take effect.
 > set -Ux MACCODA_ENV work
 ```
 [set]: https://fishshell.com/docs/current/cmds/set.html
+
+## Slack
+
+### Gruvbox theme
+
+#24273A,#F8F8FA,#A6DA95,#24273A,#181926,#CAD3F5,#A6DA95,#EE99A0,#24273A,#CAD3F5

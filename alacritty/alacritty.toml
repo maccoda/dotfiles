@@ -1,7 +1,9 @@
+[general]
 import = [
   # https://github.com/catppuccin/alacritty/
   "~/.config/alacritty/catppuccin-macchiato.toml",
   "~/.config/alacritty/sonokai.toml",
+  "~/.config/alacritty/gruvbox-dark.toml"
 ]
 
 [font]
