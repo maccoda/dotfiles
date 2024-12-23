@@ -11,7 +11,7 @@
 [diff]
     colorMoved = default
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
 [core]
 	excludesfile = ~/.gitignore
 	autocrlf = input
@@ -38,7 +38,7 @@
     diffFilter = delta --color-only --features=interactive
 [delta]
     whitespace-error-style = 22 reverse
-    syntax-theme = Catppuccin-macchiato
+    syntax-theme = gruvbox-dark
     navigate = true
 
 [init]

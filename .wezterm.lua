@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
 local config = {}
 
-config.color_scheme = 'GruvboxDark'
+config.color_scheme = 'Gruvbox Dark (Gogh)'
 config.font_size = 14.0
 config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
@@ -23,5 +23,6 @@ config.keys = {
     },
   },
 }
+
 
 return config

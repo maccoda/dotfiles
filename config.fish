@@ -56,9 +56,9 @@ if test (uname) = Darwin
     /opt/homebrew/bin/brew shellenv | source
 end
 
-
 if status --is-interactive
-    starship init fish | source
+    tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Dotted --prompt_spacing=Sparse --icons='Many icons' --transient=Yes
+    zellij setup --generate-completion fish | source
     if set -q ZELLIJ
         # TODO: Can I put these into files so that I don't need these immediately and can utilise fish's lazy loading of these?
         # Looks like I can dump it in $__fish_config_dir/conf.d/completions and generate it on update for example
