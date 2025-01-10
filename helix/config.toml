@@ -1,5 +1,3 @@
-# theme = "catppuccin_macchiato"
-# theme = "sonokai-ext"
 theme = "gruvbox"
 
 [editor]
@@ -14,6 +12,9 @@ shell = ["fish", "-c"]
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[editor.inline-diagnostics]
+cursor-line = "warning" 
 
 # [editor.lsp]
 # display-inlay-hints = true
@@ -35,12 +36,13 @@ A-x = ["extend_line_up", "extend_to_line_bounds"]
 # When going in to edit jump at the cursor point not the selection point
 i = ["collapse_selection", "insert_mode"]
 a = ["collapse_selection", "append_mode"]
+# Search for word rather than just add it to register
+"*" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "search_next"]
 
 # vim muscle memory
-H = ["select_mode", "goto_line_start", "normal_mode"]
-L = ["select_mode", "goto_line_end", "normal_mode"]
-C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
-"*" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "search_next"]
+# H = ["select_mode", "goto_line_start", "normal_mode"]
+# L = ["select_mode", "goto_line_end", "normal_mode"]
+# C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 
 A-y = ":sh zellij run -f -x 10% -y 10% --width 80% --height 80% -- bash ~/bin/yazi-picker.sh"
 A-g = ":sh zellij run -f -c -x 5% -y 5% --width 90% --height 90% -- gitui"
@@ -62,11 +64,8 @@ e = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 # TODO: Would be nice to have the AI assistants but not a deal breaker
 # TODO: Git blame of any sort: https://github.com/helix-editor/helix/pull/3393#issuecomment-1506091918
 # TODO: Minor one but the tree sitter context is pretty handy
-# TODO: Snippet support seems to only come from the LSP so is a little lacking
-# TODO: Path and buffer completion
 # TODO: Github jump out of current file
 # TODO: Open the alternate file (test file for example)
-# TODO: Integrate the-way snippets in some way (the interactive serach has issues for reloading could look at how they do the file picker with lf for ideas)
 # TODO: Working with hunks and operating on git hunks like resetting is something I miss
 
 ### Missing ###
