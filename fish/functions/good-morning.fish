@@ -7,6 +7,8 @@ function good-morning
     rm_exists $HOME/.local/state/nvim/lsp.log
 
     if _is_work
+        # Capture installed 
+        brew list --installed-on-request >$HOME/.dotfiles/brew-installed.txt
         heading --no-trail "Tasks remaining"
         task due.before:eoww+1h
         if test (date | cut -f 1 -d ' ') = Mon

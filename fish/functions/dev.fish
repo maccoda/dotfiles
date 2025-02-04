@@ -20,16 +20,16 @@ function dev
             set --append repo_search $repo_name
         end
         set joined (string join "," $repo_search)
-        set template '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") (printf "@%v" .author.login | autocolor "blue") (truncate 60 .title) .url (timeago .createdAt | printf "C: %v") (timeago .updatedAt | printf "U: %v")}}{{end}}'
+        set template '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") (printf "@%v" .author.login | autocolor "blue") (truncate 60 .title) .url (timeago .createdAt | printf "C: %v") }}{{end}}'
         set github_org (dasel --file $MACCODA_CONFIG "github_org" | string unescape)
 
         heading --no-trail "Review requests"
-        gh search prs --state=open --owner=$github_org --review-requested=@me --draft=false --repo $joined --json number,title,url,author,createdAt,updatedAt --template $template
+        gh search prs --state=open --owner=$github_org --review-requested=@me --draft=false --repo $joined --json number,title,url,author,createdAt --template $template
 
         heading --no-trail "Reviews created"
-        gh search prs --author=@me --state=open --owner=$github_org --draft=false --review=required --json number,title,url,author,createdAt,updatedAt --template $template -- NOT "[Snyk]"
+        gh search prs --author=@me --state=open --owner=$github_org --draft=false --review=required --json number,title,url,author,createdAt --template $template -- NOT "[Snyk]"
         heading --no-trail "Approved created reviews"
-        gh search prs --author=@me --state=open --owner=$github_org --draft=false --review=approved --json number,title,url,author,createdAt,updatedAt --template $template -- NOT "[Snyk]"
+        gh search prs --author=@me --state=open --owner=$github_org --draft=false --review=approved --json number,title,url,author,createdAt --template $template -- NOT "[Snyk]"
 
         cd $start_dir
     else if test $command = following
