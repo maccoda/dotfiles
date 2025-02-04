@@ -73,6 +73,8 @@
       glob: true
       path: zellij/*
 
+    "~/.config/wezterm/wezterm.lua": .wezterm.lua
+
 - clean:
     ~/:
       force: true

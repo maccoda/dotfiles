@@ -45,8 +45,6 @@ function upgrade
 
         gum spin --title "Updating fisher packages" -- fish -c "fisher update"
 
-        gum spin --title "Updating nnn plugins" -- sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
-
         echo "Updating vim..."
         nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
 

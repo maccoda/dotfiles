@@ -57,7 +57,7 @@ if test (uname) = Darwin
 end
 
 if status --is-interactive
-    tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Dotted --prompt_spacing=Sparse --icons='Many icons' --transient=Yes
+    tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Disconnected --prompt_spacing=Sparse --icons='Many icons' --transient=Yes
     zellij setup --generate-completion fish | source
     if set -q ZELLIJ
         # TODO: Can I put these into files so that I don't need these immediately and can utilise fish's lazy loading of these?
