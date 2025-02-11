@@ -11,7 +11,7 @@ function _repo_diff
         else
             set main_branch main
         end
-        gum spin --title "Fetching latest changes from $main_branch" -- git fetch origin "$main_branch:$main_branch"
+        _spin --title "Fetching latest changes from $main_branch" -- git fetch origin "$main_branch:$main_branch"
         git diff $main_branch HEAD
     else if test $choice = tag
         git diff (git last-tag) HEAD

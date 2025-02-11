@@ -3,7 +3,7 @@ function _repo_prune_branches
     argparse f/force n/no-fetch -- $argv
 
     if ! set -q _flag_n
-        gum spin --title "Fetching all branches" -- git fetch --all --prune --quiet
+        _spin --title "Fetching all branches" -- git fetch --all --prune --quiet
     end
     set removed_branches (git branch -vv | rg ": gone]" | tr -s ' ' | cut -d ' ' -f 2)
     for branch in $removed_branches

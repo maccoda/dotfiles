@@ -4,7 +4,7 @@ function _repo_merge
         return 1
     end
     echo "Merging in $merge_branch"
-    gum spin --title "Fetching latest changes from $merge_branch" -- git fetch origin "$merge_branch:$merge_branch"
+    _spin --title "Fetching latest changes from $merge_branch" -- git fetch origin "$merge_branch:$merge_branch"
     set repo_status (git status --porcelain)
     if test -z "$repo_status"
         git merge $merge_branch

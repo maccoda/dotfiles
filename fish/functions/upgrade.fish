@@ -2,12 +2,12 @@ function upgrade
     argparse f/force -- $argv
     or return
     cd $HOME/.dotfiles
-    gum spin --title "Pulling updates for dotfiles" -- fish -c gpr && echo "Finished updating dotfiles"
+    _spin --title "Pulling updates for dotfiles" -- fish -c gpr && echo "Finished updating dotfiles"
 
     # Update any links
     ./install -q
     # Update help files
-    gum spin --title "Updating help tags" -- nvim --cmd "helptags ~/.config/nvim/doc/" +qall && echo "Updated help tags"
+    _spin --title "Updating help tags" -- nvim --cmd "helptags ~/.config/nvim/doc/" +qall && echo "Updated help tags"
 
     cd -
     set day (date | cut -f 1 -d ' ')
@@ -43,7 +43,7 @@ function upgrade
         brew cleanup
         brew autoremove
 
-        gum spin --title "Updating fisher packages" -- fish -c "fisher update"
+        _spin --title "Updating fisher packages" -- fish -c "fisher update"
 
         echo "Updating vim..."
         nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
