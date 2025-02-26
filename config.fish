@@ -59,7 +59,11 @@ end
 zellij setup --generate-completion fish | source
 
 if status --is-interactive
-    tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time='24-hour format' --lean_prompt_height='Two lines' --prompt_connection=Disconnected --prompt_spacing=Sparse --icons='Many icons' --transient=Yes
+    set hydro_multiline true
+    set hydro_color_pwd cyan
+    set hydro_color_git brblack
+    set hydro_color_prompt green
+    set hydro_color_duration --dim yellow
     if set -q ZELLIJ
         # TODO: Can I put these into files so that I don't need these immediately and can utilise fish's lazy loading of these?
         # Looks like I can dump it in $__fish_config_dir/conf.d/completions and generate it on update for example
