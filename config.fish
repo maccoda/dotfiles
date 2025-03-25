@@ -12,7 +12,7 @@ end
 # Set a consistent configuration directory (common default but not always friends with MacOS)
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 
-set -gx EDITOR hx
+set -gx EDITOR nvim
 set -gx FILE_PICKER yazi
 set -gx BAT_THEME gruvbox-dark
 

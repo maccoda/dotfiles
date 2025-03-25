@@ -28,13 +28,12 @@
       path: fish/functions/*
 
     "~/.config/fish/completions":
-        glob: true
-        path: fish/completions/*
+      glob: true
+      path: fish/completions/*
 
     "~/.config/nvim":
       glob: true
-      path: nvim-conf/*
-      exclude: ["nvim-conf/init.vim"]
+      path: nvim/*
 
     "~/.config/starship.toml": starship.toml
     "~/.config/fish/fish_plugins": fish_plugins
