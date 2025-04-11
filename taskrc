@@ -39,7 +39,7 @@ include dark-gray-256.theme
 #include solarized-light-256.theme
 #include no-color.theme
 
-news.version=3.3.0
+news.version=3.4.1
 
 # Modify next task report to not show recurring as this is not valuable in my use case
 report.next.columns=id,start.age,depends,priority,project,tags,scheduled.countdown,due.relative,until.remaining,description,urgency

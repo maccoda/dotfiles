@@ -11,7 +11,7 @@ function nv
         if test -e Session.vim
             nvim -S Session.vim
         else
-            $EDITOR .
+            $EDITOR
         end
     end
 end
