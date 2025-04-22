@@ -3,6 +3,7 @@ return {
   opts = {
     diagnostics = {
       virtual_text = false,
+      severity_sort = true,
     },
   },
 }

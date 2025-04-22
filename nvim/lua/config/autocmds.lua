@@ -7,28 +7,21 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
--- Show diagnostic popup on cursor hold
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
-  callback = function()
-    vim.diagnostic.open_float(nil, { focusable = false })
-  end,
-})
--- Close all popup windows when focus is lost (like the above diagnostic window).
--- This is really useful because I typically run linters or others in another terminal
--- so I want it closed and start fresh
-vim.api.nvim_create_autocmd({ "FocusLost" }, {
-  callback = function()
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-      if vim.api.nvim_win_get_config(win).relative == "win" then
-        vim.api.nvim_win_close(win, false)
-      end
-    end
-  end,
-})
-
 -- Wrap writing files
 vim.api.nvim_create_autocmd(
   { "BufRead", "BufNewFile" },
   { pattern = { "*.md", "*.tex", "*.txt" }, command = "setlocal textwidth=80" }
 )
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, { pattern = { "*.jrnl" }, command = "setlocal textwidth=120" })
+
+-- Auto save on focus lost
+vim.api.nvim_create_autocmd({ "FocusLost" }, {
+  callback = function(args)
+    if args.file ~= nil and args.file ~= "" and vim.o.buftype ~= "nowrite" and vim.o.buftype == "" then
+      vim.cmd("silent wall")
+    end
+  end,
+  desc = "Save all buffers on insert leave when it is a known file",
+  -- See :h autocmd-nested, need this set so that linters, etc run after save
+  nested = true,
+})

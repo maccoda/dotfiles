@@ -6,9 +6,12 @@ function good-morning
     echo "Removing old LSP log"
     rm_exists $HOME/.local/state/nvim/lsp.log
 
+    # Capture installed 
+    brew list --installed-on-request >$HOME/.dotfiles/brew-installed.txt
+
+    rm $HOME/.dotfiles/snippets.json
+    the-way export >$HOME/.dotfiles/snippets.json
     if _is_work
-        # Capture installed 
-        brew list --installed-on-request >$HOME/.dotfiles/brew-installed.txt
         heading --no-trail "Tasks remaining"
         task due.before:eoww+1h
         if test (date | cut -f 1 -d ' ') = Mon
