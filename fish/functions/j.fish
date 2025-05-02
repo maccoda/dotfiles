@@ -1,9 +1,12 @@
 function j
+    argparse --ignore-unknown q/quiet -- $argv
     if test \( -n $argv[1] \) -a \( $argv[1] = - \)
         cd -
         set home_path "$HOME/dev/"
         set title (pwd | sed s#$home_path## | cut -d '/' -f 1)
-        zellij action rename-tab $title
+        if ! set -q _flag_q
+            zellij action rename-tab $title
+        end
         return
     end
     set choice (zoxide query --interactive --score $argv | string trim | cut -f 2)
@@ -15,6 +18,8 @@ function j
     if test -z $title
         set title (basename $choice)
     end
-    zellij action rename-tab $title
+    if ! set -q _flag_q
+        zellij action rename-tab $title
+    end
     cd $choice
 end

@@ -5,5 +5,5 @@ function fzbat
     fzf -m --ansi --preview $preview \
         --bind "ctrl-v:execute(bat {} --pager 'less -R')" \
         --bind "ctrl-e:execute($EDITOR {})" \
-        --header 'CTRL-v to preview | CTRL-e to edit'
+        --header 'CTRL-v to preview | CTRL-e to edit' | xargs bat
 end

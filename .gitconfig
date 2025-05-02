@@ -20,9 +20,9 @@
 	template = ~/.gitmessage
 [alias]
     co = checkout
-    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(blue)%an <%ae>%C(reset) %C(magenta)%cD%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
+    dag = log --graph --format='format:%C(yellow)%h%C(reset) %C(cyan)%an <%ae>%C(reset) %C(magenta)%cD%C(reset)%C(auto)%d%C(reset)%n%s' --date-order
     logp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit  -10
-    logpp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    logpp = log --graph --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cs) %C(bold blue)<%an>%Creset' --abbrev-commit
     unstage = reset HEAD --
     st = status
     discard = checkout --

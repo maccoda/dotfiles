@@ -1,10 +1,12 @@
 # Make a quick note
 #
 # -t/tmp: If set will make a temporary file
+# -s/search: Search for an existing note
 function jot
-    argparse --ignore-unknown t/tmp -- $argv
-    if count $argv >/dev/null
+    argparse --ignore-unknown t/tmp s/search -- $argv
+    if set -q _flag_s
         set search_term $argv
+        test -z $search_term; and set search_term ""
         rg --files-with-matches --ignore-case $search_term $HOME/jot | fzbat
     else
         set stamp (date '+%Y-%m-%dT%H-%M-%S')
