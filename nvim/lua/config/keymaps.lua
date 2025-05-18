@@ -2,9 +2,9 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-vim.keymap.set("n", "mm", "%", { desc = "Goto matching pair" })
-vim.keymap.set("n", "gl", "$", { desc = "Goto last non-whitespace" })
-vim.keymap.set("n", "gh", "^", { desc = "Goto first non-whitespace" })
+vim.keymap.set({ "n", "v" }, "mm", "%", { desc = "Goto matching pair" })
+vim.keymap.set({ "n", "v" }, "gl", "$", { desc = "Goto last non-whitespace" })
+vim.keymap.set({ "n", "v" }, "gh", "^", { desc = "Goto first non-whitespace" })
 vim.keymap.set("v", "<leader>Y", '"+y', { desc = "Yank to system clipboard" })
 
 vim.keymap.set("n", "<leader>gg", function()

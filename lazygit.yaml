@@ -8,7 +8,7 @@ gui:
 git:
   paging:
     colorArg: always
-    pager: delta --paging=never --syntax-theme Catppuccin-macchiato
+    pager: delta --paging=never
   autoFetch: false
 promptToReturnFromSubprocess: false
 keybinding:
