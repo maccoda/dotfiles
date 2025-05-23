@@ -4,3 +4,9 @@
 
 -- Do not put everything on system clipboard
 vim.opt.clipboard = ""
+
+vim.g.mapleader = "\\"
+vim.g.localleader = ";"
+
+-- Set the default window border style
+vim.o.winborder = "rounded"

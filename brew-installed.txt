@@ -16,6 +16,7 @@ gh
 git-delta
 gitui
 glow
+groff
 gum
 helix
 hurl
@@ -38,7 +39,6 @@ ripgrep
 sad
 sd
 shellcheck
-starship
 task
 tcpflow
 telnet
@@ -46,10 +46,12 @@ tflint
 tfsec
 tfswitch
 the-way
+timewarrior
 trivy
 watch
 watchexec
 xh
+xq
 yamllint
 yazi
 zellij

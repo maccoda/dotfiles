@@ -19,6 +19,13 @@ vim.keymap.set("n", "[x", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { des
 
 -- Only show the virtual lines when requested then remove when we move the cursor
 vim.keymap.set("n", "<leader>k", function()
+  -- Close the pop ups
+  for _, window_id in ipairs(vim.api.nvim_list_wins()) do
+    -- If window is floating
+    if vim.api.nvim_win_get_config(window_id).relative ~= "" then
+      vim.api.nvim_win_close(window_id, false)
+    end
+  end
   vim.diagnostic.config({ virtual_lines = { current_line = true } })
 
   vim.api.nvim_create_autocmd("CursorMoved", {

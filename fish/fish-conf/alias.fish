@@ -8,6 +8,7 @@ abbr --add tf terraform
 abbr --add r repo
 abbr --add tc task-complete
 abbr --add tw 'the-way search --stdout | source'
+abbr --add lg zellij run -f -c --width 80% --height 80% -x 10% -y 10% -- lazygit
 
 # rust CLI remaps
 abbr --add l eza

@@ -14,7 +14,6 @@ set -gx XDG_CONFIG_HOME "$HOME/.config"
 
 set -gx EDITOR nvim
 set -gx FILE_PICKER yazi
-set -gx BAT_THEME gruvbox-dark
 
 # FZF settings
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden'
@@ -47,7 +46,6 @@ set fish_greeting
 # Prefix task command with space so none of the commands are kept in history
 abbr --add --global t " task"
 abbr --add --global task " task"
-
 
 if test (uname) = Linux
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
