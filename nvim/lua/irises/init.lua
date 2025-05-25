@@ -25,7 +25,7 @@ local groups = {
   PmenuSel = { bg = colors.selection, bold = true }, -- Popup menu: selected item.
   PmenuKind = { bg = colors.bg1, fg = colors.fg1 },
   PmenuThumb = { bg = colors.dust_olive }, -- Popup menu: Thumb of the scrollbar.
-  Substitute = { bg = colors.selection, fg = colors.fg0 },
+  Substitute = { bg = colors.violet, fg = colors.fg0 },
   Search = { bg = colors.selection, fg = colors.fg0 },
   StatusLine = { bg = colors.bg2 },
   StatusLineNC = { bg = colors.bg3 },
@@ -77,7 +77,7 @@ local groups = {
   -- Whitespace = { fg = c.fg_gutter }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
   -- WildMenu = { bg = c.bg_visual }, -- current match in 'wildmenu' completion
 
-  -- Bold = { bold = true, fg = c.fg }, -- (preferred) any bold text
+  Bold = { bold = true, fg = colors.fg0 },
   -- Character = { fg = c.green }, --  a character constant: 'c', '\n'
   Constant = { fg = colors.sky_accent },
   -- Debug = { fg = c.orange }, --    debugging statements
@@ -85,7 +85,7 @@ local groups = {
   Error = { fg = colors.carmine_red },
   Function = { fg = colors.iris_blue, bold = true },
   Identifier = { fg = colors.deep_purple },
-  -- Italic = { italic = true, fg = c.fg }, -- (preferred) any italic text
+  Italic = { italic = true, fg = colors.fg0 },
   -- Keyword = { fg = c.cyan, style = opts.styles.keywords }, --  any other keyword
   -- Operator = { fg = c.blue5 }, -- "sizeof", "+", "*", etc.
   PreProc = { fg = colors.rust_orange, bold = true },
@@ -116,25 +116,25 @@ local groups = {
   -- LspInfoBorder = { fg = c.border_highlight, bg = c.bg_float },
 
   DiagnosticError = { fg = colors.carmine_red },
-  --     DiagnosticSignError = { link = "IrisesRedSign" },
-  DiagnosticUnderlineError = { undercurl = true, sp = colors.carmine_red },
+  DiagnosticSignError = { fg = colors.carmine_red },
+  DiagnosticUnderlineError = { undercurl = true, fg = colors.carmine_red },
   DiagnosticWarn = { fg = colors.ochre_yellow },
-  --     DiagnosticSignWarn = { link = "IrisesYellowSign" },
-  DiagnosticUnderlineWarn = { undercurl = true, sp = colors.ochre_yellow },
-  --     DiagnosticInfo = { link = "IrisesBlue" },
-  --     DiagnosticSignInfo = { link = "IrisesBlueSign" },
-  --     DiagnosticUnderlineInfo = { link = "IrisesBlueUnderline" },
-  --     DiagnosticHint = { link = "IrisesAqua" },
-  --     DiagnosticSignHint = { link = "IrisesAquaSign" },
-  --     DiagnosticUnderlineHint = { link = "IrisesAquaUnderline" },
-  --     DiagnosticFloatingError = { link = "IrisesRed" },
-  --     DiagnosticFloatingWarn = { link = "IrisesOrange" },
-  --     DiagnosticFloatingInfo = { link = "IrisesBlue" },
-  --     DiagnosticFloatingHint = { link = "IrisesAqua" },
-  --     DiagnosticVirtualTextError = { link = "IrisesRed" },
-  --     DiagnosticVirtualTextWarn = { link = "IrisesYellow" },
-  --     DiagnosticVirtualTextInfo = { link = "IrisesBlue" },
-  --     DiagnosticVirtualTextHint = { link = "IrisesAqua" },
+  DiagnosticSignWarn = { fg = colors.ochre_yellow },
+  DiagnosticUnderlineWarn = { undercurl = true, fg = colors.ochre_yellow },
+  DiagnosticInfo = { fg = colors.iris_blue },
+  DiagnosticSignInfo = { fg = colors.iris_blue },
+  DiagnosticUnderlineInfo = { fg = colors.iris_blue, undercurl = true },
+  DiagnosticHint = { fg = colors.dust_olive },
+  DiagnosticSignHint = { fg = colors.dust_olive },
+  DiagnosticUnderlineHint = { fg = colors.dust_olive, undercurl = true },
+  DiagnosticFloatingError = { link = "DiagnosticError" },
+  DiagnosticFloatingWarn = { link = "DiagnosticWarn" },
+  DiagnosticFloatingInfo = { link = "DiagnosticInfo" },
+  DiagnosticFloatingHint = { link = "DiagnosticHint" },
+  DiagnosticVirtualTextError = { link = "DiagnosticError" },
+  DiagnosticVirtualTextWarn = { link = "DiagnosticWarn" },
+  DiagnosticVirtualTextInfo = { link = "DiagnosticInfo" },
+  DiagnosticVirtualTextHint = { link = "DiagnosticHint" },
 
   -- WhichKey
   WhichKeyTitle = { link = "NormalFloat" },
@@ -180,7 +180,7 @@ local groups = {
   ["@keyword.exception"] = { link = "Exception" },
   ["@keyword.function"] = { link = "Keyword" },
   ["@keyword.import"] = { link = "Include" },
-  ["@keyword.operator"] = { link = "IrisesRed" },
+  ["@keyword.operator"] = { link = "Operator" },
   ["@keyword.repeat"] = { link = "Repeat" },
   ["@keyword.return"] = { link = "Keyword" },
   ["@keyword.storage"] = { link = "StorageClass" },
@@ -205,7 +205,7 @@ local groups = {
   ["@constant"] = { link = "Constant" },
   ["@constant.builtin"] = { link = "Special" },
   ["@constant.macro"] = { link = "Define" },
-  ["@markup"] = { link = "IrisesFg1" },
+  ["@markup"] = { fg = colors.fg1 },
   ["@markup.strong"] = { bold = true }, -- maybe configurable
   ["@markup.italic"] = { link = "@text.emphasis" },
   ["@markup.underline"] = { underline = true }, -- maybe configurable
@@ -218,8 +218,8 @@ local groups = {
   ["@markup.link"] = { link = "Underlined" },
   ["@markup.link.label"] = { link = "SpecialChar" },
   ["@markup.list"] = { link = "Delimiter" },
-  ["@markup.list.checked"] = { link = "IrisesGreen" },
-  ["@markup.list.unchecked"] = { link = "IrisesGray" },
+  ["@markup.list.checked"] = { fg = colors.fresh_green },
+  ["@markup.list.unchecked"] = { fg = colors.dust_olive },
   ["@comment.todo"] = { link = "Todo" },
   ["@comment.note"] = { link = "SpecialComment" },
   ["@comment.warning"] = { link = "WarningMsg" },
@@ -227,10 +227,10 @@ local groups = {
   ["@diff.plus"] = { link = "diffAdded" },
   ["@diff.minus"] = { link = "diffRemoved" },
   ["@diff.delta"] = { link = "diffChanged" },
-  ["@module"] = { link = "IrisesFg1" },
-  ["@namespace"] = { link = "IrisesFg1" },
+  ["@module"] = { fg = colors.fg0 },
+  ["@namespace"] = { fg = colors.fg0 },
   ["@symbol"] = { link = "Identifier" },
-  ["@text"] = { link = "IrisesFg1" },
+  ["@text"] = { fg = colors.fg0 },
   ["@text.strong"] = { bold = true }, -- maybe configurable
   ["@text.emphasis"] = { italic = true }, -- maybe configurable
   ["@text.underline"] = { underline = true }, -- maybe configurable
@@ -243,8 +243,8 @@ local groups = {
   ["@text.environment.name"] = { link = "Type" },
   ["@text.reference"] = { link = "Constant" },
   ["@text.todo"] = { link = "Todo" },
-  ["@text.todo.checked"] = { link = "IrisesGreen" },
-  ["@text.todo.unchecked"] = { link = "IrisesGray" },
+  ["@text.todo.checked"] = { link = "@markup.list.checked" },
+  ["@text.todo.unchecked"] = { link = "@markup.list.unchecked" },
   ["@text.note"] = { link = "SpecialComment" },
   ["@text.note.comment"] = { fg = colors.purple, bold = true },
   ["@text.warning"] = { link = "WarningMsg" },
@@ -322,10 +322,17 @@ local groups = {
   BlinkCmpKindVariable = { link = "@variable" },
   BlinkCmpKindValue = { link = "@string" },
   BlinkCmpSignatureHelpBorder = { fg = colors.fg1, bg = colors.bg2 },
+
+  -- Snacks: Dashboard
+  SnacksDashboardDesc = { fg = colors.fg0 },
+  SnacksDashboardFooter = { fg = colors.fg1 },
+  SnacksDashboardHeader = { fg = colors.iris_blue },
+  SnacksDashboardIcon = { fg = colors.violet },
+  SnacksDashboardKey = { fg = colors.sky_accent },
+  SnacksDashboardSpecial = { fg = colors.sky_accent },
 }
 
 -- TODO: git commit messages
--- TODO: Flash plugin
 -- TODO: bufferline
 
 Irises.load = function()

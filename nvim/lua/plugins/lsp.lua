@@ -5,5 +5,8 @@ return {
       virtual_text = false,
       severity_sort = true,
     },
+    inlay_hints = {
+      enabled = false,
+    },
   },
 }

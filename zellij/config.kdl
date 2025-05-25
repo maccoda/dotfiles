@@ -218,21 +218,6 @@ keybinds clear-defaults=true {
         bind "esc" { UndoRenamePane; SwitchToMode "pane"; }
     }
 }
-themes {
-    sonokai {
-        fg 226 226 227
-        bg 65 69 80
-        red 252 93 124
-        green 158 208 114
-        yellow 231 198 100
-        blue 118 204 224
-        magenta 179 157 243
-        orange 243 150 96
-        cyan 133 211 242
-        black 34 35 39
-        white 226 226 227
-    }
-}
 
 // Plugin aliases - can be used to change the implementation of Zellij
 // changing these requires a restart to take effect
