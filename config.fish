@@ -1,11 +1,11 @@
 # TODO: Check if cargo is installed before adding it
-if which cargo
+if which cargo &>/dev/null
     fish_add_path $HOME/bin $HOME/.cargo/bin
 end
 fish_add_path /usr/local/bin
 # Workaround to use Mason.nvim as the manager of LSPs for Helix
 fish_add_path $HOME/.local/share/nvim/mason/bin
-if which go
+if which go &>/dev/null
     fish_add_path (go env GOPATH)/bin
 end
 

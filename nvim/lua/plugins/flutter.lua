@@ -4,7 +4,23 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
   },
-  config = function()
-    require("flutter-tools").setup({})
-  end,
+  opts = {
+    debugger = {
+      enabled = true,
+    },
+    dev_logs = {
+      focus_on_open = false,
+    },
+    widget_guides = {
+      enabled = true,
+    },
+    lsp = {
+      color = {
+        enabled = true,
+      },
+      settings = {
+        showTodos = false,
+      },
+    },
+  },
 }
