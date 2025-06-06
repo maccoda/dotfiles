@@ -6,6 +6,7 @@ return {
       dim_inactive = true,
     },
   },
+  { dir = "~/dev/irises.nvim" },
 
   -- Configure LazyVim to load gruvbox
   {
