@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local config = {}
 
 config.color_scheme = "Tomorrow Night (Gogh)"
-config.font_size = 14.0
+config.font_size = 13.0
 config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
 config.window_padding = {

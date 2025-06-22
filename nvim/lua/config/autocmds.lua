@@ -29,15 +29,18 @@ vim.api.nvim_create_autocmd({ "FocusLost" }, {
 -- Show diagnostic popup on cursor hold
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
   callback = function()
-    bufnr, winid = vim.diagnostic.open_float(nil, { focusable = false })
+    local bufnr, winid = vim.diagnostic.open_float(nil, { focusable = false })
 
     if winid == nil then
       return
     end
     vim.api.nvim_create_autocmd("FocusLost", {
       group = vim.api.nvim_create_augroup("line-diagnostics", { clear = true }),
+      once = true,
       callback = function()
-        vim.api.nvim_win_close(winid, false)
+        if vim.api.nvim_win_is_valid(winid) then
+          vim.api.nvim_win_close(winid, false)
+        end
         return true
       end,
     })
