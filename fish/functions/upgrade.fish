@@ -10,6 +10,11 @@ function upgrade
     _spin --title "Updating help tags" -- nvim --cmd "helptags ~/.config/nvim/doc/" +qall && echo "Updated help tags"
 
     cd -
+
+    cd ~/dev/irises.nvim
+    _spin --title "Updating colour theme" -- fish -c gpr && echo "Finished updating irises.nvim"
+    cd -
+
     set day (date | cut -f 1 -d ' ')
     if set -q _flag_f
         echo "Forcing an update"
