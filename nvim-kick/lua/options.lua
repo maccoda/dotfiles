@@ -5,23 +5,13 @@
 
 -- Make line numbers default
 vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -70,5 +60,26 @@ vim.o.scrolloff = 10
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+-- Disable line wrap
+vim.opt.wrap = false
+
+-- Insert spaces when tab is pressed
+vim.opt.expandtab = true
+-- Copy indent from current line when start new line
+vim.opt.smartindent = true
+
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+-- Indentation amount for < and > commands
+vim.opt.shiftwidth = 4
+
+-- Set folds by tree sitter
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- Open all folds by default
+vim.opt.foldenable = false
+
+vim.opt.smoothscroll = true -- Copied from lazyvim
 
 -- vim: ts=2 sts=2 sw=2 et

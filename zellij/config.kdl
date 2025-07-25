@@ -149,6 +149,7 @@ keybinds clear-defaults=true {
         bind "Alt l" { MoveFocusOrTab "right"; }
         bind "Alt n" { NewPane; }
         bind "Alt t" { GoToNextTab; }
+        bind "Alt r" { GoToPreviousTab; }
         bind "Alt w" {
             LaunchOrFocusPlugin "session-manager" {
                 floating true

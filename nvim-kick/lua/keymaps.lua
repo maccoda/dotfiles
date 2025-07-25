@@ -51,4 +51,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.keymap.set({ 'n', 'v' }, 'mm', '%', { desc = 'Goto matching pair' })
+vim.keymap.set({ 'n', 'v' }, 'gl', '$', { desc = 'Goto last non-whitespace' })
+vim.keymap.set({ 'n', 'v' }, 'gh', '^', { desc = 'Goto first non-whitespace' })
+vim.keymap.set('v', '<leader>Y', '"+y', { desc = 'Yank to system clipboard' })
+
+vim.keymap.set('n', '<leader>gg', function()
+  io.popen 'zellij run -f -c --width 80% --height 80% -x 10% -y 10% -- lazygit'
+end, { desc = 'Open lazygit' })
+
+vim.keymap.set('n', ']x', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move line down' })
+vim.keymap.set('n', '[x', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move line up' })
+
 -- vim: ts=2 sts=2 sw=2 et

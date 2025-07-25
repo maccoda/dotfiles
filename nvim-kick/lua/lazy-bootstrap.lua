@@ -17,7 +17,7 @@ require('lazy').setup {
   spec = {
     { import = 'plugins' },
   },
-  install = { colorscheme = { 'irises.nvim' } },
+  install = { colorscheme = { 'irises' } },
 }
 
 -- vim: ts=2 sts=2 sw=2 et

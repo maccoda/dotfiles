@@ -36,7 +36,7 @@ return {
     { '<leader>fb', '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers' },
     { '<leader>ff', '<cmd>FzfLua files<cr>', desc = 'Find Files (Root Dir)' },
     { '<leader>fg', '<cmd>FzfLua git_files<cr>', desc = 'Find Files (git-files)' },
-    { '<leader>fr', '<cmd>FzfLua oldfiles<cr>', desc = 'Recent' },
+    { '<leader>fr', '<cmd>lua require("fzf-lua").oldfiles({cwd_only = true})<cr>', desc = 'Recent' },
     -- git
     { '<leader>gc', '<cmd>FzfLua git_commits<CR>', desc = 'Commits' },
     { '<leader>gs', '<cmd>FzfLua git_status<CR>', desc = 'Status' },
@@ -60,7 +60,6 @@ return {
     { '<leader>sq', '<cmd>FzfLua quickfix<cr>', desc = 'Quickfix List' },
     { '<leader>sw', '<cmd>FzfLua grep_cword<cr>', desc = 'Word (Root Dir)' },
     { '<leader>sw', '<cmd>FzfLua grep_visual<cr>', mode = 'v', desc = 'Selection (Root Dir)' },
-    { '<leader>uC', '<cmd>FzfLua colorschemes<cr>', desc = 'Colorscheme with Preview' },
     {
       '<leader>ss',
       function()
@@ -75,5 +74,6 @@ return {
       end,
       desc = 'Goto Symbol (Workspace)',
     },
+    { '<leader>st', '<cmd>lua require("fzf-lua").grep({ search = "(TODO|FIXME|NOTE|HACK):", no_esc = true })<cr>', desc = 'Search: TODOs' },
   },
 }

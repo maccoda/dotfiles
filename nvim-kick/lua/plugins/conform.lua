@@ -1,11 +1,12 @@
 return {
+  -- FIXME: Do not get this to run on exit
   { -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
-    init = {
-      vim.api.nvim_create_user_command('Fmt', "lua require('conform').format({ lsp_fallback = true, async = true })", {}),
-    },
+    init = function()
+      vim.api.nvim_create_user_command('Fmt', "lua require('conform').format({ lsp_fallback = true, async = true })", {})
+    end,
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
@@ -17,7 +18,7 @@ return {
           return nil
         else
           return {
-            timeout_ms = 500,
+            timeout_ms = 1000,
             lsp_format = 'fallback',
           }
         end
@@ -26,6 +27,7 @@ return {
         lua = { 'stylua' },
         fish = { 'fish_indent' },
         sh = { 'shfmt' },
+        typescript = { 'prettier' },
       },
     },
   },

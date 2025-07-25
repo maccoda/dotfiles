@@ -4,14 +4,6 @@ function nv
         # Just opening a file
         $EDITOR $argv
     else
-        if ! test -f .projections.json
-            repo init -c
-        end
-
-        if test -e Session.vim
-            nvim -S Session.vim
-        else
-            $EDITOR
-        end
+        $EDITOR
     end
 end

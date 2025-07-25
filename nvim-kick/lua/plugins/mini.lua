@@ -1,39 +1,73 @@
 return {
-  { -- Collection of various small independent plugins/modules
+  {
     'echasnovski/mini.nvim',
     config = function()
-      -- Better Around/Inside textobjects
-      --
-      -- Examples:
-      --  - va)  - [V]isually select [A]round [)]paren
-      --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
-      --  - ci'  - [C]hange [I]nside [']quote
       require('mini.ai').setup { n_lines = 500 }
-
-      -- Add/delete/replace surroundings (brackets, quotes, etc.)
-      --
-      -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-      -- - sd'   - [S]urround [D]elete [']quotes
-      -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
-      -- Simple and easy statusline.
-      --  You could remove this setup call if you don't like it,
-      --  and try some other statusline plugin
       local statusline = require 'mini.statusline'
-      -- set use_icons to true if you have a Nerd Font
-      statusline.setup {}
-
-      -- You can configure sections in the statusline by overriding their
-      -- default behavior. For example, here we set the section for
-      -- cursor location to LINE:COLUMN
-      ---@diagnostic disable-next-line: duplicate-set-field
+      statusline.setup()
       statusline.section_location = function()
         return '%2l:%-2v'
       end
+      statusline.section_filename = function()
+        return '%f%m%r'
+      end
 
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
+      local hi = require 'mini.hipatterns'
+      hi.setup {
+        highlighters = {
+          hex_color = hi.gen_highlighter.hex_color { priority = 2000 },
+          shorthand = {
+            pattern = '()#%x%x%x()%f[^%x%w]',
+            group = function(_, _, data)
+              ---@type string
+              local match = data.full_match
+              local r, g, b = match:sub(2, 2), match:sub(3, 3), match:sub(4, 4)
+              local hex_color = '#' .. r .. r .. g .. g .. b .. b
+
+              return MiniHipatterns.compute_hex_color_group(hex_color, 'bg')
+            end,
+            extmark_opts = { priority = 2000 },
+          },
+          fixme = { pattern = 'FIXME:', group = 'MiniHipatternsFixme' },
+          hack = { pattern = 'HACK:', group = 'MiniHipatternsHack' },
+          todo = { pattern = 'TODO:', group = 'MiniHipatternsTodo' },
+          note = { pattern = 'NOTE:', group = 'MiniHipatternsNote' },
+        },
+      }
+
+      require('mini.pairs').setup()
+
+      require('mini.tabline').setup {
+        format = function(buf_id, label)
+          local suffix = vim.bo[buf_id].modified and '+ ' or ''
+          return MiniTabline.default_format(buf_id, label) .. suffix
+        end,
+      }
+
+      require('mini.basics').setup {
+        options = {
+          extra_ui = true,
+        },
+        mappings = {
+          option_toggle_prefix = '<leader>t',
+        },
+      }
+
+      local starter = require 'mini.starter'
+      starter.setup {
+        evaluate_single = true,
+        items = {
+          { name = 'Find files', action = 'lua require("fzf-lua").files()', section = 'Picker' },
+          { name = 'Grep files', action = 'lua require("fzf-lua").live_grep()', section = 'Picker' },
+          { name = 'Oil files', action = 'Oil', section = 'Picker' },
+          starter.sections.recent_files(10, true),
+          starter.sections.builtin_actions(),
+        },
+      }
+
+      require('mini.bufremove').setup()
     end,
   },
 }
