@@ -181,7 +181,7 @@ return {
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         },
-        virtual_text = false,
+        virtual_text = { spacing = 2, prefix = '●', current_line = true, severity = { max = vim.diagnostic.severity.INFO } },
         virtual_lines = { current_line = true, severity = { min = vim.diagnostic.severity.WARN } },
       }
 
@@ -205,7 +205,7 @@ return {
         -- Terraform
         --
         -- clangd = {},
-        -- gopls = {},
+        gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs

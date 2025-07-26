@@ -31,6 +31,7 @@ return {
         opts = {},
       },
       'folke/lazydev.nvim',
+      'rafamadriz/friendly-snippets',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
