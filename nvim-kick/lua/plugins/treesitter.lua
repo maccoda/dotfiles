@@ -1,5 +1,4 @@
 return {
-  -- TODO: Add the TS folds in
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',

@@ -200,12 +200,15 @@ return {
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      --  FIXME: Snippets engine doesn't attach for git
       local servers = {
-        --TODO: Get more servers configured that I should be using
-        -- Terraform
         --
         -- clangd = {},
         gopls = {},
+        terraformls = {},
+        yamlls = {},
+        marksman = {},
+        jsonls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs

@@ -7,6 +7,8 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
+        terraform = { 'terraform_validate' },
+        tf = { 'terraform_validate' },
         ['*'] = { 'typos' },
       }
 

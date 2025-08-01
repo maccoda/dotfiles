@@ -28,6 +28,8 @@ return {
         fish = { 'fish_indent' },
         sh = { 'shfmt' },
         typescript = { 'prettier' },
+        terraform = { 'terraform_fmt' },
+        tf = { 'terraform_fmt' },
       },
     },
   },

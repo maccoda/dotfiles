@@ -51,10 +51,10 @@ function upgrade
         _spin --title "Updating fisher packages" -- fish -c "fisher update"
 
         echo "Updating vim..."
-        nvim +PlugUpgrade +PlugUpdate +PlugClean +TSUpdateSync +qall
+        nvim +Lazy update +TSUpdateSync +qall
 
         echo "Generating completions"
-        # Some tools do not get the completions added as part of the instalation process so do them manually
+        # Some tools do not get the completions added as part of the installation process so do them manually
         the-way complete fish >$__fish_config_dir/completions/the-way.fish
         zellij setup --generate-completion fish >$__fish_config_dir/completions/zellij.fish
 
