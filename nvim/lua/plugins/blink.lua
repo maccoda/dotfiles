@@ -14,12 +14,4 @@ return {
       },
     },
   },
-  {
-    "Exafunction/codeium.nvim",
-    opts = {
-      virtual_text = {
-        enabled = true,
-      },
-    },
-  },
 }

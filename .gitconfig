@@ -12,6 +12,7 @@
     colorMoved = default
 [merge]
     conflictstyle = zdiff3
+    tool = nvimdiff
 [core]
 	excludesfile = ~/.gitignore
 	autocrlf = input
