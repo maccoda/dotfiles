@@ -63,4 +63,6 @@ end, { desc = 'Open lazygit' })
 vim.keymap.set('n', ']x', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move line down' })
 vim.keymap.set('n', '[x', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move line up' })
 
+vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>')
+
 -- vim: ts=2 sts=2 sw=2 et

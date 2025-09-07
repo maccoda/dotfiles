@@ -78,11 +78,11 @@ return {
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('gra', '<cmd>FzfLua lsp_code_actions<cr>', '[G]oto Code [A]ction', { 'n', 'x' })
+          map('<leader>ca', '<cmd>FzfLua lsp_code_actions<cr>', '[G]oto Code [A]ction', { 'n', 'x' })
 
           -- Find references for the word under your cursor.
           map('grr', '<cmd>FzfLua lsp_references jump1=true ignore_current_line=true<cr>', '[G]oto [R]eferences')
@@ -102,11 +102,11 @@ return {
           --
           -- -- Fuzzy find all the symbols in your current document.
           -- --  Symbols are things like variables, functions, types, etc.
-          map('gO', require('fzf-lua').lsp_document_symbols, 'Open Document Symbols')
+          map('<leader>ss', require('fzf-lua').lsp_document_symbols, 'Open Document Symbols')
           --
           -- -- Fuzzy find all the symbols in your current workspace.
           -- --  Similar to document symbols, except searches over your entire project.
-          map('gW', require('fzf-lua').lsp_workspace_symbols, 'Open Workspace Symbols')
+          map('<leader>sS', require('fzf-lua').lsp_workspace_symbols, 'Open Workspace Symbols')
           --
           -- -- Jump to the type of the word under your cursor.
           -- --  Useful when you're not sure what type a variable is and you want to see
@@ -252,6 +252,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'golangci-lint',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

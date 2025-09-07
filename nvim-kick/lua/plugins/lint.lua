@@ -2,13 +2,14 @@ return {
 
   { -- Linting
     'mfussenegger/nvim-lint',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufReadPost', 'InsertLeave' },
     config = function()
       local lint = require 'lint'
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
         terraform = { 'terraform_validate' },
         tf = { 'terraform_validate' },
+        go = { 'golangcilint' },
         ['*'] = { 'typos' },
       }
 
@@ -54,7 +55,12 @@ return {
           -- avoid superfluous noise, notably within the handy LSP pop-ups that
           -- describe the hovered symbol using Markdown.
           if vim.bo.modifiable then
-            lint.try_lint()
+            local client = vim.lsp.get_clients({ bufnr = 0 })[1] or {}
+            local root_dir = client.root_dir
+            if root_dir == nil then
+              root_dir = vim.fn.getcwd()
+            end
+            lint.try_lint(nil, { cwd = root_dir })
           end
         end,
       })

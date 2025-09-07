@@ -74,12 +74,14 @@ return {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        ghost_text = { show_with_menu = false },
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'codeium', 'buffer' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          codeium = { name = 'Codeium', module = 'codeium.blink', async = true },
         },
       },
 
@@ -97,6 +99,13 @@ return {
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
     },
+  },
+  {
+    'Exafunction/codeium.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    opts = {},
   },
 }
 -- vim: ts=2 sts=2 sw=2 et

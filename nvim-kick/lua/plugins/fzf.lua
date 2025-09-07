@@ -60,20 +60,6 @@ return {
     { '<leader>sq', '<cmd>FzfLua quickfix<cr>', desc = 'Quickfix List' },
     { '<leader>sw', '<cmd>FzfLua grep_cword<cr>', desc = 'Word (Root Dir)' },
     { '<leader>sw', '<cmd>FzfLua grep_visual<cr>', mode = 'v', desc = 'Selection (Root Dir)' },
-    {
-      '<leader>ss',
-      function()
-        require('fzf-lua').lsp_document_symbols {}
-      end,
-      desc = 'Goto Symbol',
-    },
-    {
-      '<leader>sS',
-      function()
-        require('fzf-lua').lsp_live_workspace_symbols {}
-      end,
-      desc = 'Goto Symbol (Workspace)',
-    },
     { '<leader>st', '<cmd>lua require("fzf-lua").grep({ search = "(TODO|FIXME|NOTE|HACK):", no_esc = true })<cr>', desc = 'Search: TODOs' },
   },
 }
