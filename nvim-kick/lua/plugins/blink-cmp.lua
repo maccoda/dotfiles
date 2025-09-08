@@ -21,17 +21,16 @@ return {
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
       'folke/lazydev.nvim',
-      'rafamadriz/friendly-snippets',
     },
     --- @module 'blink.cmp'
     --- @type blink.cmp.Config
@@ -71,17 +70,26 @@ return {
       },
 
       completion = {
-        -- By default, you may press `<c-space>` to show the documentation.
-        -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
-        ghost_text = { show_with_menu = false },
+        ghost_text = { enabled = true, show_with_menu = false },
+        menu = { auto_show = false },
       },
 
       sources = {
         default = { 'lsp', 'path', 'snippets', 'lazydev', 'codeium', 'buffer' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-          codeium = { name = 'Codeium', module = 'codeium.blink', async = true },
+          codeium = {
+            name = 'Codeium',
+            module = 'codeium.blink',
+            async = true,
+            transform_items = function(ctx, items)
+              for _, item in ipairs(items) do
+                item.kind_icon = ''
+                item.kind_name = 'Codeium'
+              end
+              return items
+            end,
+          },
         },
       },
 
@@ -94,7 +102,7 @@ return {
       -- the rust implementation via `'prefer_rust_with_warning'`
       --
       -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = { implementation = 'lua' },
+      -- fuzzy = { implementation = 'lua' },
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
@@ -105,7 +113,9 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
     },
-    opts = {},
+    opts = {
+      enable_cmp_source = false,
+    },
   },
 }
 -- vim: ts=2 sts=2 sw=2 et
