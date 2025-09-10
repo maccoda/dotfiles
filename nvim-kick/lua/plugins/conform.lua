@@ -23,14 +23,7 @@ return {
           }
         end
       end,
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        fish = { 'fish_indent' },
-        sh = { 'shfmt' },
-        typescript = { 'prettier' },
-        terraform = { 'terraform_fmt' },
-        tf = { 'terraform_fmt' },
-      },
+      formatters_by_ft = require('langs').formatters,
     },
   },
 }
