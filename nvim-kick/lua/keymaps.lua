@@ -64,5 +64,16 @@ vim.keymap.set('n', ']x', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'M
 vim.keymap.set('n', '[x', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move line up' })
 
 vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>')
+vim.keymap.set('n', '<leader>n', '<cmd>Fidget history<cr>')
 
+-- Close current buffer without closing vim
+vim.keymap.set('n', 'QQ', '<cmd>bprevious | bdelete #<cr>', { noremap = true, desc = 'Close buffer' })
+vim.keymap.set('n', '<leader>bd', '<cmd>bprevious | bdelete #<cr>', { noremap = true, desc = 'Close buffer' })
+vim.keymap.set('n', '<leader>bo', function()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if buf ~= vim.api.nvim_get_current_buf() then
+      vim.api.nvim_buf_delete(buf, { force = false })
+    end
+  end
+end, { noremap = true, desc = 'Close [o]ther [b]uffers' })
 -- vim: ts=2 sts=2 sw=2 et

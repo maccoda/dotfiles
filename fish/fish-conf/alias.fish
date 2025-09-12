@@ -1,4 +1,3 @@
-abbr --add vim nvim
 # git
 abbr --add g git
 abbr --add gst 'git status'
@@ -13,3 +12,6 @@ abbr --add lg zellij run -f -c --width 80% --height 80% -x 10% -y 10% -- lazygit
 # rust CLI remaps
 abbr --add l eza
 abbr --add ls eza
+
+abbr --add nv nvim
+abbr --add nvk NVIM_APPNAME="nvim-kick" nvim

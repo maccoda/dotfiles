@@ -35,6 +35,10 @@
       glob: true
       path: nvim/*
 
+    "~/.config/nvim-kick":
+      glob: true
+      path: nvim-kick/*
+
     "~/.config/starship.toml": starship.toml
     "~/.config/fish/fish_plugins": fish_plugins
 

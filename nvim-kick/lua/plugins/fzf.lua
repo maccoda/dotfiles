@@ -60,6 +60,12 @@ return {
     { '<leader>sq', '<cmd>FzfLua quickfix<cr>', desc = 'Quickfix List' },
     { '<leader>sw', '<cmd>FzfLua grep_cword<cr>', desc = 'Word (Root Dir)' },
     { '<leader>sw', '<cmd>FzfLua grep_visual<cr>', mode = 'v', desc = 'Selection (Root Dir)' },
-    { '<leader>st', '<cmd>lua require("fzf-lua").grep({ search = "(TODO|FIXME|NOTE|HACK):", no_esc = true })<cr>', desc = 'Search: TODOs' },
+    {
+      '<leader>st',
+      function()
+        require('fzf-lua').grep { search = '(TODO|FIXME|NOTE|HACK):', no_esc = true }
+      end,
+      desc = 'Search: TODOs',
+    },
   },
 }
