@@ -22,6 +22,11 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 -- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
 -- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
+-- Remove x as there are too many ways to change/delete things
+vim.keymap.set('n', 'x', '<Nop>', { noremap = true })
+-- Remove s as it is the same as cl
+vim.keymap.set('n', 's', '<Nop>', { noremap = true })
+
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
@@ -51,6 +56,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Turn off search highlights when entering insert
+vim.keymap.set('n', 'i', '<cmd>noh<CR>i', { noremap = true })
+vim.keymap.set('n', 'I', '<cmd>noh<CR>I', { noremap = true })
+vim.keymap.set('n', 'o', '<cmd>noh<CR>o', { noremap = true })
+vim.keymap.set('n', 'O', '<cmd>noh<CR>O', { noremap = true })
+vim.keymap.set('n', 'a', '<cmd>noh<CR>a', { noremap = true })
+vim.keymap.set('n', 'A', '<cmd>noh<CR>A', { noremap = true })
+
 vim.keymap.set({ 'n', 'v' }, 'mm', '%', { desc = 'Goto matching pair' })
 vim.keymap.set({ 'n', 'v' }, 'gl', '$', { desc = 'Goto last non-whitespace' })
 vim.keymap.set({ 'n', 'v' }, 'gh', '^', { desc = 'Goto first non-whitespace' })
@@ -59,6 +72,7 @@ vim.keymap.set('v', '<leader>Y', '"+y', { desc = 'Yank to system clipboard' })
 vim.keymap.set('n', '<leader>gg', function()
   io.popen 'zellij run -f -c --width 80% --height 80% -x 10% -y 10% -- lazygit'
 end, { desc = 'Open lazygit' })
+vim.keymap.set('n', '<leader>z', ':!zrf ', { desc = 'Start Zellij command' })
 
 vim.keymap.set('n', ']x', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move line down' })
 vim.keymap.set('n', '[x', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move line up' })

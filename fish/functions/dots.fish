@@ -2,6 +2,6 @@
 function dots
     set initial_dir (pwd)
     cd $HOME/.dotfiles
-    $EDITOR .
+    $EDITOR
     cd $initial_dir
 end
