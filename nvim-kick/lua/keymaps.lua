@@ -90,4 +90,30 @@ vim.keymap.set('n', '<leader>bo', function()
     end
   end
 end, { noremap = true, desc = 'Close [o]ther [b]uffers' })
+
+vim.keymap.set('n', '<leader>x', function()
+  vim.diagnostic.config {
+    virtual_text = false,
+    virtual_lines = false,
+  }
+  local bufnr, winid = vim.diagnostic.open_float(nil, { focusable = false })
+  if winid == nil then
+    return
+  end
+  vim.api.nvim_create_autocmd({ 'FocusLost', 'CursorMoved' }, {
+    group = vim.api.nvim_create_augroup('line-diagnostics', { clear = true }),
+    once = true,
+    callback = function()
+      vim.diagnostic.config {
+        virtual_text = { spacing = 2, prefix = '●', current_line = true, severity = { max = vim.diagnostic.severity.INFO } },
+        virtual_lines = { current_line = true, severity = { min = vim.diagnostic.severity.WARN } },
+      }
+      if vim.api.nvim_win_is_valid(winid) then
+        vim.api.nvim_win_close(winid, false)
+      end
+      return true
+    end,
+  })
+end, { noremap = true, desc = 'Show diagnostic float' })
+
 -- vim: ts=2 sts=2 sw=2 et

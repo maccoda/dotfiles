@@ -3,7 +3,15 @@ return {
     'echasnovski/mini.nvim',
     config = function()
       require('mini.icons').setup()
-      require('mini.ai').setup { n_lines = 500 }
+      require('mini.ai').setup {
+        n_lines = 500,
+        custom_textobjects = {
+          e = { -- Word with case
+            { '%u[%l%d]+%f[^%l%d]', '%f[%S][%l%d]+%f[^%l%d]', '%f[%P][%l%d]+%f[^%l%d]', '^[%l%d]+%f[^%l%d]' },
+            '^().*()$',
+          },
+        },
+      }
       require('mini.surround').setup()
 
       local statusline = require 'mini.statusline'

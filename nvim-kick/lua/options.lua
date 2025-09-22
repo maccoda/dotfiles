@@ -23,8 +23,8 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default
-vim.o.signcolumn = 'yes'
+-- Keep signcolumn on by default and allow to resize up to 2
+vim.o.signcolumn = 'auto:1-2'
 
 -- Decrease update time
 vim.o.updatetime = 250
