@@ -20,6 +20,12 @@ return {
           ['alt-.'] = { actions.toggle_hidden },
         },
       },
+      keymap = {
+        builtin = {
+          ['<C-d>'] = 'preview-page-down',
+          ['<C-u>'] = 'preview-page-up',
+        },
+      },
     }
   end,
   keys = {
@@ -38,8 +44,9 @@ return {
     { '<leader>fg', '<cmd>FzfLua git_files<cr>', desc = 'Find Files (git-files)' },
     { '<leader>fr', '<cmd>lua require("fzf-lua").oldfiles({cwd_only = true})<cr>', desc = 'Recent' },
     -- git
-    { '<leader>gc', '<cmd>FzfLua git_commits<CR>', desc = 'Commits' },
-    { '<leader>gs', '<cmd>FzfLua git_status<CR>', desc = 'Status' },
+    { '<leader>gC', '<cmd>FzfLua git_commits<CR>', desc = '[g]it [c]ommits' },
+    { '<leader>gs', '<cmd>FzfLua git_status<CR>', desc = '[g]ti [s]tatus' },
+    { '<leader>gc', '<cmd>FzfLua git_bcommits<CR>', desc = '[g]it buffer [c]ommits' },
     -- search
     { '<leader>s"', '<cmd>FzfLua registers<cr>', desc = 'Registers' },
     { '<leader>sa', '<cmd>FzfLua autocmds<cr>', desc = 'Auto Commands' },

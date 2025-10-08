@@ -115,6 +115,9 @@ return {
           -- --  the definition of its *type*, not where it was *defined*.
           map('grt', '<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>', '[G]oto [T]ype Definition')
 
+          map('grc', '<cmd>FzfLua lsp_incomings_calls jump1=true ignore_current_line=true<cr>', '[G]oto incoming [C]alls')
+          map('grC', '<cmd>FzfLua lsp_outgoing_calls jump1=true ignore_current_line=true<cr>', '[G]oto outgoing [C]alls')
+
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method

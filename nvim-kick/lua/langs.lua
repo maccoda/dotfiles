@@ -53,11 +53,12 @@ langs.formatters = {
 }
 
 -- Not all of the above are actually needed to be installed by Mason so manually managing
--- the list of those that are below.
+-- the list of those that are below. All of the language servers are however.
 local mason_installed = vim.tbl_keys(langs.servers or {})
 vim.list_extend(mason_installed, {
   'goimports',
   'golangci-lint',
+  'markdownlint',
   'prettierd',
   'proselint',
   'shfmt',

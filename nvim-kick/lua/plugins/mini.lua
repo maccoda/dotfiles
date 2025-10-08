@@ -46,7 +46,13 @@ return {
         },
       }
 
-      require('mini.pairs').setup()
+      -- Alter pairings so they do not insert the pair near alphanumeric characters
+      local pairs_mappings = {
+        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\].', register = { cr = false } },
+        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\].', register = { cr = false } },
+        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^%w\\].', register = { cr = false } },
+      }
+      require('mini.pairs').setup { mappings = pairs_mappings }
 
       require('mini.tabline').setup {
         format = function(buf_id, label)
@@ -77,6 +83,8 @@ return {
       }
 
       require('mini.bufremove').setup()
+
+      require('mini.indentscope').setup()
     end,
   },
 }
