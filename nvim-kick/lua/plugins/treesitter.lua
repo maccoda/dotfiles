@@ -1,54 +1,64 @@
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = require('langs').ts_installed,
-      -- Autoinstall languages that are not installed
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-        disable = function(lang, buf)
-          if 'csv' == lang then
-            return true
-          end
-          local max_filesize = 100 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
+    lazy = false,
+    branch = 'main',
+    build = function()
+      local ts = require 'nvim-treesitter'
+      ts.install(require('langs').ts_installed)
+      ts.update()
+    end,
+    config = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = require('langs').ts_filetypes,
+        callback = function()
+          vim.treesitter.start()
+          vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
-      },
-      indent = { enable = true, disable = { 'ruby' } },
+      })
+    end,
+  },
+  {
+    'MeanderingProgrammer/treesitter-modules.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<M-o>',
-          node_incremental = '<M-o>',
-          scope_incremental = false,
-          node_decremental = '<M-i>',
-        },
-      },
-      textobjects = {
-        move = {
-          enable = true,
-          goto_next_start = { [']f'] = '@function.outer', [']c'] = '@class.outer', [']a'] = '@parameter.inner' },
-          goto_next_end = { [']F'] = '@function.outer', [']C'] = '@class.outer', [']A'] = '@parameter.inner' },
-          goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer', ['[a'] = '@parameter.inner' },
-          goto_previous_end = { ['[F'] = '@function.outer', ['[C'] = '@class.outer', ['[A'] = '@parameter.inner' },
+          init_selection = '<A-o>',
+          node_incremental = '<A-o>',
+          scope_incremental = '<A-O>',
+          node_decremental = '<A-i>',
         },
       },
     },
   },
+
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    event = 'VeryLazy',
+    branch = 'main',
+    depends = 'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require('nvim-treesitter-textobjects').setup {
+        move = {
+          -- whether to set jumps in the jumplist
+          set_jumps = true,
+        },
+      }
+      vim.keymap.set({ 'n', 'x', 'o' }, ']m', function()
+        require('nvim-treesitter-textobjects.move').goto_next_start('@function.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, ']]', function()
+        require('nvim-treesitter-textobjects.move').goto_next_start('@class.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[m', function()
+        require('nvim-treesitter-textobjects.move').goto_previous_start('@function.outer', 'textobjects')
+      end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[[', function()
+        require('nvim-treesitter-textobjects.move').goto_previous_start('@class.outer', 'textobjects')
+      end)
+    end,
   },
   {
     'nvim-treesitter/nvim-treesitter-context',

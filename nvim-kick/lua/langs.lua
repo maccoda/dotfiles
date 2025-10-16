@@ -63,6 +63,7 @@ vim.list_extend(mason_installed, {
   'proselint',
   'shfmt',
   'stylua', -- Used to format Lua code
+  'tree-sitter-cli', -- Required for treesitter main branch
   'typos',
 })
 langs.mason_installed = mason_installed
@@ -72,6 +73,7 @@ langs.ts_installed = {
   'c',
   'diff',
   'dockerfile',
+  'fish',
   'git_config',
   'git_rebase',
   'gitattributes',
@@ -106,5 +108,7 @@ langs.ts_installed = {
   'xml',
   'yaml',
 }
+
+langs.ts_filetypes = vim.list_extend(langs.ts_installed, { 'typescriptreact' })
 
 return langs
