@@ -63,6 +63,9 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-context',
     opts = {},
+    keys = {
+      { '<leader>tx', '<cmd>TSContext toggle<cr>', desc = 'Toggle treesitter context' },
+    },
   },
   {
     'windwp/nvim-ts-autotag',

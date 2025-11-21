@@ -28,21 +28,21 @@ return {
         end
 
         -- Navigation
-        map('n', ']c', function()
+        map('n', ']h', function()
           if vim.wo.diff then
-            vim.cmd.normal { ']c', bang = true }
+            vim.cmd.normal { ']h', bang = true }
           else
             gitsigns.nav_hunk 'next'
           end
-        end, { desc = 'Jump to next git [c]hange' })
+        end, { desc = 'Jump to next git [h]unk' })
 
-        map('n', '[c', function()
+        map('n', '[h', function()
           if vim.wo.diff then
-            vim.cmd.normal { '[c', bang = true }
+            vim.cmd.normal { '[h', bang = true }
           else
             gitsigns.nav_hunk 'prev'
           end
-        end, { desc = 'Jump to previous git [c]hange' })
+        end, { desc = 'Jump to previous git [h]unk' })
 
         -- Actions
         -- visual mode
@@ -58,7 +58,7 @@ return {
         map('n', '<leader>gS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
         map('n', '<leader>gu', gitsigns.stage_hunk, { desc = 'git [u]ndo stage hunk' })
         map('n', '<leader>gR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
-        map('n', '<leader>gp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
+        map('n', '<leader>gp', gitsigns.preview_hunk_inline, { desc = 'git [p]review hunk' })
         map('n', '<leader>gb', gitsigns.blame_line, { desc = 'git [b]lame line' })
         map('n', '<leader>gB', gitsigns.blame, { desc = 'git [b]lame file' })
         map('n', '<leader>gd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
@@ -70,6 +70,16 @@ return {
         map('n', '<leader>tD', gitsigns.preview_hunk_inline, { desc = '[T]oggle git show [D]eleted' })
       end,
     },
+  },
+  {
+    'trevorhauter/gitportal.nvim',
+    opts = {},
+    config = function()
+      local gitportal = require 'gitportal'
+      gitportal.setup()
+      vim.keymap.set('n', '<leader>gl', gitportal.copy_link_to_clipboard, { desc = 'Copy git link to clipboard' })
+      vim.keymap.set('v', '<leader>gl', gitportal.copy_link_to_clipboard, { desc = 'Copy git link to clipboard' })
+    end,
   },
 }
 -- vim: ts=2 sts=2 sw=2 et

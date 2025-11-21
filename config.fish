@@ -1,4 +1,3 @@
-# TODO: Check if cargo is installed before adding it
 if which cargo &>/dev/null
     fish_add_path $HOME/bin $HOME/.cargo/bin
 end
@@ -19,6 +18,7 @@ set -gx FILE_PICKER yazi
 
 # FZF settings
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden'
+set -gx FZF_DEFAULT_OPTS '--bind "ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up"'
 # Allow the ctrl-T and alt-c integration to respect gitignore
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 set -gx FZF_ALT_C_COMMAND "fd --type directory"

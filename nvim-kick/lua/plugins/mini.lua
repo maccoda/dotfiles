@@ -3,9 +3,11 @@ return {
     'echasnovski/mini.nvim',
     config = function()
       require('mini.icons').setup()
-      require('mini.ai').setup {
+      local ai = require 'mini.ai'
+      ai.setup {
         n_lines = 500,
         custom_textobjects = {
+          t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
           e = { -- Word with case
             { '%u[%l%d]+%f[^%l%d]', '%f[%S][%l%d]+%f[^%l%d]', '%f[%P][%l%d]+%f[^%l%d]', '^[%l%d]+%f[^%l%d]' },
             '^().*()$',
@@ -47,10 +49,11 @@ return {
       }
 
       -- Alter pairings so they do not insert the pair near alphanumeric characters
+      -- https://github.com/nvim-mini/mini.nvim/issues/835#issue-2259647068
       local pairs_mappings = {
-        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\].', register = { cr = false } },
-        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\].', register = { cr = false } },
-        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^%w\\].', register = { cr = false } },
+        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\][^%w\\]', register = { cr = false } },
+        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\][^%w\\]', register = { cr = false } },
+        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^%w\\][^%w\\]', register = { cr = false } },
       }
       require('mini.pairs').setup { mappings = pairs_mappings }
 
@@ -85,6 +88,11 @@ return {
       require('mini.bufremove').setup()
 
       require('mini.indentscope').setup()
+
+      require('mini.bracketed').setup {
+        conflict = { suffix = 'n' },
+        diagnostic = { options = { float = false } },
+      }
     end,
   },
 }
