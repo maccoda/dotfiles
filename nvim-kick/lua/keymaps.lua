@@ -92,8 +92,7 @@ vim.keymap.set('n', '<leader>x', function()
     once = true,
     callback = function()
       vim.diagnostic.config {
-        virtual_text = { spacing = 2, prefix = '●', current_line = true, severity = { max = vim.diagnostic.severity.INFO } },
-        virtual_lines = { current_line = true, severity = { min = vim.diagnostic.severity.WARN } },
+        virtual_text = { spacing = 2, prefix = '●', current_line = true },
       }
       if vim.api.nvim_win_is_valid(winid) then
         vim.api.nvim_win_close(winid, false)

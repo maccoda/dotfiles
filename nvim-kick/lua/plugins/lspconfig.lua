@@ -115,7 +115,7 @@ return {
           -- --  the definition of its *type*, not where it was *defined*.
           map('grt', '<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>', '[G]oto [T]ype Definition')
 
-          map('grc', '<cmd>FzfLua lsp_incomings_calls jump1=true ignore_current_line=true<cr>', '[G]oto incoming [C]alls')
+          map('grc', '<cmd>FzfLua lsp_incoming_calls jump1=true ignore_current_line=true<cr>', '[G]oto incoming [C]alls')
           map('grC', '<cmd>FzfLua lsp_outgoing_calls jump1=true ignore_current_line=true<cr>', '[G]oto outgoing [C]alls')
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
@@ -177,7 +177,6 @@ return {
       vim.diagnostic.config {
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
-        underline = { severity = { min = vim.diagnostic.severity.WARN } },
         signs = {
           text = {
             [vim.diagnostic.severity.ERROR] = '󰅚 ',
@@ -186,8 +185,7 @@ return {
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         },
-        virtual_text = { spacing = 2, prefix = '●', current_line = true, severity = { max = vim.diagnostic.severity.INFO } },
-        virtual_lines = { current_line = true, severity = { min = vim.diagnostic.severity.WARN } },
+        virtual_text = { spacing = 2, prefix = '●', current_line = true },
       }
 
       -- LSP servers and clients are able to communicate to each other what features they support.
