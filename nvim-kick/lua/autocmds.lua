@@ -20,6 +20,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'PlenaryTestPopup',
     'checkhealth',
     'dbout',
+    'gitsigns',
     'gitsigns-blame',
     'grug-far',
     'help',

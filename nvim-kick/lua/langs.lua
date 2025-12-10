@@ -16,6 +16,7 @@ langs.servers = {
   terraformls = {},
   vtsls = {},
   yamlls = {},
+  typos = {},
   lua_ls = {
     -- cmd = { ... },
     -- filetypes = { ... },
