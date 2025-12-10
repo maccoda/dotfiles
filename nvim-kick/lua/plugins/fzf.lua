@@ -25,6 +25,12 @@ return {
         builtin = {
           ['<C-d>'] = 'preview-page-down',
           ['<C-u>'] = 'preview-page-up',
+          ['<C-a>'] = 'toggle-preview',
+        },
+      },
+      winopts = {
+        preview = {
+          hidden = true,
         },
       },
     }
@@ -32,11 +38,6 @@ return {
   keys = {
     { '<c-j>', '<c-j>', ft = 'fzf', mode = 't', nowait = true },
     { '<c-k>', '<c-k>', ft = 'fzf', mode = 't', nowait = true },
-    {
-      '<leader>,',
-      '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>',
-      desc = 'Switch Buffer',
-    },
     { '<leader>:', '<cmd>FzfLua command_history<cr>', desc = 'Command History' },
     { '<leader><space>', '<cmd>FzfLua<cr>', desc = 'FzfLua finder' },
     -- find
@@ -62,7 +63,6 @@ return {
     { '<leader>sj', '<cmd>FzfLua jumps<cr>', desc = 'Jumplist' },
     { '<leader>sk', '<cmd>FzfLua keymaps<cr>', desc = 'Key Maps' },
     { '<leader>sl', '<cmd>FzfLua loclist<cr>', desc = 'Location List' },
-    { '<leader>sM', '<cmd>FzfLua man_pages<cr>', desc = 'Man Pages' },
     { '<leader>sm', '<cmd>FzfLua marks<cr>', desc = 'Jump to Mark' },
     { '<leader>sR', '<cmd>FzfLua resume<cr>', desc = 'Resume' },
     { '<leader>sq', '<cmd>FzfLua quickfix<cr>', desc = 'Quickfix List' },
