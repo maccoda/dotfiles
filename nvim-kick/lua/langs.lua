@@ -16,7 +16,6 @@ langs.servers = {
   terraformls = {},
   vtsls = {},
   yamlls = {},
-  typos = {},
   lua_ls = {
     -- cmd = { ... },
     -- filetypes = { ... },
@@ -39,7 +38,6 @@ langs.linters = {
   markdown = { 'markdownlint', 'proselint' },
   terraform = { 'terraform_validate' },
   tf = { 'terraform_validate' },
-  ['*'] = { 'typos' },
 }
 
 langs.formatters = {

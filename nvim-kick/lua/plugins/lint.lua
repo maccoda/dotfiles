@@ -23,6 +23,8 @@ return {
               root_dir = vim.fn.getcwd()
             end
             lint.try_lint(nil, { cwd = root_dir })
+            -- Always run the below irrespective of filetype
+            lint.try_lint 'typos'
           end
         end,
       })
