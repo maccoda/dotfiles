@@ -19,6 +19,7 @@ return {
         { '<leader>c', group = '[C]ode' },
         { '<leader>f', group = '[F]ind' },
         { '<leader>h', group = '[H]arpoon' },
+        { '<leader>v', group = '[V]isits' },
       },
     },
   },

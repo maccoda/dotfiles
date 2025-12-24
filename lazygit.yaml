@@ -5,6 +5,9 @@ gui:
     nerdFontsVersion: "3"
     showFileTree: false
     sidePanelWidth: 0.28
+    theme:
+        selectedLineBgColor:
+            - "#4A5060"
 git:
     pagers:
         - colorArg: always

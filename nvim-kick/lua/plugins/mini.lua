@@ -140,6 +140,17 @@ return {
       vim.keymap.set('n', '<leader>fE', function()
         MiniFiles.open(nil, false)
       end, { desc = 'Explore current working directory' })
+
+      require('mini.visits').setup()
+      local map_vis = function(keys, call, desc)
+        local rhs = '<Cmd>lua MiniVisits.' .. call .. '<CR>'
+        vim.keymap.set('n', '<Leader>' .. keys, rhs, { desc = desc })
+      end
+
+      map_vis('va', 'add_label("core")', 'Add to core')
+      map_vis('vd', 'remove_label("core")', 'Remove from core')
+      map_vis('vs', 'select_path(nil, { filter = "core" })', 'Select from core')
+      map_vis('vl', 'select_path(nil,nil)', 'Select from all paths')
     end,
   },
 }
