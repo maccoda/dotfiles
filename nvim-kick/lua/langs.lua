@@ -70,6 +70,7 @@ langs.mason_installed = mason_installed
 langs.ts_installed = {
   'bash',
   'c',
+  'dart',
   'diff',
   'dockerfile',
   'fish',

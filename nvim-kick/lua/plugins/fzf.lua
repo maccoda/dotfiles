@@ -38,7 +38,6 @@ return {
   keys = {
     { '<c-j>', '<c-j>', ft = 'fzf', mode = 't', nowait = true },
     { '<c-k>', '<c-k>', ft = 'fzf', mode = 't', nowait = true },
-    { '<leader>:', '<cmd>FzfLua command_history<cr>', desc = 'Command History' },
     { '<leader><space>', '<cmd>FzfLua<cr>', desc = 'FzfLua finder' },
     -- find
     { '<leader>fb', '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers' },

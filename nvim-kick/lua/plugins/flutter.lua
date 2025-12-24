@@ -1,13 +1,9 @@
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
-    opts = { ensure_installed = { "dart" } },
-  },
-  {
-    "nvim-flutter/flutter-tools.nvim",
+    'nvim-flutter/flutter-tools.nvim',
     lazy = false,
     dependencies = {
-      "nvim-lua/plenary.nvim",
+      'nvim-lua/plenary.nvim',
     },
     opts = {
       debugger = {
