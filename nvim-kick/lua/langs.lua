@@ -14,6 +14,7 @@ langs.servers = {
   jsonls = {},
   marksman = {},
   terraformls = {},
+  ['typos-lsp'] = {},
   vtsls = {},
   yamlls = {},
   lua_ls = {
@@ -63,7 +64,6 @@ vim.list_extend(mason_installed, {
   'shfmt',
   'stylua', -- Used to format Lua code
   'tree-sitter-cli', -- Required for treesitter main branch
-  'typos',
 })
 langs.mason_installed = mason_installed
 
