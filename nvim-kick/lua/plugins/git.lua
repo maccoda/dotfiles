@@ -13,17 +13,17 @@ return {
         end
 
         -- Navigation
-        map('n', ']h', function()
+        map('n', ']c', function()
           if vim.wo.diff then
-            vim.cmd.normal { ']h', bang = true }
+            vim.cmd.normal { ']c', bang = true }
           else
             gitsigns.nav_hunk 'next'
           end
         end, { desc = 'Jump to next git [h]unk' })
 
-        map('n', '[h', function()
+        map('n', '[c', function()
           if vim.wo.diff then
-            vim.cmd.normal { '[h', bang = true }
+            vim.cmd.normal { '[c', bang = true }
           else
             gitsigns.nav_hunk 'prev'
           end
@@ -57,7 +57,7 @@ return {
     },
   },
   {
-    'trevorhauter/gitportal.nvim',
+    'https://codeberg.org/trevorhauter/gitportal.nvim',
     opts = {},
     config = function()
       local gitportal = require 'gitportal'
@@ -65,10 +65,6 @@ return {
       vim.keymap.set('n', '<leader>gl', gitportal.copy_link_to_clipboard, { desc = 'Copy git link to clipboard' })
       vim.keymap.set('v', '<leader>gl', gitportal.copy_link_to_clipboard, { desc = 'Copy git link to clipboard' })
     end,
-  },
-  {
-    'justinmk/guh.nvim',
-    opts = {},
   },
   {
     'daliusd/ghlite.nvim',

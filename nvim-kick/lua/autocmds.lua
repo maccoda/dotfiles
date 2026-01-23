@@ -71,4 +71,42 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end,
 })
 
+-- yank ring
+vim.api.nvim_create_autocmd('TextYankPost', {
+  pattern = '*',
+  callback = function()
+    if vim.v.event.operator == 'y' then
+      for i = 9, 1, -1 do
+        vim.fn.setreg(tostring(i), vim.fn.getreg(tostring(i - 1)))
+      end
+    end
+  end,
+})
+
 vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, { pattern = { '*.mjml' }, command = 'set syntax=html' })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  desc = 'Attach keymaps for quickfix list',
+  callback = function()
+    vim.keymap.set('n', 'dd', function()
+      local qf_list = vim.fn.getqflist()
+
+      local current_line_number = vim.fn.line '.'
+
+      if qf_list[current_line_number] then
+        table.remove(qf_list, current_line_number)
+
+        vim.fn.setqflist(qf_list, 'r')
+
+        local new_line_number = math.min(current_line_number, #qf_list)
+        vim.fn.cursor(new_line_number, 1)
+      end
+    end, {
+      buffer = true,
+      noremap = true,
+      silent = true,
+      desc = 'Remove quickfix item under cursor',
+    })
+  end,
+})

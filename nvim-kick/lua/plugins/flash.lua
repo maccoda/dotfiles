@@ -2,7 +2,15 @@ return {
   'folke/flash.nvim',
   event = 'VeryLazy',
   ---@type Flash.Config
-  opts = {},
+  opts = {
+    modes = {
+      treesitter_search = {
+        label = {
+          style = 'overlay',
+        },
+      },
+    },
+  },
   -- stylua: ignore
   keys = {
     { "gw", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },

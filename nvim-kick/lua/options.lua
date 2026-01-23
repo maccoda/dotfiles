@@ -82,4 +82,6 @@ vim.opt.foldenable = false
 
 vim.opt.smoothscroll = true -- Copied from lazyvim
 
+vim.opt.autowriteall = true
+
 -- vim: ts=2 sts=2 sw=2 et

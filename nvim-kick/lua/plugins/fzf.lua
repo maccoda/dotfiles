@@ -39,14 +39,14 @@ return {
     { '<c-j>', '<c-j>', ft = 'fzf', mode = 't', nowait = true },
     { '<c-k>', '<c-k>', ft = 'fzf', mode = 't', nowait = true },
     { '<leader><space>', '<cmd>FzfLua<cr>', desc = 'FzfLua finder' },
+    { '<leader>p', '<cmd>FzfLua registers<cr>', desc = 'Paste from registers' },
     -- find
     { '<leader>fb', '<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>', desc = 'Buffers' },
     { '<leader>ff', '<cmd>FzfLua files<cr>', desc = 'Find Files (Root Dir)' },
-    { '<leader>fg', '<cmd>FzfLua git_files<cr>', desc = 'Find Files (git-files)' },
+    { '<leader>fg', '<cmd>FzfLua git_status<cr>', desc = 'Find files in git status' },
     { '<leader>fr', '<cmd>lua require("fzf-lua").oldfiles({cwd_only = true})<cr>', desc = 'Recent' },
     -- git
     { '<leader>gC', '<cmd>FzfLua git_commits<CR>', desc = '[g]it [c]ommits' },
-    { '<leader>gs', '<cmd>FzfLua git_status<CR>', desc = '[g]ti [s]tatus' },
     { '<leader>gc', '<cmd>FzfLua git_bcommits<CR>', desc = '[g]it buffer [c]ommits' },
     -- search
     { '<leader>s"', '<cmd>FzfLua registers<cr>', desc = 'Registers' },
