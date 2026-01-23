@@ -103,6 +103,8 @@ return {
       require('mini.bracketed').setup {
         conflict = { suffix = 'n' },
         diagnostic = { options = { float = false } },
+        comment = { suffix = '' },
+        file = { suffix = '' },
       }
 
       require('mini.files').setup()

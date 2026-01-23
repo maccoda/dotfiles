@@ -11,6 +11,7 @@ end
 # Set a consistent configuration directory (common default but not always friends with MacOS)
 set -gx XDG_CONFIG_HOME "$HOME/.config"
 
+# Use the kick-start version of neovim
 set -gx NVIM_APPNAME nvim-kick
 
 set -gx EDITOR nvim
@@ -67,7 +68,7 @@ if status --is-interactive
     if set -q ZELLIJ
         # TODO: Can I put these into files so that I don't need these immediately and can utilise fish's lazy loading of these?
         # Looks like I can dump it in $__fish_config_dir/conf.d/completions and generate it on update for example
-        zoxide init fish --no-cmd | source
+        zoxide init fish | source
         fzf --fish | source
     else
         zellij attach --create main

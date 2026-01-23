@@ -5,8 +5,9 @@ function good-morning
     upgrade
     echo "Removing old LSP log"
     rm_exists $HOME/.local/state/nvim/lsp.log
+    rm_exists $HOME/.local/state/nvim-kick/lsp.log
 
-    # Capture installed 
+    # Capture installed
     brew list --installed-on-request >$HOME/.dotfiles/brew-installed.txt
 
     rm $HOME/.dotfiles/snippets.json

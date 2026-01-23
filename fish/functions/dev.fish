@@ -1,6 +1,6 @@
 function dev
-    function __dev_config_folowing
-        dasel --file $MACCODA_CONFIG ".repos.all().path"
+    function __dev_config_following
+        yq '.repos' $MACCODA_CONFIG | tr ' ' '\n'
     end
     set command $argv[1]
     set start_dir (pwd)
@@ -14,14 +14,14 @@ function dev
         eza
     else if test $command = pr
         set repo_search
-        for repo in (__dev_config_folowing)
-            cd (string unescape $repo)
+        for repo in (__dev_config_following)
+            cd $repo
             set repo_name (git remote -v | rg "origin.+fetch" | cut -d ":" -f 2 | cut -d "." -f 1)
             set --append repo_search $repo_name
         end
         set joined (string join "," $repo_search)
         set template '{{range .}}{{tablerow (printf "#%v" .number | autocolor "green") (printf "@%v" .author.login | autocolor "blue") (truncate 60 .title) .url (timeago .createdAt | printf "C: %v") }}{{end}}'
-        set github_org (dasel --file $MACCODA_CONFIG "github_org" | string unescape)
+        set github_org (yq '.github_org' $MACCODA_CONFIG)
 
         heading --no-trail "Review requests"
         gh search prs --state=open --owner=$github_org --review-requested=@me --draft=false --repo $joined --json number,title,url,author,createdAt --template $template
@@ -34,11 +34,20 @@ function dev
         cd $start_dir
     else if test $command = following
         echo "Currently following these repositories:"
-        for repo in (__dev_config_folowing)
+        for repo in (__dev_config_following)
             echo -e "$(basename $repo | string pad --width 40 --right) $repo"
         end
     else if test $command = config
         $EDITOR $MACCODA_CONFIG
+    else if test $command = follow
+        set git_root (git rev-parse --show-toplevel)
+
+        if rg --quiet $git_root $MACCODA_CONFIG
+            echo "Already following $git_root"
+        else
+            echo "Following $git_root"
+            yq -i ".repos += [\"$git_root\"]" $MACCODA_CONFIG
+        end
     else
         echo "Unknown command $command"
         return 1

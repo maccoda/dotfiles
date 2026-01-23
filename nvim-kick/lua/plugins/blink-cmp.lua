@@ -56,6 +56,8 @@ return {
             name = 'Codeium',
             module = 'codeium.blink',
             async = true,
+            max_items = 3,
+            score_offset = -1,
             transform_items = function(ctx, items)
               for _, item in ipairs(items) do
                 item.kind_icon = ''
