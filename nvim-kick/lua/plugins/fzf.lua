@@ -74,5 +74,6 @@ return {
       end,
       desc = 'Search: TODOs',
     },
+    { '<leader>ap', 'lua require("aerial").fzf_lua_picker()', desc = '[A]erial symbol [p]icker' },
   },
 }
