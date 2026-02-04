@@ -33,7 +33,7 @@ vim.keymap.set({ 'n', 'v' }, 'gl', '$', { desc = 'Goto last non-whitespace' })
 vim.keymap.set({ 'n', 'v' }, 'gh', '^', { desc = 'Goto first non-whitespace' })
 
 vim.keymap.set('n', '<leader>gg', function()
-  io.popen 'zellij run -f -c --width 80% --height 80% -x 10% -y 10% -- lazygit'
+  io.popen 'fish -c lg'
 end, { desc = 'Open lazygit' })
 vim.keymap.set('n', '<leader>z', ':silent !zri ', { desc = 'Start Zellij command' })
 
@@ -47,6 +47,9 @@ vim.keymap.set('n', '<leader>n', '<cmd>Fidget history<cr>', { desc = 'Notificati
 vim.keymap.set('n', 'QQ', '<cmd>bprevious | bdelete #<cr>', { noremap = true, desc = 'Close buffer' })
 vim.keymap.set('n', '<leader>bd', '<cmd>bprevious | bdelete #<cr>', { noremap = true, desc = 'Close buffer' })
 vim.keymap.set('n', '<leader>bo', function()
+  -- Close other windows
+  vim.cmd 'wincmd o'
+  -- Close other buffers
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if buf ~= vim.api.nvim_get_current_buf() then
       vim.api.nvim_buf_delete(buf, { force = false })
