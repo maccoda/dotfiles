@@ -41,11 +41,11 @@ vim.keymap.set('n', ']x', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'M
 vim.keymap.set('n', '[x', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move line up' })
 
 vim.keymap.set('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open lazy.nvim' })
-vim.keymap.set('n', '<leader>n', '<cmd>Fidget history<cr>', { desc = 'Notification history' })
 
 -- Close current buffer without closing vim
-vim.keymap.set('n', 'QQ', '<cmd>bprevious | bdelete #<cr>', { noremap = true, desc = 'Close buffer' })
-vim.keymap.set('n', '<leader>bd', '<cmd>bprevious | bdelete #<cr>', { noremap = true, desc = 'Close buffer' })
+vim.keymap.set('n', '<leader>bd', function()
+  MiniBufremove.delete()
+end, { noremap = true, desc = 'Close buffer' })
 vim.keymap.set('n', '<leader>bo', function()
   -- Close other windows
   vim.cmd 'wincmd o'

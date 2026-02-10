@@ -1,6 +1,6 @@
 return {
   {
-    'echasnovski/mini.nvim',
+    'nvim-mini/mini.nvim',
     config = function()
       require('mini.icons').setup()
       local ai = require 'mini.ai'
@@ -153,6 +153,61 @@ return {
       map_vis('vd', 'remove_label("core")', 'Remove from core')
       map_vis('vs', 'select_path(nil, { filter = "core" })', 'Select from core')
       map_vis('vl', 'select_path(nil,nil)', 'Select from all paths')
+      require('mini.notify').setup()
+      vim.keymap.set('n', '<leader>n', function()
+        MiniNotify.open()
+      end, { desc = 'Open notifications' })
+      local miniclue = require 'mini.clue'
+      miniclue.setup {
+        triggers = {
+          -- Leader triggers
+          { mode = { 'n', 'x' }, keys = '<Leader>' },
+
+          -- `[` and `]` keys
+          { mode = 'n', keys = '[' },
+          { mode = 'n', keys = ']' },
+
+          -- Built-in completion
+          { mode = 'i', keys = '<C-x>' },
+
+          -- `g` key
+          { mode = { 'n', 'x' }, keys = 'g' },
+
+          -- Marks
+          { mode = { 'n', 'x' }, keys = "'" },
+          { mode = { 'n', 'x' }, keys = '`' },
+
+          -- Registers
+          { mode = { 'n', 'x' }, keys = '"' },
+          { mode = { 'i', 'c' }, keys = '<C-r>' },
+
+          -- Window commands
+          { mode = 'n', keys = '<C-w>' },
+
+          -- `z` key
+          { mode = { 'n', 'x' }, keys = 'z' },
+        },
+
+        clues = {
+          miniclue.gen_clues.square_brackets(),
+          miniclue.gen_clues.builtin_completion(),
+          miniclue.gen_clues.g(),
+          miniclue.gen_clues.marks(),
+          miniclue.gen_clues.registers(),
+          miniclue.gen_clues.windows(),
+          miniclue.gen_clues.z(),
+          { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },
+          { mode = 'n', keys = '<Leader>e', desc = '+Explore/Edit' },
+          { mode = 'n', keys = '<Leader>f', desc = '+Find' },
+          { mode = 'n', keys = '<Leader>g', desc = '+Git' },
+          { mode = 'n', keys = '<Leader>l', desc = '+Language' },
+          { mode = 'n', keys = '<Leader>o', desc = '+Other' },
+          { mode = 'n', keys = '<Leader>v', desc = '+Visits' },
+
+          { mode = 'x', keys = '<Leader>g', desc = '+Git' },
+          { mode = 'x', keys = '<Leader>l', desc = '+Language' },
+        },
+      }
     end,
   },
 }
