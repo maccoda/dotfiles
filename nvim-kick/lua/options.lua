@@ -23,8 +23,8 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default and allow to resize up to 2
-vim.o.signcolumn = 'auto:1-2'
+-- Keep signcolumn on by default
+vim.o.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -83,5 +83,8 @@ vim.opt.foldenable = false
 vim.opt.smoothscroll = true -- Copied from lazyvim
 
 vim.opt.autowriteall = true
+
+vim.opt.diffopt = 'internal,filler,closeoff,indent-heuristic,inline:char,linematch:60,algorithm:histogram'
+vim.opt.completeopt = 'menuone,noselect,fuzzy'
 
 -- vim: ts=2 sts=2 sw=2 et

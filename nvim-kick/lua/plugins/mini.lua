@@ -155,7 +155,7 @@ return {
       map_vis('vl', 'select_path(nil,nil)', 'Select from all paths')
       require('mini.notify').setup()
       vim.keymap.set('n', '<leader>n', function()
-        MiniNotify.open()
+        MiniNotify.show_history()
       end, { desc = 'Open notifications' })
       local miniclue = require 'mini.clue'
       miniclue.setup {
@@ -196,13 +196,17 @@ return {
           miniclue.gen_clues.registers(),
           miniclue.gen_clues.windows(),
           miniclue.gen_clues.z(),
+          { mode = 'n', keys = '<Leader>a', desc = '+Aerial' },
           { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },
           { mode = 'n', keys = '<Leader>e', desc = '+Explore/Edit' },
           { mode = 'n', keys = '<Leader>f', desc = '+Find' },
           { mode = 'n', keys = '<Leader>g', desc = '+Git' },
           { mode = 'n', keys = '<Leader>l', desc = '+Language' },
           { mode = 'n', keys = '<Leader>o', desc = '+Other' },
+          { mode = 'n', keys = '<Leader>s', desc = '+Search' },
+          { mode = 'n', keys = '<Leader>t', desc = '+Toggle' },
           { mode = 'n', keys = '<Leader>v', desc = '+Visits' },
+          { mode = 'n', keys = 'gr', desc = '+LSP' },
 
           { mode = 'x', keys = '<Leader>g', desc = '+Git' },
           { mode = 'x', keys = '<Leader>l', desc = '+Language' },
