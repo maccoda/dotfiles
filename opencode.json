@@ -1,0 +1,9 @@
+{
+    "permission": {
+        "external_directory": "deny",
+        "skill": "deny",
+        "webfetch": "ask",
+        "websearch": "ask",
+        "bash": "ask"
+    }
+}

@@ -78,6 +78,8 @@
 
     "~/.config/wezterm/wezterm.lua": .wezterm.lua
 
+    "~/.config/opencode/opencode.json": opencode.json
+
 - clean:
     ~/:
       force: true
