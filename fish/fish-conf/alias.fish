@@ -13,4 +13,3 @@ abbr --add l eza
 abbr --add ls eza
 
 abbr --add nv nvim
-abbr --add nvk NVIM_APPNAME="nvim-kick" nvim

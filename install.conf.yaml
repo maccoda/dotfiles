@@ -33,10 +33,6 @@
 
     "~/.config/nvim":
       glob: true
-      path: nvim/*
-
-    "~/.config/nvim-kick":
-      glob: true
       path: nvim-kick/*
 
     "~/.config/starship.toml": starship.toml
