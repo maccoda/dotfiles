@@ -21,9 +21,7 @@ return {
       { 'mason-org/mason.nvim', opts = {} },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
-
-      -- Allows extra capabilities provided by blink.cmp
-      'saghen/blink.cmp',
+      'nvim-mini/mini.nvim',
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -114,6 +112,8 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+          -- completion setup
+          vim.bo[event.buf].omnifunc = 'v:lua.MiniCompletion.completefunc_lsp'
         end,
       })
 
@@ -135,7 +135,7 @@ return {
 
       require('mason-tool-installer').setup { ensure_installed = require('langs').mason_installed }
 
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      local capabilities = MiniCompletion.get_lsp_capabilities()
       local servers = require('langs').servers
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
