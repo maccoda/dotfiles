@@ -53,10 +53,5 @@ return {
       { '<leader>tx', '<cmd>TSContext toggle<cr>', desc = 'Toggle treesitter context' },
     },
   },
-  {
-    'windwp/nvim-ts-autotag',
-    event = 'BufReadPre',
-    opts = {},
-  },
 }
 -- vim: ts=2 sts=2 sw=2 et

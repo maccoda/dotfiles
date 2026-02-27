@@ -45,6 +45,7 @@ langs.formatters = {
   fish = { 'fish_indent' },
   go = { 'goimports' },
   lua = { 'stylua' },
+  html = { 'prettierd' },
   markdown = { 'prettierd' },
   sh = { 'shfmt' },
   terraform = { 'terraform_fmt' },
