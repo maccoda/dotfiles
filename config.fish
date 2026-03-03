@@ -37,8 +37,6 @@ set -gx FZF_CTRL_R_OPTS "
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
-# Sponge settings (clean up failed commands)
-set sponge_purge_only_on_exit true
 
 # Remove the welcome message
 set fish_greeting
