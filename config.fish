@@ -37,6 +37,7 @@ set -gx FZF_CTRL_R_OPTS "
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
+set -gx BAT_THEME base16
 
 # Remove the welcome message
 set fish_greeting
@@ -63,7 +64,7 @@ if status --is-interactive
     if set -q ZELLIJ
         # TODO: Can I put these into files so that I don't need these immediately and can utilise fish's lazy loading of these?
         # Looks like I can dump it in $__fish_config_dir/conf.d/completions and generate it on update for example
-        zoxide init fish | source
+        zoxide init fish --cmd j | source
         fzf --fish | source
     else
         zellij attach --create main

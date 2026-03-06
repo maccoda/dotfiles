@@ -8,7 +8,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
@@ -24,7 +24,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- Keep signcolumn on by default
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = "yes"
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -45,10 +45,10 @@ vim.o.splitbelow = true
 --   See `:help lua-options`
 --   and `:help lua-options-guide`
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
-vim.o.inccommand = 'split'
+vim.o.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.o.cursorline = true
@@ -75,8 +75,8 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 
 -- Set folds by tree sitter
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- Open all folds by default
 vim.opt.foldenable = false
 
@@ -84,7 +84,9 @@ vim.opt.smoothscroll = true -- Copied from lazyvim
 
 vim.opt.autowriteall = true
 
-vim.opt.diffopt = 'internal,filler,closeoff,indent-heuristic,inline:char,linematch:60,algorithm:histogram'
-vim.opt.completeopt = 'menuone,noselect,fuzzy'
+vim.opt.diffopt = "internal,filler,closeoff,indent-heuristic,inline:char,linematch:60,algorithm:patience"
+vim.opt.completeopt = "menuone,noselect,fuzzy"
+
+vim.o.winborder = "rounded"
 
 -- vim: ts=2 sts=2 sw=2 et

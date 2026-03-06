@@ -8,13 +8,13 @@ default_minute: 0
 editor: nvim
 encrypt: false
 highlight: true
-indent_character: "|"
+indent_character: '|'
 journals:
   default:
     encrypt: true
     journal: ~/.journals/journal.txt
 linewrap: 122
-tagsymbols: "#@"
+tagsymbols: '#@'
 template: false
-timeformat: "%Y-%m-%d %H:%M"
-version: v4.2.1
+timeformat: '%Y-%m-%d %H:%M'
+version: v4.3

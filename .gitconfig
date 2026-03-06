@@ -43,7 +43,6 @@
     diffFilter = delta --color-only --features=interactive
 [delta]
     whitespace-error-style = 22 reverse
-    syntax-theme = gruvbox-dark
     navigate = true
     side-by-side = true
 
