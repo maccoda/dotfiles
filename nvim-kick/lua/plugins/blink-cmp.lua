@@ -12,6 +12,7 @@ return {
           next = "<C-'",
           prev = "<C-;",
         },
+        idle_delay = 1000,
       },
     },
   },

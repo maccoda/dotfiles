@@ -13,13 +13,6 @@ vim.keymap.set("n", "x", "<Nop>", { noremap = true })
 -- Remove s as it is the same as cl
 vim.keymap.set("n", "s", "<Nop>", { noremap = true })
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
 -- Turn off search highlights when entering insert
 vim.keymap.set("n", "i", "<cmd>noh<CR>i", { noremap = true })
 vim.keymap.set("n", "I", "<cmd>noh<CR>I", { noremap = true })
@@ -38,15 +31,13 @@ vim.keymap.set("n", "<leader>gg", function()
   io.popen("fish -c lg")
 end, { desc = "Open lazygit" })
 
-vim.api.nvim_create_user_command("Zellij", "silent !zellij run --in-place -- fish -c <args>", { nargs = "?" })
+vim.api.nvim_create_user_command("Zellij", "silent !zellij run --in-place -- fish -c '<args>'", { nargs = "?" })
 vim.api.nvim_create_user_command("MdPreview", "silent !zellij run --in-place -- mdcat %", {})
 
 vim.keymap.set("n", "<leader>z", ":Zellij ", { desc = "Start Zellij command" })
 
 vim.keymap.set("n", "]x", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move line down" })
 vim.keymap.set("n", "[x", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move line up" })
-
-vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Open lazy.nvim" })
 
 -- Close current buffer without closing vim
 vim.keymap.set("n", "<leader>bd", function()
