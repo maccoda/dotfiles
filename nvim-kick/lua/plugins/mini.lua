@@ -170,23 +170,6 @@ return {
       })
       MiniSnippets.start_lsp_server()
 
-      require("mini.completion").setup({
-        lsp_completion = { source_func = "omnifunc", auto_setup = false },
-        fallback_action = function()
-          local cursor_pos = vim.api.nvim_win_get_cursor(0) -- Get current cursor position
-          local line = vim.api.nvim_get_current_line() -- Get the current line
-          local char_before_cursor = line:sub(cursor_pos[2], cursor_pos[2]) -- Get character before cursor
-          -- If the character before the cursor is '/', trigger file path completion, otherwise trigger regular completion
-          local fallback_action = char_before_cursor == "/" and "<C-x><C-f>" or "<C-n>"
-          -- Having `<C-g><C-g>` also (for some mysterious reason) helps to avoid
-          -- some weird behavior. For example, if `keys = '<C-x><C-l>'` then Neovim
-          -- starts new line when there is no suggestions.
-          local keys = string.format("<C-g><C-g>%s", fallback_action)
-          local trigger_keys = vim.api.nvim_replace_termcodes(keys, true, false, true)
-          vim.api.nvim_feedkeys(trigger_keys, "n", false)
-        end,
-      })
-
       require("mini.cmdline").setup()
 
       require("mini.notify").setup()

@@ -19,9 +19,7 @@ return {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       -- Mason must be loaded before its dependents so we need to set it up here.
       { "mason-org/mason.nvim", opts = {} },
-      "mason-org/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-      "nvim-mini/mini.nvim",
     },
     config = function()
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -102,8 +100,6 @@ return {
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
             end, "[T]oggle Inlay [H]ints")
           end
-          -- completion setup
-          vim.bo[event.buf].omnifunc = "v:lua.MiniCompletion.completefunc_lsp"
         end,
       })
 
@@ -124,24 +120,15 @@ return {
       })
 
       require("mason-tool-installer").setup({ ensure_installed = require("langs").mason_installed })
-
-      local capabilities = MiniCompletion.get_lsp_capabilities()
-      local servers = require("langs").servers
-      require("mason-lspconfig").setup({
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
-          end,
-        },
-      })
     end,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
   },
 }
 -- vim: ts=2 sts=2 sw=2 et

@@ -1,5 +1,23 @@
 return {
   {
+    "saghen/blink.cmp",
+    dependencies = { "rafamadriz/friendly-snippets", "nvim-mini/mini.nvim", "folke/lazydev.nvim" },
+    version = "1.*",
+    opts = {
+      keymap = { preset = "default" },
+      snippets = { preset = "mini_snippets" },
+      cmdline = { enabled = false },
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+      },
+      sources = {
+        default = { "lsp", "path", "snippets", "lazydev", "buffer" },
+        providers = { lazydev = { module = "lazydev.integrations.blink", score_offset = 100 } },
+      },
+      signature = { enabled = true },
+    },
+  },
+  {
     "Exafunction/codeium.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
