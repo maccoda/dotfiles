@@ -39,28 +39,48 @@ return {
           map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
 
           -- Find references for the word under your cursor.
-          map("grr", vim.lsp.buf.references, "[G]oto [R]eferences")
+          map("grr", "<cmd>FzfLua lsp_references jump1=true ignore_current_line=true<cr>", "[G]oto [R]eferences")
           --
           -- -- Jump to the implementation of the word under your cursor.
           -- --  Useful when your language has ways of declaring types without an actual implementation.
-          map("gri", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+          map(
+            "gri",
+            "<cmd>FzfLua lsp_implementations jump1=true ignore_current_line=true<cr>",
+            "[G]oto [I]mplementation"
+          )
           --
           -- -- Jump to the definition of the word under your cursor.
           -- --  This is where a variable was first declared, or where a function is defined, etc.
           -- --  To jump back, press <C-t>.
-          map("grd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+          map("grd", "<cmd>FzfLua lsp_definitions jump1=true ignore_current_line=true<cr>", "[G]oto [D]efinition")
           --
           -- -- WARN: This is not Goto Definition, this is Goto Declaration.
           -- --  For example, in C this would take you to the header.
-          map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+          map("grD", "<cmd>FzfLua lsp_declarations jump1=true ignore_current_line=true<cr>", "[G]oto [D]eclaration")
+          --
+          -- -- Fuzzy find all the symbols in your current document.
+          -- --  Symbols are things like variables, functions, types, etc.
+          map("<leader>ss", "<cmd>FzfLua lsp_document_symbols<CR>", "Open Document Symbols")
+          --
+          -- -- Fuzzy find all the symbols in your current workspace.
+          -- --  Similar to document symbols, except searches over your entire project.
+          map("<leader>sS", "<cmd> FzfLua lsp_workspace_symbols<CR>", "Open Workspace Symbols")
           --
           -- -- Jump to the type of the word under your cursor.
           -- --  Useful when you're not sure what type a variable is and you want to see
           -- --  the definition of its *type*, not where it was *defined*.
-          map("grt", vim.lsp.buf.type_definition, "[G]oto [T]ype Definition")
+          map("grt", "<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>", "[G]oto [T]ype Definition")
 
-          map("grc", vim.lsp.buf.incoming_calls, "[G]oto incoming [C]alls")
-          map("grC", vim.lsp.buf.outgoing_calls, "[G]oto outgoing [C]alls")
+          map(
+            "grc",
+            "<cmd>FzfLua lsp_incoming_calls jump1=true ignore_current_line=true<cr>",
+            "[G]oto incoming [C]alls"
+          )
+          map(
+            "grC",
+            "<cmd>FzfLua lsp_outgoing_calls jump1=true ignore_current_line=true<cr>",
+            "[G]oto outgoing [C]alls"
+          )
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.

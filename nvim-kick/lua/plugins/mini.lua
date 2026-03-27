@@ -20,6 +20,7 @@ return {
       })
       require("mini.surround").setup()
 
+      -- TODO: the branch name should be truncated and I wonder if we can make the diagnostics coloured
       local statusline = require("mini.statusline")
       statusline.setup()
       statusline.section_location = function()
@@ -95,9 +96,9 @@ return {
       starter.setup({
         evaluate_single = true,
         items = {
-          { name = "Find files", action = "lua MiniPick.builtin.files()", section = "Picker" },
-          { name = "Grep files", action = "lua MiniPick.builtin.grep_live()", section = "Picker" },
-          { name = "Explore files", action = "lua MiniFiles.open()", section = "Picker" },
+          { name = 'Find files', action = 'lua require("fzf-lua").files()', section = 'Picker' },
+          { name = 'Grep files', action = 'lua require("fzf-lua").live_grep()', section = 'Picker' },
+          { name = 'Explore files', action = 'lua require("mini.files").open()', section = 'Picker' },
           starter.sections.recent_files(10, true),
           starter.sections.builtin_actions(),
         },
@@ -232,70 +233,8 @@ return {
           { mode = "x", keys = "<Leader>l", desc = "+Language" },
         },
       })
-      local win_config = function()
-        local width = math.floor(vim.o.columns)
-        local height = math.floor(0.45 * vim.o.lines)
-        return {
-          width = width,
-          height = height,
-        }
-      end
-      require("mini.extra").setup()
-      require("mini.pick").setup({ window = { config = win_config } })
       require("mini.misc").setup()
       MiniMisc.setup_restore_cursor()
-
-      -- ===================
-      -- Keymaps
-      -- ===================
-      -- Helpers for a more concise `<Leader>` mappings.
-      -- Most of the mappings use `<Cmd>...<CR>` string as a right hand side (RHS) in
-      -- an attempt to be more concise yet descriptive. See `:h <Cmd>`.
-      -- This approach also doesn't require the underlying commands/functions to exist
-      -- during mapping creation: a "lazy loading" approach to improve startup time.
-      local nmap_leader = function(suffix, rhs, desc)
-        vim.keymap.set("n", "<Leader>" .. suffix, rhs, { desc = desc })
-      end
-
-      local pick_added_hunks_buf = '<Cmd>Pick git_hunks path="%" scope="staged"<CR>'
-      local pick_workspace_symbols_live = '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>'
-
-      -- f is for "find" and "fuzzy find": mainly revolving around files
-      nmap_leader("fb", "<Cmd>Pick buffers<CR>", "Buffers")
-      nmap_leader("ff", "<Cmd>Pick files<CR>", "Files")
-      nmap_leader("fr", "<Cmd>Pick oldfiles cwd_only=true preserve_order=true<CR>", "Recent files")
-      nmap_leader("fv", '<Cmd>Pick visit_paths cwd=""<CR>', "Visit paths (all)")
-      nmap_leader("fV", "<Cmd>Pick visit_paths<CR>", "Visit paths (cwd)")
-
-      -- g is for git
-      nmap_leader("gC", "<Cmd>Pick git_commits<CR>", "Commits (all)")
-      nmap_leader("gc", '<Cmd>Pick git_commits path="%"<CR>', "Commits (buf)")
-      nmap_leader("gm", "<Cmd>Pick git_hunks<CR>", "Modified hunks (all)")
-      nmap_leader("gM", '<Cmd>Pick git_hunks path="%"<CR>', "Modified hunks (buf)")
-      nmap_leader("ga", '<Cmd>Pick git_hunks scope="staged"<CR>', "Added hunks (all)")
-      nmap_leader("gA", pick_added_hunks_buf, "Added hunks (buf)")
-
-      -- s is for search
-      nmap_leader("s'", "<Cmd>Pick registers<CR>", "Command history")
-      nmap_leader("sb", '<Cmd>Pick buf_lines scope="current"<CR>', "Lines (buf)")
-      nmap_leader("s:", '<Cmd>Pick history scope=":"<CR>', "Command history")
-      nmap_leader("s/", '<Cmd>Pick history scope="/"<CR>', "Search history")
-      nmap_leader("sc", "<Cmd>Pick commands<CR>", "Commands")
-      nmap_leader("sd", '<Cmd>Pick diagnostic scope="current"<CR>', "Diagnostic buffer")
-      nmap_leader("sD", '<Cmd>Pick diagnostic scope="all"<CR>', "Diagnostic workspace")
-      nmap_leader("sg", "<Cmd>Pick grep_live<CR>", "Grep live")
-      nmap_leader("sh", "<Cmd>Pick help<CR>", "Help tags")
-      nmap_leader("sH", "<Cmd>Pick hl_groups<CR>", "Highlight groups")
-      nmap_leader("sj", "<Cmd>Pick list scope='jump'<CR>", "Jumplist")
-      nmap_leader("sk", "<Cmd>Pick keymaps<CR>", "Keymaps")
-      nmap_leader("sl", "<Cmd>Pick list scope='location'<CR>", "Loclist")
-      nmap_leader("sm", "<Cmd>Pick list marks<CR>", "Marks")
-      nmap_leader("sR", "<Cmd>Pick resume<CR>", "Resume")
-      nmap_leader("sq", "<Cmd>Pick list scope='quickfix'<CR>", "Qucikfix")
-      nmap_leader("ss", pick_workspace_symbols_live, "Symbols workspace (live)")
-      nmap_leader("sS", '<Cmd>Pick lsp scope="document_symbol"<CR>', "Symbols document")
-      nmap_leader("st", '<Cmd>Pick grep pattern="(TODO|FIXME|NOTE|HACK):"<CR>', "Grep TODOs")
-      nmap_leader("sw", '<Cmd>Pick grep pattern="<cword>"<CR>', "Grep current word")
     end,
   },
 }
