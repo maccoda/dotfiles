@@ -20,16 +20,6 @@ return {
       })
       require("mini.surround").setup()
 
-      -- TODO: the branch name should be truncated and I wonder if we can make the diagnostics coloured
-      local statusline = require("mini.statusline")
-      statusline.setup()
-      statusline.section_location = function()
-        return "%2l:%-2v"
-      end
-      statusline.section_filename = function()
-        return "%f%m%r"
-      end
-
       local hi = require("mini.hipatterns")
       hi.setup({
         highlighters = {
@@ -96,9 +86,9 @@ return {
       starter.setup({
         evaluate_single = true,
         items = {
-          { name = 'Find files', action = 'lua require("fzf-lua").files()', section = 'Picker' },
-          { name = 'Grep files', action = 'lua require("fzf-lua").live_grep()', section = 'Picker' },
-          { name = 'Explore files', action = 'lua require("mini.files").open()', section = 'Picker' },
+          { name = "Find files", action = 'lua require("fzf-lua").files()', section = "Picker" },
+          { name = "Grep files", action = 'lua require("fzf-lua").live_grep()', section = "Picker" },
+          { name = "Explore files", action = 'lua require("mini.files").open()', section = "Picker" },
           starter.sections.recent_files(10, true),
           starter.sections.builtin_actions(),
         },
