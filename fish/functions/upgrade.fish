@@ -33,9 +33,8 @@ function upgrade
 
         case Linux
             echo "Detected Linux. Running Linux specific managers..."
-            sudo apt-get update -q && sudo apt-get upgrade -qy
-            sudo apt-get autoremove -qy && sudo apt-get autoclean
-            snap refresh
+            sudo dnf upgrade -y
+            sudo dnf autoremove -y
 
         case '*'
             errecho 'Unknown OS'
