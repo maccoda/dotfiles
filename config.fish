@@ -58,6 +58,7 @@ if status --is-interactive
     abbr --add --global t " task"
     abbr --add --global task " task"
 
+    set pure_truncate_prompt_current_directory_keeps 1
     set -g fish_transient_prompt 1
     set -g fish_key_bindings fish_vi_key_bindings
     fish_config theme choose catppuccin-macchiato

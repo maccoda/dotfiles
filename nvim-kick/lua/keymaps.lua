@@ -48,7 +48,7 @@ vim.keymap.set("n", "<leader>bo", function()
   vim.cmd("wincmd o")
   -- Close other buffers
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if buf ~= vim.api.nvim_get_current_buf() then
+    if buf ~= vim.api.nvim_get_current_buf() and vim.api.nvim_buf_get_option_value(buf, "buflisted") then
       vim.api.nvim_buf_delete(buf, { force = false })
     end
   end
