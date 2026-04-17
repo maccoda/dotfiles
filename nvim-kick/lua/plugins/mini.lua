@@ -17,6 +17,10 @@ return {
             "^().*()$",
           },
         },
+        mappings = {
+          around_next = "",
+          inside_next = "",
+        },
       })
       require("mini.surround").setup()
 
@@ -136,10 +140,10 @@ return {
       })
 
       vim.keymap.set("n", "<leader>fe", function()
-        MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+        MiniFiles.open(vim.api.nvim_buf_get_name(0))
       end, { desc = "Explore parent directory" })
       vim.keymap.set("n", "<leader>fE", function()
-        MiniFiles.open(nil, false)
+        MiniFiles.open(nil)
       end, { desc = "Explore current working directory" })
 
       require("mini.visits").setup()

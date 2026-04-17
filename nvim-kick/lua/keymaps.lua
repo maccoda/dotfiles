@@ -48,11 +48,15 @@ vim.keymap.set("n", "<leader>bo", function()
   vim.cmd("wincmd o")
   -- Close other buffers
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if buf ~= vim.api.nvim_get_current_buf() and vim.api.nvim_buf_get_option_value(buf, "buflisted") then
+    if buf ~= vim.api.nvim_get_current_buf() and vim.api.nvim_get_option_value("buflisted", { buf = buf }) then
       vim.api.nvim_buf_delete(buf, { force = false })
     end
   end
 end, { noremap = true, desc = "Close [o]ther [b]uffers" })
+
+vim.keymap.set("n", "<leader>bs", function()
+  vim.api.nvim_win_set_buf(0, vim.api.nvim_create_buf(true, true))
+end, { noremap = true, desc = "New scratch buffer" })
 
 vim.keymap.set("n", "<leader>x", function()
   vim.diagnostic.config({

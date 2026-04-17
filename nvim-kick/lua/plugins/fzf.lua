@@ -1,11 +1,9 @@
 return {
   "ibhagwan/fzf-lua",
-  cmd = "FzfLua",
-  opts = function()
+  config = function()
     local fzf = require("fzf-lua")
-    fzf.register_ui_select()
     local actions = fzf.actions
-    return {
+    fzf.setup({
       "ivy",
       -- Change the below options so hidden does not conflict with Zellij
       files = {
@@ -36,7 +34,15 @@ return {
       fzf_opts = {
         ["--cycle"] = true,
       },
-    }
+    })
+    fzf.register_ui_select({
+      winopts = {
+        width = 1,
+        height = 0.2,
+        row = 1, -- window row position (0=top, 1=bottom)
+        col = 0, -- window col position (0=left, 1=right)
+      },
+    })
   end,
   keys = {
     { "<c-j>", "<c-j>", ft = "fzf", mode = "t", nowait = true },
@@ -77,6 +83,5 @@ return {
       end,
       desc = "Search: TODOs",
     },
-    { "<leader>ap", 'lua require("aerial").fzf_lua_picker()', desc = "[A]erial symbol [p]icker" },
   },
 }
