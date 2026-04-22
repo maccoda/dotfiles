@@ -172,7 +172,7 @@ return {
         local pad = vim.o.cmdheight + (has_statusline and 1 or 0)
         return { anchor = "SE", col = vim.o.columns, row = vim.o.lines - pad }
       end
-      require("mini.notify").setup({ window = { config = win_config } })
+      require("mini.notify").setup({ window = { config = win_config }, lsp_progress = { enable = false } })
       vim.keymap.set("n", "<leader>n", function()
         MiniNotify.show_history()
       end, { desc = "Open notifications" })
