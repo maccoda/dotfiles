@@ -10,11 +10,12 @@ local langs = {}
 --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 langs.servers = {
   dockerls = {},
+  ["eslint-lsp"] = {},
   gopls = {},
   jsonls = {},
   marksman = {},
   terraformls = {},
-  ['typos-lsp'] = {},
+  ["typos-lsp"] = {},
   vtsls = {},
   yamlls = {},
   lua_ls = {
@@ -24,7 +25,7 @@ langs.servers = {
     settings = {
       Lua = {
         completion = {
-          callSnippet = 'Replace',
+          callSnippet = "Replace",
         },
         -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
         -- diagnostics = { disable = { 'missing-fields' } },
@@ -34,82 +35,82 @@ langs.servers = {
 }
 
 langs.linters = {
-  dockerfile = { 'hadolint' },
-  go = { 'golangcilint' },
-  markdown = { 'markdownlint', 'proselint' },
-  terraform = { 'terraform_validate' },
-  tf = { 'terraform_validate' },
+  dockerfile = { "hadolint" },
+  go = { "golangcilint" },
+  markdown = { "markdownlint", "proselint" },
+  terraform = { "terraform_validate" },
+  tf = { "terraform_validate" },
 }
 
 langs.formatters = {
-  fish = { 'fish_indent' },
-  go = { 'goimports' },
-  lua = { 'stylua' },
-  html = { 'prettierd' },
-  markdown = { 'prettierd' },
-  sh = { 'shfmt' },
-  terraform = { 'terraform_fmt' },
-  tf = { 'terraform_fmt' },
-  typescript = { 'prettierd' },
+  fish = { "fish_indent" },
+  go = { "goimports" },
+  lua = { "stylua" },
+  html = { "prettierd" },
+  markdown = { "prettierd" },
+  sh = { "shfmt" },
+  terraform = { "terraform_fmt" },
+  tf = { "terraform_fmt" },
+  typescript = { "eslint_d" },
 }
 
 -- Not all of the above are actually needed to be installed by Mason so manually managing
 -- the list of those that are below. All of the language servers are however.
 local mason_installed = vim.tbl_keys(langs.servers or {})
 vim.list_extend(mason_installed, {
-  'goimports',
-  'golangci-lint',
-  'markdownlint',
-  'prettierd',
-  'proselint',
-  'shfmt',
-  'stylua', -- Used to format Lua code
-  'tree-sitter-cli', -- Required for treesitter main branch
+  "goimports",
+  "golangci-lint",
+  "markdownlint",
+  "prettierd",
+  "proselint",
+  "shfmt",
+  "stylua", -- Used to format Lua code
+  "tree-sitter-cli", -- Required for treesitter main branch
 })
 langs.mason_installed = mason_installed
 
 langs.ts_installed = {
-  'bash',
-  'c',
-  'dart',
-  'diff',
-  'dockerfile',
-  'fish',
-  'git_config',
-  'git_rebase',
-  'gitattributes',
-  'gitcommit',
-  'gitignore',
-  'go',
-  'gomod',
-  'gosum',
-  'gowork',
-  'html',
-  'javascript',
-  'jsdoc',
-  'json',
-  'json5',
-  'jsonc',
-  'lua',
-  'luadoc',
-  'luap',
-  'markdown',
-  'markdown_inline',
-  'printf',
-  'python',
-  'query',
-  'regex',
-  'sql',
-  'terraform',
-  'toml',
-  'tsx',
-  'typescript',
-  'vim',
-  'vimdoc',
-  'xml',
-  'yaml',
+  "bash",
+  "c",
+  "dart",
+  "diff",
+  "dockerfile",
+  "fish",
+  "git_config",
+  "git_rebase",
+  "gitattributes",
+  "gitcommit",
+  "gitignore",
+  "go",
+  "gomod",
+  "gosum",
+  "gowork",
+  "html",
+  "javascript",
+  "jsdoc",
+  "json",
+  "json5",
+  "jsonc",
+  "lua",
+  "luadoc",
+  "luap",
+  "markdown",
+  "markdown_inline",
+  "printf",
+  "python",
+  "query",
+  "regex",
+  "sql",
+  "terraform",
+  "toml",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "xml",
+  "yaml",
 }
 
-langs.ts_filetypes = vim.list_extend(langs.ts_installed, { 'typescriptreact' })
+langs.ts_filetypes = vim.list_extend(langs.ts_installed, { "typescriptreact" })
 
 return langs

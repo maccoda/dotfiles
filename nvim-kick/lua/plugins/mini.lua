@@ -231,6 +231,9 @@ return {
           { mode = "x", keys = "<Leader>g", desc = "+Git" },
           { mode = "x", keys = "<Leader>l", desc = "+Language" },
         },
+        window = {
+          config = { width = "auto" },
+        },
       })
       require("mini.misc").setup()
       MiniMisc.setup_restore_cursor()

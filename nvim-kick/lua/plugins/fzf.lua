@@ -1,5 +1,6 @@
 return {
   "ibhagwan/fzf-lua",
+  lazy = false,
   config = function()
     local fzf = require("fzf-lua")
     local actions = fzf.actions
@@ -38,7 +39,7 @@ return {
     fzf.register_ui_select({
       winopts = {
         width = 1,
-        height = 0.2,
+        height = 0.4,
         row = 1, -- window row position (0=top, 1=bottom)
         col = 0, -- window col position (0=left, 1=right)
       },

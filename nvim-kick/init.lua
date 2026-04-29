@@ -103,6 +103,8 @@ require("keymaps")
 
 require("autocmds")
 
+require("vim._core.ui2").enable({})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 require("lazy-bootstrap")
 
