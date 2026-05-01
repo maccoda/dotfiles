@@ -60,11 +60,11 @@ return {
           --
           -- -- Fuzzy find all the symbols in your current document.
           -- --  Symbols are things like variables, functions, types, etc.
-          map("<leader>ss", "<cmd>FzfLua lsp_document_symbols<CR>", "Open Document Symbols")
+          map("<leader>fs", "<cmd>FzfLua lsp_document_symbols<CR>", "Open Document Symbols")
           --
           -- -- Fuzzy find all the symbols in your current workspace.
           -- --  Similar to document symbols, except searches over your entire project.
-          map("<leader>sS", "<cmd> FzfLua lsp_workspace_symbols<CR>", "Open Workspace Symbols")
+          map("<leader>fS", "<cmd> FzfLua lsp_workspace_symbols<CR>", "Open Workspace Symbols")
           --
           -- -- Jump to the type of the word under your cursor.
           -- --  Useful when you're not sure what type a variable is and you want to see

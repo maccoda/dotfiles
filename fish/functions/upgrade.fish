@@ -15,6 +15,10 @@ function upgrade
     _spin --title "Updating colour theme" -- fish -c gpr && echo "Finished updating irises.nvim"
     cd -
 
+    cd ~/dev/repo.fish
+    _spin --title "Updating repo.fish" -- fish -c gpr && echo "Finished updating repo.fish"
+    cd -
+
     set day (date | cut -f 1 -d ' ')
     if set -q _flag_f
         echo "Forcing an update"
