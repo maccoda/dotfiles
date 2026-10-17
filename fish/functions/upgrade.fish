@@ -1,6 +1,28 @@
 function upgrade
     argparse f/force -- $argv
     or return
+
+    function __ensure_ssh
+        if ssh-add -l >/dev/null 2>&1
+            return 0
+        end
+        echo "SSH key not loaded. Attempting to load..."
+        if test (uname -s) = Darwin
+            ssh-add --apple-use-keychain 2>/dev/null
+            or ssh-add
+        else
+            ssh-add
+        end
+        if test $status -ne 0
+            echo "Failed to load SSH key. Aborting upgrade."
+            return 1
+        end
+    end
+
+    __ensure_ssh
+    or return
+    functions -e __ensure_ssh
+
     cd $HOME/.dotfiles
     _spin --title "Pulling updates for dotfiles" -- fish -c gpr && echo "Finished updating dotfiles"
 
