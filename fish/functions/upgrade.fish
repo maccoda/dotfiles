@@ -29,7 +29,7 @@ function upgrade
     # Update any links
     ./install -q
     # Update help files
-    _spin --title "Updating help tags" -- nvim --cmd "helptags ~/.config/nvim/doc/" +qall && echo "Updated help tags"
+    _spin --title "Updating help tags" -- "nvim --cmd 'helptags ~/.config/nvim/doc/' +qall" && echo "Updated help tags"
 
     cd -
 
@@ -73,7 +73,7 @@ function upgrade
         brew cleanup
         brew autoremove
 
-        _spin --title "Updating fisher packages" -- fish -c "fisher update"
+        _spin --title "Updating fisher packages" -- "fisher update"
 
         echo "Updating vim..."
         nvim +Lazy update +TSUpdateSync +qall
