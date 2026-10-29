@@ -10,12 +10,12 @@ local langs = {}
 --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 langs.servers = {
   dockerls = {},
-  ["eslint-lsp"] = {},
+  eslint = {},
   gopls = {},
   jsonls = {},
   marksman = {},
   terraformls = {},
-  ["typos-lsp"] = {},
+  typos_lsp = {},
   vtsls = {},
   yamlls = {},
   lua_ls = {
@@ -32,6 +32,18 @@ langs.servers = {
       },
     },
   },
+}
+
+-- Map from nvim-lspconfig server names to Mason package names
+-- Only entries where they differ need to be listed
+langs.server_mason_names = {
+  dockerls = "dockerfile-language-server",
+  eslint = "eslint-lsp",
+  jsonls = "json-lsp",
+  lua_ls = "lua-language-server",
+  terraformls = "terraform-ls",
+  typos_lsp = "typos-lsp",
+  yamlls = "yaml-language-server",
 }
 
 langs.linters = {
@@ -56,7 +68,11 @@ langs.formatters = {
 
 -- Not all of the above are actually needed to be installed by Mason so manually managing
 -- the list of those that are below. All of the language servers are however.
-local mason_installed = vim.tbl_keys(langs.servers or {})
+local mason_installed = {}
+for server_name in pairs(langs.servers) do
+  local mason_name = langs.server_mason_names[server_name] or server_name
+  table.insert(mason_installed, mason_name)
+end
 vim.list_extend(mason_installed, {
   "goimports",
   "golangci-lint",

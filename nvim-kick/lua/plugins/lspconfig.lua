@@ -13,7 +13,7 @@ return {
     },
   },
   {
-    -- Main LSP Configuration
+    -- Main LSP Configuration using Neovim 0.11+ native APIs
     "neovim/nvim-lspconfig",
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
@@ -22,6 +22,21 @@ return {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
+      local langs = require("langs")
+
+      -- Configure and enable LSP servers using Neovim 0.11+ native APIs
+      for server_name, server_config in pairs(langs.servers) do
+        -- Apply custom configuration if any
+        if not vim.tbl_isempty(server_config) then
+          vim.lsp.config(server_name, server_config)
+        end
+        -- Enable the server
+        vim.lsp.enable(server_name)
+      end
+
+      -- Mason tool installer
+      require("mason-tool-installer").setup({ ensure_installed = langs.mason_installed })
+
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
         callback = function(event)
@@ -138,17 +153,7 @@ return {
         },
         virtual_text = { spacing = 2, prefix = "●", current_line = true },
       })
-
-      require("mason-tool-installer").setup({ ensure_installed = require("langs").mason_installed })
     end,
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {},
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
-    },
   },
 }
 -- vim: ts=2 sts=2 sw=2 et
