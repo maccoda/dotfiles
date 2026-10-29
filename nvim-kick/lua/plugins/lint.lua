@@ -7,22 +7,27 @@ return {
       local lint = require 'lint'
       lint.linters_by_ft = require('langs').linters
 
+      lint.linters.golangcilint = lint.linters.golangcilint or {}
+      lint.linters.golangcilint.cwd = function()
+        local path = vim.api.nvim_buf_get_name(0)
+        local dir = vim.fn.fnamemodify(path, ':p:h')
+        while dir ~= '/' do
+          if vim.fn.filereadable(dir .. '/go.mod') == 1 then
+            return dir
+          end
+          dir = vim.fn.fnamemodify(dir, ':h')
+        end
+        return vim.fn.fnamemodify(path, ':p:h')
+      end
+
       -- Create autocommand which carries out the actual linting
       -- on the specified events.
       local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
       vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
         group = lint_augroup,
         callback = function()
-          -- Only run the linter in buffers that you can modify in order to
-          -- avoid superfluous noise, notably within the handy LSP pop-ups that
-          -- describe the hovered symbol using Markdown.
           if vim.bo.modifiable then
-            local client = vim.lsp.get_clients({ bufnr = 0 })[1] or {}
-            local root_dir = client.root_dir
-            if root_dir == nil then
-              root_dir = vim.fn.getcwd()
-            end
-            lint.try_lint(nil, { cwd = root_dir })
+            lint.try_lint()
           end
         end,
       })
