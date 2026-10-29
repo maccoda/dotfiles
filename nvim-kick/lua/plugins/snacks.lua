@@ -47,7 +47,7 @@ return {
         })
         vim.notify("Copied git URL to clipboard", vim.log.levels.INFO)
       end,
-      desc = "Git link",
+      desc = "Git copy link",
       mode = { "n", "v" },
     },
   },
